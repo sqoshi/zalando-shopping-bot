@@ -50,9 +50,13 @@ class ShoppingBot:
                 # select Man
         while 1:
             try:
-                sleep(3)
                 self.driver.find_element_by_xpath(
-                    "/html/body/div[2]/div/div/div[2]/div/div/div[1]/div[2]/div/div/ul/li[4]/span").click()
+                    "/html/body/div[2]/div/div/div[2]/div/div/div[1]/div[2]/div/div/ul/li[4]/span") \
+                    .click()
+                sleep(1)
+                self.driver.find_element_by_xpath(
+                    "/html/body/div[2]/div/div/div[2]/div/div/div[1]/div[2]/div/div/ul/li[4]/span") \
+                    .click()
                 break
             except:
                 sys.stderr.write("Could not find man section, retrying...\n")
@@ -63,15 +67,15 @@ class ShoppingBot:
                 for elem in elems:
                     # if "Puma" in elem.get_attribute("text") and "Rek" not in elem.get_attribute("text"):
                     href = elem.get_attribute("href")
-                    text = elem.get_attribute("text")
-                    alt = elem.get_attribute("alt")
-                    clas = elem.get_attribute("class")
-                    print(href, text, alt, clas)
-                print("111111111111111111111111111111111111111111111111111111111111111111111111111111111111111")
-                raise Exception
-            except Exception as ex:
+                    text = str(elem.get_attribute("text"))
+                    alt = str(elem.get_attribute("alt"))
+                    clas = str(elem.get_attribute("class"))
+                    if "Armani" in text or "Armani" in alt:
+                        print(href, text, 'alt:', alt, 'cls', clas)
                 break
-        self.driver.get("https://www.zalando-lounge.pl/campaigns/ZZO10ZG/gender_134")
+            except:
+                pass
+        print('finished')
         # elem = self.driver.find_element_by_xpath("//*")
         # source_code = elem.get_attribute("innerHTML")
         # filename = open('zalando.html', 'w')
