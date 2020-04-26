@@ -37,17 +37,18 @@ class ShoppingBot:
                 print("Retrying !!!")
 
             # Log into shop.
-        try:
-            self.driver.find_element_by_xpath("//*[@id=\"form-email\"]").send_keys(email)
-            self.driver.find_element_by_xpath("//*[@id=\"form-password\"]").send_keys(password)
-            self.driver.find_element_by_xpath(
-                "/html/body/div[1]/div/div[2]/div[2]/div/div/div/form/button").click()
-        except:
-            print("cant find login button !!!")
-            self.driver.find_element_by_xpath("//*[@id=\"form-email\"]").send_keys("")
-            self.driver.find_element_by_xpath("//*[@id=\"form-password\"]").send_keys("")
+        while 1:
+            try:
+                self.driver.find_element_by_xpath("//*[@id=\"form-email\"]").send_keys(email)
+                self.driver.find_element_by_xpath("//*[@id=\"form-password\"]").send_keys(password)
+                self.driver.find_element_by_xpath(
+                    "/html/body/div[1]/div/div[2]/div[2]/div/div/div/form/button").click()
+                break
+            except:
+                self.driver.find_element_by_xpath("//*[@id=\"form-email\"]").clear()
+                self.driver.find_element_by_xpath("//*[@id=\"form-password\"]").clear()
 
-        # select Man
+                # select Man
         while 1:
             try:
                 sleep(3)
