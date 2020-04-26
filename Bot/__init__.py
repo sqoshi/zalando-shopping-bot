@@ -59,6 +59,7 @@ class ShoppingBot:
                     .click()
                 break
             except:
+                sleep(2)
                 sys.stderr.write("Could not find man section, retrying...\n")
 
         elems = self.driver.find_elements_by_xpath("//a[@href]")
@@ -68,10 +69,10 @@ class ShoppingBot:
                     # if "Puma" in elem.get_attribute("text") and "Rek" not in elem.get_attribute("text"):
                     href = elem.get_attribute("href")
                     text = str(elem.get_attribute("text"))
-                    alt = str(elem.get_attribute("alt"))
                     clas = str(elem.get_attribute("class"))
-                    if "Armani" in text or "Armani" in alt:
-                        print(href, text, 'alt:', alt, 'cls', clas)
+                    if "Armani" in text and "Rek" not in text:
+                        print(href, text, 'cls', clas)
+                        self.driver.get(href)
                 break
             except:
                 pass
