@@ -1,10 +1,8 @@
 # login piotrpopisgames@gmail.com
 # testertest
+import sys
 from time import sleep
 from selenium import webdriver
-import requests
-from bs4 import BeautifulSoup
-from selenium.common.exceptions import StaleElementReferenceException
 
 
 class ShoppingBot:
@@ -17,7 +15,7 @@ class ShoppingBot:
                 self.driver.get("https://www.zalando-lounge.pl")
                 break
             except:
-                print("Retrying !!!")
+                sys.stderr.write("Could not open website, retrying...\n")
         # Open loggin panel
         while 1:
             try:
@@ -25,7 +23,7 @@ class ShoppingBot:
                     "/html/body/div[2]/div/div[2]/div[1]/div/div/div[1]/div/div/div[2]/div/div/button").click()
                 break
             except:
-                print("Retrying !!!")
+                sys.stderr.write("Could not open login panel, retrying...\n")
 
         # Off annoying banner
         while 1:
@@ -34,7 +32,7 @@ class ShoppingBot:
                     "//*[@id=\"uc-btn-accept-banner\"]").click()
                 break
             except:
-                print("Retrying !!!")
+                sys.stderr.write("Could not accept cookies acceptance, retrying...\n")
 
             # Log into shop.
         while 1:
@@ -47,16 +45,17 @@ class ShoppingBot:
             except:
                 self.driver.find_element_by_xpath("//*[@id=\"form-email\"]").clear()
                 self.driver.find_element_by_xpath("//*[@id=\"form-password\"]").clear()
+                sys.stderr.write("Login failed, retrying...\n")
 
                 # select Man
         while 1:
             try:
                 sleep(3)
                 self.driver.find_element_by_xpath(
-                    "/html/body/div[2]/div/div/div[2]/div/div/div[1]/div[2]/div/div/ul/li[3]/span").click()
+                    "/html/body/div[2]/div/div/div[2]/div/div/div[1]/div[2]/div/div/ul/li[4]/span").click()
                 break
             except:
-                print("cant find Man")
+                sys.stderr.write("Could not find man section, retrying...\n")
 
         elems = self.driver.find_elements_by_xpath("//a[@href]")
         while 1:
