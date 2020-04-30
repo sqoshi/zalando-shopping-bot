@@ -4,16 +4,18 @@ import smtplib
 import sys
 from time import sleep
 from selenium import webdriver
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
 
 
 def sendMail(to, file):
+    """Function to inform user about founded products by e-mail."""
     server = smtplib.SMTP("smtp.gmail.com", 587)
     server.starttls()
-    server.login(open('/home/piotr/Music/music/.txt', 'r').read(),
-                 open('/home/piotr/Music/music/mp3.txt', 'r').read())
-    from_mail = open('/home/piotr/Music/music/mp3.txt', 'r').read()
+    server.login(open('/home/piotr/Music/music/email', 'r').read(), open('/home/piotr/Music/music/mp3.txt', 'r').read())
+    from_mail = open('/home/piotr/Music/music/email', 'r').read()
     body = (open(file, "r").read())
-    message = ("From: %s\r\n" % from_mail + "To: %s\r\n" % to + "Subject: %s\r\n" % 'hmmm????' + "\r\n" + body)
+    message = ("From: %s\r\n" % from_mail + "To: %s\r\n" % to + "Subject: %s\r\n" % '' + "\r\n" + body)
     server.sendmail(from_mail, to, message)
 
 
@@ -76,18 +78,26 @@ class ShoppingBot:
 
         elems = self.driver.find_elements_by_xpath("//a[@href]")
         while 1:
-            try:
-                for elem in elems:
-                    # if "Puma" in elem.get_attribute("text") and "Rek" not in elem.get_attribute("text"):
-                    href = elem.get_attribute("href")
-                    text = str(elem.get_attribute("text"))
-                    clas = str(elem.get_attribute("class"))
-                    if "Armani" in text and "Rek" not in text:
-                        print(href, text, 'cls', clas)
-                        self.driver.get(href)
-                break
-            except:
-                pass
+            print("asd")
+            for elem in elems:
+                # if "Puma" in elem.get_attribute("text") and "Rek" not in elem.get_attribute("text"):
+                href = elem.get_attribute("href")
+                text = str(elem.get_attribute("text"))
+                clas = str(elem.get_attribute("class"))
+                if "Armani" in text and "Rek" not in text:
+                    print(href, text, 'cls', clas)
+                    self.driver.get(href)
+                    sleep(7)
+                    price = '400'
+                    self.driver.find_element_by_xpath(
+                        '//*[@id="inner-wrapper"]/section/div[2]/nav/a[5]/div/span').click()
+                    price_max = self.driver.find_element_by_xpath('//*[@id="price-max"]')
+                    sleep(1)
+                    self.driver.execute_script('document.getElementById("price-max").value = "' + price + '";')
+                    price_max.send_keys(Keys.ENTER)
+                    break
+            break
+
         print('finished')
         # elem = self.driver.find_element_by_xpath("//*")
         # source_code = elem.get_attribute("innerHTML")
@@ -95,4 +105,5 @@ class ShoppingBot:
         # filename.write(source_code)
         # filename.close()
 
-# ShoppingBot("piotrpopisgames@gmail.com", 'testertest')
+
+ShoppingBot("piotrpopisgames@gmail.com", 'testertest')
