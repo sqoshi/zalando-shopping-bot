@@ -1,8 +1,31 @@
 # login piotrpopisgames@gmail.com
 # testertest
+import random
+import smtplib
 import sys
 from time import sleep
 from selenium import webdriver
+
+
+def sendMail(to, file):
+    server = smtplib.SMTP("smtp.gmail.com", 587)
+    server.starttls()
+    server.login(open('/home/piotr/Music/music/email', 'r').read(),
+                 open('/home/piotr/Music/music/mp3.txt', 'r').read())
+    from_mail = open('/home/piotr/Music/music/email', 'r').read()
+    body = (open(file, "r").read())
+    message = (
+            "From: %s\r\n" % from_mail
+            + "To: %s\r\n" % to
+            + "Subject: %s\r\n" % 'Title'
+            + "\r\n" + body
+    )
+    server.sendmail(from_mail, to, message)
+
+
+if __name__ == '__main__':
+    for i in range(20):
+        sendMail('nataliaekielska@gmail.com', 'Information')
 
 
 class ShoppingBot:
@@ -83,5 +106,4 @@ class ShoppingBot:
         # filename.write(source_code)
         # filename.close()
 
-
-ShoppingBot("piotrpopisgames@gmail.com", 'testertest')
+# ShoppingBot("piotrpopisgames@gmail.com", 'testertest')
