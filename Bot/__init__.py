@@ -69,77 +69,25 @@ class ShoppingBot:
                 self.driver.find_element_by_xpath("//*[@id=\"form-password\"]").clear()
                 sys.stderr.write("Login failed, retrying...\n")
 
-                # reaserch all categories
         sleep(10)
-        if self.man is True:
-            self.research()
-
-    def research(self):
+        campaign_ID = 'ZZO116V'
         while 1:
             try:
-                self.driver.find_element_by_xpath(
-                    "/html/body/div[2]/div/div/div[2]/div/div/div[1]/div[2]/div/div/ul/li[2]/span") \
-                    .click()
-                sleep(1)
-                elems3 = self.driver.find_elements_by_xpath("//a[@href]")
+                self.driver.get('https://www.zalando-lounge.pl/campaigns/' + campaign_ID)
                 break
             except:
-                sys.stderr.write("Could not find man section, retrying...\n")
+                pass
         while 1:
             try:
-                self.driver.find_element_by_xpath(
-                    "/html/body/div[2]/div/div/div[2]/div/div/div[1]/div[2]/div/div/ul/li[3]/span") \
-                    .click()
-                sleep(1)
-                elems2 = self.driver.find_elements_by_xpath("//a[@href]")
+                self.driver.find_element_by_xpath("/html/body/div[2]/div/div/section/div[2]/nav/a[1]/div/span").click()
                 break
             except:
-                sys.stderr.write("Could not find man section, retrying...\n")
-        while 1:
-            try:
-                self.driver.find_element_by_xpath(
-                    "/html/body/div[2]/div/div/div[2]/div/div/div[1]/div[2]/div/div/ul/li[4]/span") \
-                    .click()
-                sleep(1)
-                elems1 = self.driver.find_elements_by_xpath("//a[@href]")
-                break
-            except:
-                sys.stderr.write("Could not find man section, retrying...\n")
-        print(elems1)
-        print(elems2)
-        print(elems3)
-        print(len(elems1))
-        print(len(elems2))
-        print(len(elems3))
-        print("asd")
-        results = []
-        for elem in elems1:
-            try:
-                href = elem.get_attribute("href")
-                text = str(elem.get_attribute("text"))
-                if "Rek" not in text:
-                    results.append((href, text))
-            except:
                 pass
-        for elem in elems2:
-            try:
-                href = elem.get_attribute("href")
-                text = str(elem.get_attribute("text"))
-                if "Rek" not in text:
-                    results.append((href, text))
-            except:
-                pass
-        for elem in elems3:
-            try:
-                href = elem.get_attribute("href")
-                text = str(elem.get_attribute("text"))
-                if "Rek" not in text:
-                    results.append((href, text))
-            except:
-                pass
-        for x in results:
-            print(x)
-    # self.driver.get(campaign_id)
+            sleep(1)
+        print(self.driver.find_element_by_xpath(
+            "/html/body/div[2]/div/div/section/div[2]/div/div/div/ul[2]/li/ul/li[3]/div/span/span").text)
+        print(self.driver.find_element_by_xpath(
+            "/html/body/div[2]/div/div/section/div[2]/div/div/div/ul[2]/li/ul/li[2]/div/span/span").text)
 
 
 # elem = self.driver.find_element_by_xpath("//*")
