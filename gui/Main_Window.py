@@ -1,15 +1,17 @@
-import PyQt5
+# -*- coding: utf-8 -*-
+
+# Form implementation generated from reading ui file 'Main_Window.ui'
+#
+# Created by: PyQt5 UI code generator 5.14.2
+#
+# WARNING! All changes made in this file will be lost!
+
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_MainWindow(object):
-    def clicked(self):
-        print('clicked')
-
     def setupUi(self, MainWindow):
-        def itemActivated_event(item):
-            print(item.text())
-
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1000, 593)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -17,7 +19,6 @@ class Ui_MainWindow(object):
         self.shopping_cart_list = QtWidgets.QListWidget(self.centralwidget)
         self.shopping_cart_list.setGeometry(QtCore.QRect(720, 60, 241, 361))
         self.shopping_cart_list.setObjectName("shopping_cart_list")
-        # self.shopping_cart_list.addAction()
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton.setGeometry(QtCore.QRect(340, 390, 141, 41))
         self.pushButton.setObjectName("pushButton")
@@ -41,9 +42,6 @@ class Ui_MainWindow(object):
         self.specyfication_list = QtWidgets.QListWidget(self.centralwidget)
         self.specyfication_list.setGeometry(QtCore.QRect(40, 60, 241, 411))
         self.specyfication_list.setObjectName("specyfication_list")
-        self.specyfication_list.addItem("asd")
-        self.specyfication_list.addItem("abd")
-        self.specyfication_list.itemActivated.connect(itemActivated_event)
         self.textEdit = QtWidgets.QTextEdit(self.centralwidget)
         self.textEdit.setGeometry(QtCore.QRect(310, 120, 171, 31))
         self.textEdit.setObjectName("textEdit")
@@ -119,7 +117,6 @@ class Ui_MainWindow(object):
 
 if __name__ == "__main__":
     import sys
-
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
