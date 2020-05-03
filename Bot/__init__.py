@@ -1,18 +1,14 @@
 # login piotrpopisgames@gmail.com
 # testertest
-import contextlib
 import smtplib
 import sys
 import time
-from telnetlib import EC
 from time import sleep
 from selenium import webdriver
-from selenium.common.exceptions import NoSuchElementException, TimeoutException
-from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.expected_conditions import staleness_of
-from selenium.webdriver.support.wait import WebDriverWait
+from selenium.common.exceptions import TimeoutException
 
 
 def sendMail(to, file):
@@ -77,15 +73,15 @@ class ShoppingBot:
                 break
             except:
                 pass
-        while 1:
-            try:
-                self.driver.find_element_by_xpath("/html/body/div[2]/div/div/section/div[2]/nav/a[1]/div/span").click()
-                break
-            except:
-                pass
+        try:
+            element_present = EC.presence_of_element_located(
+                (By.XPATH, '/html/body/div[2]/div/div/section/div[2]/nav/a[1]/div/span/span'))
+            WebDriverWait(self.driver, 5).until(element_present)
+        except TimeoutException:
+            print("Timed out waiting for page to load")
+        self.driver.find_element_by_xpath("/html/body/div[2]/div/div/section/div[2]/nav/a[1]/div/span").click()
         i = 1
         while i:
-            sleep(1)
             try:
                 print(self.driver.find_element_by_xpath(
                     "/html/body/div[2]/div/div/section/div[2]/div/div/div/ul[2]/li/ul/li[" + str(
