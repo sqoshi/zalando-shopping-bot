@@ -83,11 +83,16 @@ class ShoppingBot:
                 break
             except:
                 pass
+        i = 1
+        while i:
             sleep(1)
-        print(self.driver.find_element_by_xpath(
-            "/html/body/div[2]/div/div/section/div[2]/div/div/div/ul[2]/li/ul/li[3]/div/span/span").text)
-        print(self.driver.find_element_by_xpath(
-            "/html/body/div[2]/div/div/section/div[2]/div/div/div/ul[2]/li/ul/li[2]/div/span/span").text)
+            try:
+                print(self.driver.find_element_by_xpath(
+                    "/html/body/div[2]/div/div/section/div[2]/div/div/div/ul[2]/li/ul/li[" + str(
+                        i) + "]/div/span/span").text)
+                i += 1
+            except:
+                break
 
 
 # elem = self.driver.find_element_by_xpath("//*")
