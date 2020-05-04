@@ -5,10 +5,12 @@ import sys
 import time
 from time import sleep
 from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import TimeoutException, NoSuchElementException, WebDriverException
+from selenium.common.exceptions import TimeoutException, NoSuchElementException, WebDriverException, \
+    StaleElementReferenceException
 
 
 def sendMail(to, file):
@@ -26,14 +28,76 @@ def adjust_categories(categories):
     return [cat[:len(cat) - 1] for cat in categories]
 
 
+def choose_species_path(jeans, underwear, upper_part):
+    if upper_part:
+        return "/html/body/div[2]/div/div/section/div[2]/div[1]/div/div/div[3]/div[1]/div/span/span"
+    elif jeans:
+        return "/html/body/div[2]/div/div/section/div[2]/div[1]/div/div/div[3]/div[2]/div/span/span"
+    elif underwear:
+        return "/html/body/div[2]/div/div/section/div[2]/div[1]/div/div/div[3]/div[3]/div/span/span"
+    else:
+        raise ValueError
+
+
+# TODO: something better than sleep, exceptions handling upgrade needed.
 class ShoppingBot:
-    def select_categories(self, campaign_ID, wanted_categories):
-        while 1:
+    def turn_off_banner(self):
+        try:
+            self.driver.find_element_by_xpath(
+                "//*[@id=\"uc-btn-accept-banner\"]").click()
+        except NoSuchElementException:
+            sys.stderr.write("Happily banner has not shown on....\n")
+
+    def set_brands(self, wanted_brands):
+        try:
+            WebDriverWait(self.driver, 5).until(EC.presence_of_element_located(
+                (By.XPATH, '/html/body/div[2]/div/div/section/div[2]/nav/a[3]/div/span/span')))
+        except TimeoutException:
+            print("Timed out waiting for page to load")
+        self.driver.find_element_by_xpath("/html/body/div[2]/div/div/section/div[2]/nav/a[3]/div/span").click()
+        i = 1
+        already_selected = []
+        while i:
             try:
-                self.driver.get('https://www.zalando-lounge.pl/campaigns/' + campaign_ID)
+                sample = self.driver.find_element_by_xpath(
+                    "/html/body/div[2]/div/div/section/div[2]/div[1]/div/div/ul/li[" + str(i) + "]/span")
+                for brand in wanted_brands:
+                    brand_web = sample.text.lower()
+                    if brand.lower() in brand_web and brand_web not in already_selected:
+                        print(brand_web)
+                        already_selected.append(brand_web)
+                        sample.click()
+
+                i += 1
+            except NoSuchElementException:
                 break
-            except WebDriverException:
-                pass
+
+    def set_sizes(self, wanted_sizes):
+        path = choose_species_path(False, False, upper_part=True)
+        try:
+            WebDriverWait(self.driver, 5).until(EC.presence_of_element_located(
+                (By.XPATH, '/html/body/div[2]/div/div/section/div[2]/nav/a[2]/div/span/span')))
+        except TimeoutException:
+            print("Timed out waiting for page to load")
+        self.driver.find_element_by_xpath("/html/body/div[2]/div/div/section/div[2]/nav/a[2]/div/span/span").click()
+        self.driver.find_element_by_xpath(path).click()
+        i = 1
+        already_selected = []
+        while i:
+            try:
+                sample = self.driver.find_element_by_xpath(
+                    "/html/body/div[2]/div/div/section/div[2]/div[1]/div/div/ul/button[" + str(i) + "]")
+                for given_size in wanted_sizes:
+                    size_web = sample.text.upper()
+                    if given_size == size_web and size_web not in already_selected:
+                        print(size_web)
+                        already_selected.append(size_web)
+                        sample.click()
+                i += 1
+            except NoSuchElementException:
+                break
+
+    def set_categories(self, wanted_categories):
         try:
             WebDriverWait(self.driver, 5).until(EC.presence_of_element_located(
                 (By.XPATH, '/html/body/div[2]/div/div/section/div[2]/nav/a[1]/div/span/span')))
@@ -59,8 +123,9 @@ class ShoppingBot:
                 break
 
     def __init__(self, email, password):
-        self.man = True
-        self.driver = webdriver.Firefox()
+        options = Options()
+        options.add_argument("--disable-notifications")
+        self.driver = webdriver.Firefox(options=options)
         # Open website
         self.driver.get("https://www.zalando-lounge.pl")
         while 1:
@@ -90,10 +155,10 @@ class ShoppingBot:
                 self.driver.find_element_by_xpath(
                     "//*[@id=\"uc-btn-accept-banner\"]").click()
                 break
-            except NoSuchElementException:
+            except StaleElementReferenceException:
                 sys.stderr.write("Could not accept cookies acceptance, retrying...\n")
 
-            # Log into shop.
+        # Log into shop.
         while 1:
             try:
                 self.driver.find_element_by_xpath("//*[@id=\"form-email\"]").send_keys(email)
@@ -108,13 +173,24 @@ class ShoppingBot:
 
         sleep(2)
         campaign_ID = 'ZZO116V'
+        while 1:
+            try:
+                self.driver.get('https://www.zalando-lounge.pl/campaigns/' + campaign_ID)
+                break
+            except WebDriverException:
+                pass
         # we have to remove  last char in string
         # for example if someone input bluza or bluzy.
         # bluz is preffix that occurs in both single and multiple form.
-        selected_categories = ['koszule',
-                               'koszulki']
-        selected_categories = adjust_categories(selected_categories)
-        self.select_categories(campaign_ID, selected_categories)
+        selected_categories = adjust_categories(['koszule', 'koszulki'])
+        # TODO: function to decide what is in catergories [ SPODNIE, GORNE CZESCI GARDEROBY, BIELIZNA]
+        selected_sizes = ['M', 'L']
+        selected_brands = ['GAP', 'Fila', 'Kappa', 'Lee']
+        # sometimes banner pop up
+        self.turn_off_banner()
+        self.set_categories(selected_categories)
+        self.set_sizes(selected_sizes)
+        self.set_brands(selected_brands)
 
 
 # elem = self.driver.find_element_by_xpath("//*")
