@@ -5,6 +5,7 @@ import sys
 import time
 from time import sleep
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -47,6 +48,23 @@ class ShoppingBot:
                 "//*[@id=\"uc-btn-accept-banner\"]").click()
         except NoSuchElementException:
             sys.stderr.write("Happily banner has not shown on....\n")
+
+    def set_max_per_item(self, max_cost_per_item):
+        try:
+            WebDriverWait(self.driver, 5).until(EC.presence_of_element_located(
+                (By.XPATH, '/html/body/div[2]/div/div/section/div[2]/nav/a[6]')))
+        except TimeoutException:
+            print("Timed out waiting for page to load")
+        self.driver.find_element_by_xpath("/html/body/div[2]/div/div/section/div[2]/nav/a[6]").click()
+        while 1:
+            try:
+                self.driver.find_element_by_xpath("//*[@id=\"price-max\"]").click()
+                self.driver.find_element_by_xpath("//*[@id=\"price-max\"]").clear()
+                self.driver.find_element_by_xpath("//*[@id=\"price-max\"]").send_keys(max_cost_per_item)
+                # self.driver.find_element_by_xpath("//*[@id=\"price-max\"]").send_keys(Keys.ENTER)
+                break
+            except:
+                print('some kind of exception in price inputing max prive')
 
     def set_brands(self, wanted_brands):
         try:
@@ -191,6 +209,7 @@ class ShoppingBot:
         self.set_categories(selected_categories)
         self.set_sizes(selected_sizes)
         self.set_brands(selected_brands)
+        self.set_max_per_item(120)
 
 
 # elem = self.driver.find_element_by_xpath("//*")
