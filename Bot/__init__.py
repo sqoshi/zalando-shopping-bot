@@ -52,10 +52,10 @@ class ShoppingBot:
     def set_max_per_item(self, max_cost_per_item):
         try:
             WebDriverWait(self.driver, 5).until(EC.presence_of_element_located(
-                (By.XPATH, '/html/body/div[2]/div/div/section/div[2]/nav/a[6]')))
+                (By.XPATH, '/html/body/div[2]/div/div/section/div[2]/nav/a[5]')))
         except TimeoutException:
             print("Timed out waiting for page to load")
-        self.driver.find_element_by_xpath("/html/body/div[2]/div/div/section/div[2]/nav/a[6]").click()
+        self.driver.find_element_by_xpath("/html/body/div[2]/div/div/section/div[2]/nav/a[5]").click()
         while 1:
             try:
                 self.driver.find_element_by_xpath("//*[@id=\"price-max\"]").click()
@@ -118,6 +118,15 @@ class ShoppingBot:
                 break
 
     def set_categories(self, wanted_categories):
+        both_sexes = False
+        try:
+            print(self.driver.find_element_by_xpath(
+                "/html/body/div[2]/div/div/section/div[2]/div/div/div/ul[1]/li/span").text)
+            # /html/body/div[2]/div/div/section/div[2]/div[1]/div/div/ul/li[2]/div/span
+            # /html/body/div[2]/div/div/section/div[2]/div[1]/div/div/ul/li[2]/ul/li[1]/div/span
+            # /html/body/div[2]/div/div/section/div[2]/div[1]/div/div/ul/li[1]/div/span
+        except NoSuchElementException:
+            both_sexes = True
         try:
             WebDriverWait(self.driver, 5).until(EC.presence_of_element_located(
                 (By.XPATH, '/html/body/div[2]/div/div/section/div[2]/nav/a[1]/div/span/span')))
@@ -126,21 +135,23 @@ class ShoppingBot:
         self.driver.find_element_by_xpath("/html/body/div[2]/div/div/section/div[2]/nav/a[1]/div/span").click()
         i = 1
         already_selected = []
-        while i:
-            try:
-                sample = self.driver.find_element_by_xpath(
-                    "/html/body/div[2]/div/div/section/div[2]/div/div/div/ul[2]/li/ul/li[" + str(
-                        i) + "]/div/span/span")
-                for existence_cat in wanted_categories:
-                    cat_web = sample.text.lower()
-                    if existence_cat in cat_web and cat_web not in already_selected:
-                        print(cat_web)
-                        already_selected.append(cat_web)
-                        sample.click()
+        # Scenario for only one gender sale
+        if not both_sexes:
+            while i:
+                try:
+                    sample = self.driver.find_element_by_xpath(
+                        "/html/body/div[2]/div/div/section/div[2]/div/div/div/ul[2]/li/ul/li[" + str(
+                            i) + "]/div/span/span")
+                    for existence_cat in wanted_categories:
+                        cat_web = sample.text.lower()
+                        if existence_cat in cat_web and cat_web not in already_selected:
+                            print(cat_web)
+                            already_selected.append(cat_web)
+                            sample.click()
 
-                i += 1
-            except NoSuchElementException:
-                break
+                    i += 1
+                except NoSuchElementException:
+                    break
 
     def __init__(self, email, password):
         options = Options()
@@ -192,7 +203,7 @@ class ShoppingBot:
                 sys.stderr.write("Login failed, retrying...\n")
 
         sleep(2)
-        campaign_ID = 'ZZO10V9'
+        campaign_ID = 'ZZO10V9'  # ZZO11B1
         while 1:
             try:
                 self.driver.get('https://www.zalando-lounge.pl/campaigns/' + campaign_ID)
@@ -209,8 +220,17 @@ class ShoppingBot:
         # sometimes banner pop up
         self.turn_off_banner()
         self.set_categories(selected_categories)
+        i = 1
+        while i:
+            try:
+                print(self.driver.find_element_by_xpath(
+                    "/html/body/div[2]/div/div/section/div[2]/nav/a[" + str(i) + "]").text)
+                i += 1
+            except NoSuchElementException:
+                break
         self.set_sizes(selected_sizes)
-        self.set_brands(selected_brands)
+
+        # self.set_brands(selected_brands)
         self.set_max_per_item(120)
 
 
