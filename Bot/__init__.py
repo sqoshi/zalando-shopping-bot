@@ -61,7 +61,9 @@ class ShoppingBot:
                 self.driver.find_element_by_xpath("//*[@id=\"price-max\"]").click()
                 self.driver.find_element_by_xpath("//*[@id=\"price-max\"]").clear()
                 self.driver.find_element_by_xpath("//*[@id=\"price-max\"]").send_keys(max_cost_per_item)
-                # self.driver.find_element_by_xpath("//*[@id=\"price-max\"]").send_keys(Keys.ENTER)
+                self.driver.find_element_by_xpath("//*[@id=\"price-max\"]").clear()
+                self.driver.find_element_by_xpath("//*[@id=\"price-max\"]").send_keys(max_cost_per_item)
+                self.driver.find_element_by_xpath("//*[@id=\"price-max\"]").send_keys(Keys.ENTER)
                 break
             except:
                 print('some kind of exception in price inputing max prive')
@@ -190,7 +192,7 @@ class ShoppingBot:
                 sys.stderr.write("Login failed, retrying...\n")
 
         sleep(2)
-        campaign_ID = 'ZZO116V'
+        campaign_ID = 'ZZO10V9'
         while 1:
             try:
                 self.driver.get('https://www.zalando-lounge.pl/campaigns/' + campaign_ID)
