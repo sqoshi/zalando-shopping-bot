@@ -8,7 +8,7 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import TimeoutException, NoSuchElementException, WebDriverException
 
 
 def sendMail(to, file):
@@ -22,7 +22,42 @@ def sendMail(to, file):
     server.sendmail(from_mail, to, message)
 
 
+def adjust_categories(categories):
+    return [cat[:len(cat) - 1] for cat in categories]
+
+
 class ShoppingBot:
+    def select_categories(self, campaign_ID, wanted_categories):
+        while 1:
+            try:
+                self.driver.get('https://www.zalando-lounge.pl/campaigns/' + campaign_ID)
+                break
+            except WebDriverException:
+                pass
+        try:
+            WebDriverWait(self.driver, 5).until(EC.presence_of_element_located(
+                (By.XPATH, '/html/body/div[2]/div/div/section/div[2]/nav/a[1]/div/span/span')))
+        except TimeoutException:
+            print("Timed out waiting for page to load")
+        self.driver.find_element_by_xpath("/html/body/div[2]/div/div/section/div[2]/nav/a[1]/div/span").click()
+        i = 1
+        already_selected = []
+        while i:
+            try:
+                sample = self.driver.find_element_by_xpath(
+                    "/html/body/div[2]/div/div/section/div[2]/div/div/div/ul[2]/li/ul/li[" + str(
+                        i) + "]/div/span/span")
+                for existence_cat in wanted_categories:
+                    cat_web = sample.text.lower()
+                    if existence_cat in cat_web and cat_web not in already_selected:
+                        print(cat_web)
+                        already_selected.append(cat_web)
+                        sample.click()
+
+                i += 1
+            except NoSuchElementException:
+                break
+
     def __init__(self, email, password):
         self.man = True
         self.driver = webdriver.Firefox()
@@ -32,7 +67,7 @@ class ShoppingBot:
             try:
                 self.driver.get("https://www.zalando-lounge.pl")
                 break
-            except:
+            except WebDriverException:
                 sys.stderr.write("Could not open website, retrying...\n")
         # Open loggin panel
         while 1:
@@ -40,16 +75,22 @@ class ShoppingBot:
                 self.driver.find_element_by_xpath(
                     "/html/body/div[2]/div/div[2]/div[1]/div/div/div[1]/div/div/div[2]/div/div/button").click()
                 break
-            except:
+            except NoSuchElementException:
                 sys.stderr.write("Could not open login panel, retrying...\n")
 
         # Off annoying banner
         while 1:
             try:
+                element_present = EC.presence_of_element_located(
+                    (By.XPATH, "//*[@id=\"uc-btn-accept-banner\"]"))
+                WebDriverWait(self.driver, 5).until(element_present)
+            except TimeoutException:
+                print("Timed out waiting for page to load")
+            try:
                 self.driver.find_element_by_xpath(
                     "//*[@id=\"uc-btn-accept-banner\"]").click()
                 break
-            except:
+            except NoSuchElementException:
                 sys.stderr.write("Could not accept cookies acceptance, retrying...\n")
 
             # Log into shop.
@@ -65,30 +106,15 @@ class ShoppingBot:
                 self.driver.find_element_by_xpath("//*[@id=\"form-password\"]").clear()
                 sys.stderr.write("Login failed, retrying...\n")
 
-        sleep(10)
+        sleep(2)
         campaign_ID = 'ZZO116V'
-        while 1:
-            try:
-                self.driver.get('https://www.zalando-lounge.pl/campaigns/' + campaign_ID)
-                break
-            except:
-                pass
-        try:
-            element_present = EC.presence_of_element_located(
-                (By.XPATH, '/html/body/div[2]/div/div/section/div[2]/nav/a[1]/div/span/span'))
-            WebDriverWait(self.driver, 5).until(element_present)
-        except TimeoutException:
-            print("Timed out waiting for page to load")
-        self.driver.find_element_by_xpath("/html/body/div[2]/div/div/section/div[2]/nav/a[1]/div/span").click()
-        i = 1
-        while i:
-            try:
-                print(self.driver.find_element_by_xpath(
-                    "/html/body/div[2]/div/div/section/div[2]/div/div/div/ul[2]/li/ul/li[" + str(
-                        i) + "]/div/span/span").text)
-                i += 1
-            except:
-                break
+        # we have to remove  last char in string
+        # for example if someone input bluza or bluzy.
+        # bluz is preffix that occurs in both single and multiple form.
+        selected_categories = ['koszule',
+                               'koszulki']
+        selected_categories = adjust_categories(selected_categories)
+        self.select_categories(campaign_ID, selected_categories)
 
 
 # elem = self.driver.find_element_by_xpath("//*")
