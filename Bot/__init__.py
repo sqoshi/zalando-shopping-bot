@@ -2,7 +2,6 @@
 # testertest
 import smtplib
 import sys
-import time
 from time import sleep
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -42,6 +41,29 @@ def choose_species_path(jeans, underwear, upper_part):
 
 # TODO: something better than sleep, exceptions handling upgrade needed.
 class ShoppingBot:
+    def distinct_structure_categories(self):
+        _23fgc = False
+        _2bQSu = False
+        try:
+            # 2bq
+            element = self.driver.find_element_by_xpath(
+                "/html/body/div[2]/div/div/section/div[2]/div/div/div/ul/li[1]/div/span")
+            # next : /html/body/div[2]/div/div/section/div[2]/div/div/div/ul/li[2]/div/span
+            print(element.text)
+            _2bQSu = True
+        except NoSuchElementException:
+            _2bQSu = False
+        try:
+            # 2fgc
+            element = self.driver.find_element_by_xpath(
+                "/html/body/div[2]/div/div/section/div[2]/div/div/div/ul[1]/li[1]/span")
+            # next /html/body/div[2]/div/div/section/div[2]/div/div/div/ul[1]/li[2]/span
+            print(element.text)
+            _23fgc = True
+        except NoSuchElementException:
+            _23fgc = False
+        return _2bQSu, _23fgc
+
     def turn_off_banner(self):
         try:
             self.driver.find_element_by_xpath(
@@ -87,19 +109,12 @@ class ShoppingBot:
                         print(brand_web)
                         already_selected.append(brand_web)
                         sample.click()
-
                 i += 1
             except NoSuchElementException:
                 break
 
     def set_sizes(self, wanted_sizes):
         path = choose_species_path(False, False, upper_part=True)
-        try:
-            WebDriverWait(self.driver, 5).until(EC.presence_of_element_located(
-                (By.XPATH, '/html/body/div[2]/div/div/section/div[2]/nav/a[2]/div/span/span')))
-        except TimeoutException:
-            print("Timed out waiting for page to load")
-        self.driver.find_element_by_xpath("/html/body/div[2]/div/div/section/div[2]/nav/a[2]/div/span/span").click()
         self.driver.find_element_by_xpath(path).click()
         i = 1
         already_selected = []
@@ -117,41 +132,59 @@ class ShoppingBot:
             except NoSuchElementException:
                 break
 
-    def set_categories(self, wanted_categories):
-        both_sexes = False
-        try:
-            print(self.driver.find_element_by_xpath(
-                "/html/body/div[2]/div/div/section/div[2]/div/div/div/ul[1]/li/span").text)
-            # /html/body/div[2]/div/div/section/div[2]/div[1]/div/div/ul/li[2]/div/span
-            # /html/body/div[2]/div/div/section/div[2]/div[1]/div/div/ul/li[2]/ul/li[1]/div/span
-            # /html/body/div[2]/div/div/section/div[2]/div[1]/div/div/ul/li[1]/div/span
-        except NoSuchElementException:
-            both_sexes = True
-        try:
-            WebDriverWait(self.driver, 5).until(EC.presence_of_element_located(
-                (By.XPATH, '/html/body/div[2]/div/div/section/div[2]/nav/a[1]/div/span/span')))
-        except TimeoutException:
-            print("Timed out waiting for page to load")
-        self.driver.find_element_by_xpath("/html/body/div[2]/div/div/section/div[2]/nav/a[1]/div/span").click()
-        i = 1
+    def set_categories_23fgc(self, wanted_categories):
         already_selected = []
-        # Scenario for only one gender sale
-        if not both_sexes:
-            while i:
-                try:
-                    sample = self.driver.find_element_by_xpath(
-                        "/html/body/div[2]/div/div/section/div[2]/div/div/div/ul[2]/li/ul/li[" + str(
-                            i) + "]/div/span/span")
-                    for existence_cat in wanted_categories:
-                        cat_web = sample.text.lower()
-                        if existence_cat in cat_web and cat_web not in already_selected:
-                            print(cat_web)
-                            already_selected.append(cat_web)
-                            sample.click()
+        i = 1
+        while i:
+            try:
+                sample = self.driver.find_element_by_xpath(
+                    "/html/body/div[2]/div/div/section/div[2]/div/div/div/ul[2]/li/ul/li[" + str(
+                        i) + "]/div/span/span")
+                for existence_cat in wanted_categories:
+                    cat_web = sample.text.lower()
+                    if existence_cat in cat_web and cat_web not in already_selected:
+                        print(cat_web)
+                        already_selected.append(cat_web)
+                        sample.click()
+                i += 1
+            except NoSuchElementException:
+                break
 
-                    i += 1
-                except NoSuchElementException:
-                    break
+    def set_categories_2bQSu(self, wanted_categories):
+        already_selected = []
+        i = 1
+        while i:
+            try:
+                xpath = "/html/body/div[2]/div/div/section/div[2]/div/div/div/ul/li[" + str(i)
+                element = self.driver.find_element_by_xpath(xpath + "]/div/span")
+                j = 1
+                print(i)
+                i += 1
+                if 'Mężczyźn'.upper() in element.text.upper() or 'UNISE' in element.text.upper():
+                    while j:
+                        try:
+                            print(j)
+                            next_cat = xpath + "]/ul/li[" + str(j) + "]/div/span"
+                            "/html/body/div[2]/div/div/section/div[2]/div/div/div/ul/li[3]/ul/li[2]/div/span"
+                            j += 1
+                            sample = self.driver.find_element_by_xpath(next_cat)
+                            print(sample.text)
+                            for existence_cat in wanted_categories:
+                                cat_web = sample.text.lower()
+                                if existence_cat in cat_web and cat_web:  # not in already_selected:
+                                    already_selected.append(cat_web)
+                                    sample.click()
+                        except NoSuchElementException:
+                            print('no more columns - categories')
+                            break
+            except NoSuchElementException:
+                print('no more rows - categories')
+                break
+
+    def set_categories(self, wanted_categories):
+        _2bQSu, _23fgc = self.distinct_structure_categories()
+        if _2bQSu:
+            self.set_categories_2bQSu(wanted_categories)
 
     def __init__(self, email, password):
         options = Options()
@@ -186,24 +219,26 @@ class ShoppingBot:
                 self.driver.find_element_by_xpath(
                     "//*[@id=\"uc-btn-accept-banner\"]").click()
                 break
+            except NoSuchElementException:
+                sys.stderr.write("Could not accept cookies acceptance, retrying...\n")
             except StaleElementReferenceException:
                 sys.stderr.write("Could not accept cookies acceptance, retrying...\n")
 
         # Log into shop.
         while 1:
             try:
+                self.driver.find_element_by_xpath("//*[@id=\"form-email\"]").clear()
+                self.driver.find_element_by_xpath("//*[@id=\"form-password\"]").clear()
                 self.driver.find_element_by_xpath("//*[@id=\"form-email\"]").send_keys(email)
                 self.driver.find_element_by_xpath("//*[@id=\"form-password\"]").send_keys(password)
                 self.driver.find_element_by_xpath(
                     "/html/body/div[1]/div/div[2]/div[2]/div/div/div/form/button").click()
-                break
+                # break
+                sleep(1)
             except:
-                self.driver.find_element_by_xpath("//*[@id=\"form-email\"]").clear()
-                self.driver.find_element_by_xpath("//*[@id=\"form-password\"]").clear()
                 sys.stderr.write("Login failed, retrying...\n")
-
-        sleep(2)
-        campaign_ID = 'ZZO10V9'  # ZZO11B1
+                break
+        campaign_ID = 'ZZO0XYJ'  # ZZO10V9
         while 1:
             try:
                 self.driver.get('https://www.zalando-lounge.pl/campaigns/' + campaign_ID)
@@ -213,100 +248,41 @@ class ShoppingBot:
         # we have to remove  last char in string
         # for example if someone input bluza or bluzy.
         # bluz is preffix that occurs in both single and multiple form.
-        selected_categories = adjust_categories(['koszule', 'koszulki'])
+        selected_categories = adjust_categories(['koszule', 'koszulki', 'odzież'])
         # TODO: function to decide what is in catergories [ SPODNIE, GORNE CZESCI GARDEROBY, BIELIZNA]
         selected_sizes = ['M', 'L']
         selected_brands = ['GAP', 'Fila', 'Kappa', 'Lee']
         # sometimes banner pop up
         self.turn_off_banner()
-        self.set_categories(selected_categories)
         i = 1
+        try:
+            element_present = EC.presence_of_element_located(
+                (By.XPATH, "/html/body/div[2]/div/div/section/div[2]/nav/a[1]"))
+            WebDriverWait(self.driver, 15).until(element_present)
+        except TimeoutException:
+            print("Timed out waiting for page to load")
+
         while i:
             try:
-                print(self.driver.find_element_by_xpath(
-                    "/html/body/div[2]/div/div/section/div[2]/nav/a[" + str(i) + "]").text)
+                element = "/html/body/div[2]/div/div/section/div[2]/nav/a[" + str(i) + "]"
+                sample = self.driver.find_element_by_xpath(element)
                 i += 1
+                print(sample)
+                if sample.text == 'KATEGORIE':
+                    sample.click()
+                    self.set_categories(selected_categories)
+                elif sample.text == 'ROZMIAR':
+                    sample.click()
+                    self.set_sizes(selected_sizes)
+                elif sample.text == 'MARKA':
+                    sample.click()
+                    self.set_brands(selected_brands)
+                elif sample.text == 'CENA':
+                    sample.click()
+                    self.set_max_per_item(120)
             except NoSuchElementException:
                 break
-        self.set_sizes(selected_sizes)
-
-        # self.set_brands(selected_brands)
-        self.set_max_per_item(120)
-
-
-# elem = self.driver.find_element_by_xpath("//*")
-# source_code = elem.get_attribute("innerHTML")
-# filename = open('zalando.html', 'w')
-# filename.write(source_code)
-# filename.close()
+        print('finished')
 
 
 ShoppingBot("piotrpopisgames@gmail.com", 'testertest')
-
-"""
-    def research(self):
-        while 1:
-            try:
-                self.driver.find_element_by_xpath(
-                    "/html/body/div[2]/div/div/div[2]/div/div/div[1]/div[2]/div/div/ul/li[2]/span") \
-                    .click()
-                sleep(1)
-                elems3 = self.driver.find_elements_by_xpath("//a[@href]")
-                break
-            except:
-                sys.stderr.write("Could not find man section, retrying...\n")
-        while 1:
-            try:
-                self.driver.find_element_by_xpath(
-                    "/html/body/div[2]/div/div/div[2]/div/div/div[1]/div[2]/div/div/ul/li[3]/span") \
-                    .click()
-                sleep(1)
-                elems2 = self.driver.find_elements_by_xpath("//a[@href]")
-                break
-            except:
-                sys.stderr.write("Could not find man section, retrying...\n")
-        while 1:
-            try:
-                self.driver.find_element_by_xpath(
-                    "/html/body/div[2]/div/div/div[2]/div/div/div[1]/div[2]/div/div/ul/li[4]/span") \
-                    .click()
-                sleep(1)
-                elems1 = self.driver.find_elements_by_xpath("//a[@href]")
-                break
-            except:
-                sys.stderr.write("Could not find man section, retrying...\n")
-        print(elems1)
-        print(elems2)
-        print(elems3)
-        print(len(elems1))
-        print(len(elems2))
-        print(len(elems3))
-        print("asd")
-        results = []
-        for elem in elems1:
-            try:
-                href = elem.get_attribute("href")
-                text = str(elem.get_attribute("text"))
-                if "Rek" not in text:
-                    results.append((href, text))
-            except:
-                pass
-        for elem in elems2:
-            try:
-                href = elem.get_attribute("href")
-                text = str(elem.get_attribute("text"))
-                if "Rek" not in text:
-                    results.append((href, text))
-            except:
-                pass
-        for elem in elems3:
-            try:
-                href = elem.get_attribute("href")
-                text = str(elem.get_attribute("text"))
-                if "Rek" not in text:
-                    results.append((href, text))
-            except:
-                pass
-        for x in results:
-            print(x)
-            """
