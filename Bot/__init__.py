@@ -11,6 +11,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+from seleniumrequests import Firefox
+
 
 class ShoppingBot:
 
@@ -85,6 +87,7 @@ class ShoppingBot:
     def __init__(self, email, password):
 
         self.driver = webdriver.Firefox()
+        self.driver.maximize_window()
         # Open website
         self.driver.get("https://www.zalando-lounge.pl")
 
@@ -121,7 +124,7 @@ class ShoppingBot:
         # self.driver.find_element_by_xpath("//*[@id=\"form-password\"]").send_keys(password)
         # self.driver.find_element_by_xpath("/html/body/div[1]/div/div[2]/div[2]/div/div/div/form/button").click()
 
-        campaign_id = 'campaign-ZZO0Y9F'
+        campaign_id = 'campaign-ZZO105N'
         action = ActionChains(self.driver)
         first_compaing = WebDriverWait(self.driver, 20).until(EC.presence_of_element_located((By.XPATH,'//*[@id="'+campaign_id+'"]/div')))
         self.scroll_shim(first_compaing)
@@ -141,6 +144,20 @@ class ShoppingBot:
         price_max.send_keys(Keys.ENTER)
 
         self.scroll_down()
+
+        hrefs = []
+
+        all_items = self.driver.find_elements_by_xpath("//div[starts-with(@id, 'article-')]/a")
+        for item in all_items:
+            hrefs.append(item.get_attribute("href"))
+
+        for href in hrefs:
+            self.driver.get(href)
+            element = WebDriverWait(self.driver, 20).until \
+            (EC.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]/div[1]/div[1]/span'))).click()
+            self.driver.back()
+            sleep(1)
+        
 
         print('finished')
 
