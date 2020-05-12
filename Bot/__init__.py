@@ -12,6 +12,7 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException, NoSuchElementException, WebDriverException, \
     StaleElementReferenceException
 
+from selenium.webdriver.common.action_chains import ActionChains
 
 def sendMail(to, file):
     """Function to inform user about founded products by e-mail."""
@@ -41,6 +42,37 @@ def choose_species_path(jeans, underwear, upper_part):
 
 # TODO: something better than sleep, exceptions handling upgrade needed.
 class ShoppingBot:
+    def scroll_shim(self, object):
+        x = object.location['x']
+        y = object.location['y']
+        scroll_by_coord = 'window.scrollTo(%s,%s);' % (
+        x,
+        y
+        )
+        scroll_nav_out_of_way = 'window.scrollBy(0, -120);'
+        self.driver.execute_script(scroll_by_coord)
+        self.driver.execute_script(scroll_nav_out_of_way)
+
+    def scroll_down(self):
+        # Get scroll height.
+        last_height = self.driver.execute_script("return document.body.scrollHeight")
+        while True:
+
+            # Scroll down to the bottom.
+            self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+
+            # Wait to load the page.
+            sleep(1)
+
+            # Calculate new scroll height and compare with last scroll height.
+            new_height = self.driver.execute_script("return document.body.scrollHeight")
+
+            if new_height == last_height:
+
+                break
+
+            last_height = new_height
+
     def distinct_structure_categories(self):
         _23fgc = False
         _2bQSu = False
@@ -188,63 +220,68 @@ class ShoppingBot:
 
     def __init__(self, email, password):
         options = Options()
-        options.add_argument("--disable-notifications")
+        # options.add_argument("--disable-notifications")
         self.driver = webdriver.Firefox(options=options)
+
         # Open website
         self.driver.get("https://www.zalando-lounge.pl")
-        while 1:
-            try:
-                self.driver.get("https://www.zalando-lounge.pl")
-                break
-            except WebDriverException:
-                sys.stderr.write("Could not open website, retrying...\n")
+       
+        # Wait for cookies banner and close it
+        # WebDriverWait(self.driver, 20).until \
+        #     (EC.element_to_be_clickable((By.XPATH, '//*[@id=\"uc-btn-accept-banner\"]'))).click()
+    
         # Open loggin panel
-        while 1:
-            try:
-                self.driver.find_element_by_xpath(
-                    "/html/body/div[2]/div/div[2]/div[1]/div/div/div[1]/div/div/div[2]/div/div/button").click()
-                break
-            except NoSuchElementException:
-                sys.stderr.write("Could not open login panel, retrying...\n")
+        self.driver.find_element_by_xpath("/html/body/div[2]/div/div[2]/div[1]/div/div/div[1]/div/div/div[2]/div/div/button").click()
 
-        # Off annoying banner
-        while 1:
-            try:
-                element_present = EC.presence_of_element_located(
-                    (By.XPATH, "//*[@id=\"uc-btn-accept-banner\"]"))
-                WebDriverWait(self.driver, 5).until(element_present)
-            except TimeoutException:
-                print("Timed out waiting for page to load")
-            try:
-                self.driver.find_element_by_xpath(
-                    "//*[@id=\"uc-btn-accept-banner\"]").click()
-                break
-            except NoSuchElementException:
-                sys.stderr.write("Could not accept cookies acceptance, retrying...\n")
-            except StaleElementReferenceException:
-                sys.stderr.write("Could not accept cookies acceptance, retrying...\n")
+        # email
+        element = WebDriverWait(self.driver, 20).until \
+            (EC.element_to_be_clickable((By.XPATH, '//*[@id="form-email"]')))
+        element.send_keys(email)
 
-        # Log into shop.
-        while 1:
-            try:
-                self.driver.find_element_by_xpath("//*[@id=\"form-email\"]").clear()
-                self.driver.find_element_by_xpath("//*[@id=\"form-password\"]").clear()
-                self.driver.find_element_by_xpath("//*[@id=\"form-email\"]").send_keys(email)
-                self.driver.find_element_by_xpath("//*[@id=\"form-password\"]").send_keys(password)
-                self.driver.find_element_by_xpath(
-                    "/html/body/div[1]/div/div[2]/div[2]/div/div/div/form/button").click()
-                # break
-                sleep(1)
-            except:
-                sys.stderr.write("Login failed, retrying...\n")
-                break
-        campaign_ID = 'ZZO0XYJ'  # ZZO10V9
-        while 1:
-            try:
-                self.driver.get('https://www.zalando-lounge.pl/campaigns/' + campaign_ID)
-                break
-            except WebDriverException:
-                pass
+        # password
+        element = WebDriverWait(self.driver, 20).until \
+            (EC.element_to_be_clickable((By.XPATH, '//*[@id="form-password"]')))
+        element.send_keys(password)
+
+        #loggin in
+        element.submit()
+
+        #Go to selected event
+        campaign_id = 'campaign-ZZO105N'
+        
+        action = ActionChains(self.driver)
+        first_compaing = WebDriverWait(self.driver, 20).until(EC.presence_of_element_located((By.XPATH,'//*[@id="'+campaign_id+'"]/div')))
+        self.scroll_shim(first_compaing)
+        # first_compaing = self.driver.find_element_by_xpath('//*[@id="'+campaign_id+'"]/div')
+        action.move_to_element(first_compaing).perform()
+        second_compaing = WebDriverWait(self.driver, 20).until(EC.presence_of_element_located((By.XPATH,'//*[@id="'+campaign_id+'"]/div/div[1]/div/button/span')))
+        # second_compaing = self.driver.find_element_by_xpath('//*[@id="'+campaign_id+'"]/div/div[1]/div/button/span')
+        action.move_to_element(second_compaing).perform()
+        second_compaing.click()
+
+        price = '150'
+        self.driver.find_element_by_xpath('//*[@id="inner-wrapper"]/section/div[2]/nav/a[5]/div/span').click()
+        price_max=self.driver.find_element_by_xpath('//*[@id="price-max"]')
+        sleep(1)
+        self.driver.execute_script('document.getElementById("price-max").value = "'+price+'";')
+        price_max.send_keys(Keys.ENTER)
+
+        self.scroll_down()
+
+        hrefs = []
+
+        all_items = self.driver.find_elements_by_xpath("//div[starts-with(@id, 'article-')]/a")
+        for item in all_items:
+            hrefs.append(item.get_attribute("href"))
+
+        for href in hrefs:
+            self.driver.get(href)
+            element = WebDriverWait(self.driver, 20).until \
+            (EC.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]/div[1]/div[1]/span'))).click()
+            self.driver.back()
+            sleep(1)
+
+
         # we have to remove  last char in string
         # for example if someone input bluza or bluzy.
         # bluz is preffix that occurs in both single and multiple form.
