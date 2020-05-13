@@ -41,24 +41,35 @@ def choose_species_path(jeans, underwear, upper_part):
 
 # TODO: something better than sleep, exceptions handling upgrade needed.
 class ShoppingBot:
-    def distinct_structure_categories(self):
+    def distinct_structure_categories_single(self):
         _23fgc = False
         _2bQSu = False
         try:
-            # 2bq
-            element = self.driver.find_element_by_xpath(
-                "/html/body/div[2]/div/div/section/div[2]/div/div/div/ul/li[1]/div/span")
-            # next : /html/body/div[2]/div/div/section/div[2]/div/div/div/ul/li[2]/div/span
-            print(element.text)
+            self.driver.find_element_by_xpath(
+                "/html/body/div[2]/div/div/section/div[2]/div[1]/div/div/ul/li/div/span")
             _2bQSu = True
         except NoSuchElementException:
             _2bQSu = False
         try:
-            # 2fgc
-            element = self.driver.find_element_by_xpath(
+            self.driver.find_element_by_xpath(
+                "/html/body/div[2]/div/div/section/div[2]/div/div/div/ul[1]/li/span")
+            _23fgc = True
+        except NoSuchElementException:
+            _23fgc = False
+        return _2bQSu, _23fgc
+
+    def distinct_structure_categories_multiple(self):
+        _23fgc = False
+        _2bQSu = False
+        try:
+            self.driver.find_element_by_xpath(
+                "/html/body/div[2]/div/div/section/div[2]/div/div/div/ul/li[1]/div/span")
+            _2bQSu = True
+        except NoSuchElementException:
+            _2bQSu = False
+        try:
+            self.driver.find_element_by_xpath(
                 "/html/body/div[2]/div/div/section/div[2]/div/div/div/ul[1]/li[1]/span")
-            # next /html/body/div[2]/div/div/section/div[2]/div/div/div/ul[1]/li[2]/span
-            print(element.text)
             _23fgc = True
         except NoSuchElementException:
             _23fgc = False
@@ -120,8 +131,8 @@ class ShoppingBot:
         already_selected = []
         while i:
             try:
-                sample = self.driver.find_element_by_xpath(
-                    "/html/body/div[2]/div/div/section/div[2]/div[1]/div/div/ul/button[" + str(i) + "]")
+                xpath = "/html/body/div[2]/div/div/section/div[2]/div[1]/div/div/ul/button[" + str(i) + "]"
+                sample = self.driver.find_element_by_xpath(xpath)
                 for given_size in wanted_sizes:
                     size_web = sample.text.upper()
                     if given_size == size_web and size_web not in already_selected:
@@ -137,18 +148,15 @@ class ShoppingBot:
         i = 1
         while i:
             try:
-                sample = self.driver.find_element_by_xpath(
-                    "/html/body/div[2]/div/div/section/div[2]/div/div/div/ul[2]/li/ul/li[" + str(
-                        i) + "]/div/span/span")
-                for existence_cat in wanted_categories:
-                    cat_web = sample.text.lower()
-                    if existence_cat in cat_web and cat_web not in already_selected:
-                        print(cat_web)
-                        already_selected.append(cat_web)
-                        sample.click()
+                xpath = "/html/body/div[2]/div/div/section/div[2]/div/div/div/ul[1]/li[" + str(i) + "]/span"
+                element = self.driver.find_element_by_xpath(xpath)
                 i += 1
+                if 'Mężczyźn'.upper() in element.text.upper() or 'UNISE' in element.text.upper() \
+                        or 'odzie'.upper() in element.text.upper():
+                    print('tODO')
+                    # TODO: IMPLEMENTATION !!!!
             except NoSuchElementException:
-                break
+                print(' no more columns')
 
     def set_categories_2bQSu(self, wanted_categories):
         already_selected = []
@@ -158,12 +166,11 @@ class ShoppingBot:
                 xpath = "/html/body/div[2]/div/div/section/div[2]/div/div/div/ul/li[" + str(i)
                 element = self.driver.find_element_by_xpath(xpath + "]/div/span")
                 j = 1
-                print(i)
                 i += 1
-                if 'Mężczyźn'.upper() in element.text.upper() or 'UNISE' in element.text.upper():
+                if 'Mężczyźn'.upper() in element.text.upper() or 'UNISE' in element.text.upper() \
+                        or 'odzie'.upper() in element.text.upper():
                     while j:
                         try:
-                            print(j)
                             next_cat = xpath + "]/ul/li[" + str(j) + "]/div/span"
                             "/html/body/div[2]/div/div/section/div[2]/div/div/div/ul/li[3]/ul/li[2]/div/span"
                             j += 1
@@ -171,7 +178,7 @@ class ShoppingBot:
                             print(sample.text)
                             for existence_cat in wanted_categories:
                                 cat_web = sample.text.lower()
-                                if existence_cat in cat_web and cat_web:  # not in already_selected:
+                                if existence_cat in cat_web and cat_web not in already_selected:  # not in already_selected:
                                     already_selected.append(cat_web)
                                     sample.click()
                         except NoSuchElementException:
@@ -181,9 +188,30 @@ class ShoppingBot:
                 print('no more rows - categories')
                 break
 
+    def set_categories_2bQSu_single(self, wanted_categories):
+        already_selected = []
+        i = 1
+        while i:
+            try:
+                xpath = "/html/body/div[2]/div/div/section/div[2]/div/div/div/ul/li/ul/li[" + str(i) + "]/div/span"
+                sample = self.driver.find_element_by_xpath(xpath)
+                i += 1
+                for existence_cat in wanted_categories:
+                    cat_web = sample.text.lower()
+                    if existence_cat.lower() in cat_web and cat_web not in already_selected:
+                        already_selected.append(cat_web)
+                        sample.click()
+            except NoSuchElementException:
+                print('no more columns - categories')
+                break
+
     def set_categories(self, wanted_categories):
-        _2bQSu, _23fgc = self.distinct_structure_categories()
-        if _2bQSu:
+        _2bQSu, _23fgc = self.distinct_structure_categories_multiple()
+        single_2bQSu, single_23fgc = self.distinct_structure_categories_single()
+        if single_2bQSu:
+            print('single')
+            self.set_categories_2bQSu_single(wanted_categories)
+        elif _2bQSu:
             self.set_categories_2bQSu(wanted_categories)
 
     def __init__(self, email, password):
@@ -233,12 +261,14 @@ class ShoppingBot:
                 self.driver.find_element_by_xpath("//*[@id=\"form-password\"]").send_keys(password)
                 self.driver.find_element_by_xpath(
                     "/html/body/div[1]/div/div[2]/div[2]/div/div/div/form/button").click()
-                # break
+                # breakl
                 sleep(1)
             except:
                 sys.stderr.write("Login failed, retrying...\n")
                 break
-        campaign_ID = 'ZZO0XYJ'  # ZZO10V9
+        #######################################################################################
+        campaign_ID = 'ZZO0Z6A'  # 'ZZO0ZHH'  # ZZO10V9
+        #######################################################################################
         while 1:
             try:
                 self.driver.get('https://www.zalando-lounge.pl/campaigns/' + campaign_ID)
@@ -267,7 +297,6 @@ class ShoppingBot:
                 element = "/html/body/div[2]/div/div/section/div[2]/nav/a[" + str(i) + "]"
                 sample = self.driver.find_element_by_xpath(element)
                 i += 1
-                print(sample)
                 if sample.text == 'KATEGORIE':
                     sample.click()
                     self.set_categories(selected_categories)
@@ -276,10 +305,10 @@ class ShoppingBot:
                     self.set_sizes(selected_sizes)
                 elif sample.text == 'MARKA':
                     sample.click()
-                    self.set_brands(selected_brands)
+                    # self.set_brands(selected_brands)
                 elif sample.text == 'CENA':
                     sample.click()
-                    self.set_max_per_item(120)
+                    # self.set_max_per_item(120)
             except NoSuchElementException:
                 break
         print('finished')
