@@ -22,7 +22,7 @@ class Controller:
     def show_main(self):
         self.MainWindow = QtWidgets.QMainWindow()
         self.mw = Ui_MainWindow()
-        self.mw.setupUi(self.MainWindow)
+        self.mw.setupUi(self.MainWindow, self.lp.login, self.lp.password)
         self.LoginPanel.close()
         self.MainWindow.show()
 

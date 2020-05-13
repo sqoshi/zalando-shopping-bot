@@ -29,10 +29,10 @@ class Ui_LoginPanel(PyQt5.QtCore.QObject):
         self.textEdit_2.size()
         self.textEdit_2.setEchoMode(QLineEdit.Password)
         self.textEdit_2.setStyleSheet('lineedit-password-character: 9679')
-        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(660, 370, 251, 81))
-        self.pushButton.setObjectName("pushButton")
-        self.pushButton.clicked.connect(self.login)
+        self.start_btn = QtWidgets.QPushButton(self.centralwidget)
+        self.start_btn.setGeometry(QtCore.QRect(660, 370, 251, 81))
+        self.start_btn.setObjectName("start_btn")
+        self.start_btn.clicked.connect(self.login)
         LoginPanel.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(LoginPanel)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1000, 22))
@@ -49,7 +49,7 @@ class Ui_LoginPanel(PyQt5.QtCore.QObject):
         LoginPanel.setWindowTitle(_translate("LoginPanel", "LoginPanel"))
         self.label.setText(_translate("LoginPanel", "Login"))
         self.label_2.setText(_translate("LoginPanel", "Password"))
-        self.pushButton.setText(_translate("LoginPanel", "Login"))
+        self.start_btn.setText(_translate("LoginPanel", "Login"))
 
     def login(self):
         if self.textEdit.toPlainText() == "" or '@' not in self.textEdit.toPlainText() or self.textEdit_2.text() == "":
