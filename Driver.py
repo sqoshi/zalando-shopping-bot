@@ -5,9 +5,10 @@ from PyQt5 import QtWidgets
 from gui.Login_Panel import Ui_LoginPanel
 from gui.Main_Window import Ui_MainWindow
 
+""" Switching between frames."""
+
 
 class Controller:
-
     def __init__(self):
         pass
 
