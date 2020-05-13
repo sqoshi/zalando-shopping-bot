@@ -2,6 +2,15 @@ import PyQt5
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWidgets import QInputDialog, QLineEdit
 
+from Bot import ShoppingBot
+
+
+def remove_item_qlist(given_qlist):
+    listItems = given_qlist.selectedItems()
+    if not listItems: return
+    for item in listItems:
+        given_qlist.takeItem(given_qlist.row(item))
+
 
 class Ui_MainWindow(PyQt5.QtCore.QObject):
     def __init__(self):
@@ -44,36 +53,58 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.stop_btn = QtWidgets.QPushButton(self.centralwidget)
         self.menuMenu = QtWidgets.QMenu(self.menubar)
 
-    def showDialog(self):
-        updateDialog = QInputDialog()
-        text, okPressed = QInputDialog.getText(updateDialog, "Get text", "Size:", QLineEdit.Normal, "")
+    def get_text(self):
+        text, okPressed = QInputDialog.getText(QInputDialog(), "Get text", "Size:", QLineEdit.Normal, "")
         if okPressed and text != '':
             return text
 
+    def get_integer(self):
+        i, okPressed = QInputDialog.getInt(QInputDialog(), "Get integer", "Price:")
+        if okPressed:
+            return i
+
     def start_bot(self):
         print('Creating Bot object start ')
+        # TODO : TypeError: 'QListWidget' object is not iterable
+        ShoppingBot("piotrpopisgames@gmail.com", 'testertest', self.sizes_list, self.brands_list,
+                    self.textEdit.toPlainText(), self.lcdNumber.intValue())
 
     def stop_bot(self):
         print('Stopping bot')
 
     def add_size(self):
-        self.sizes_list.addItem(self.showDialog())
+        self.sizes_list.addItem(self.get_text())
         print('Adding size')
 
     def add_brand(self):
-        self.brands_list.addItem(self.showDialog())
+        self.brands_list.addItem(self.get_text())
         print('Adding brand')
 
     def add_category(self):
-        self.categories_list.addItem(self.showDialog())
+        self.categories_list.addItem(self.get_text())
         print('Adding category')
 
+    # TODO IMPLEMENT
     def add_account(self):
         print('Adding account')
 
     def set_max_price(self):
-        self.lcdNumber.display(self.showDialog())
-        print('Setting max price')
+        self.lcdNumber.display(str(self.get_integer()))
+
+    def del_size(self):
+        remove_item_qlist(self.sizes_list)
+
+    def del_brand(self):
+        remove_item_qlist(self.brands_list)
+
+    def del_category(self):
+        remove_item_qlist(self.categories_list)
+
+    def del_account(self):
+        if len(self.accounts_list) > 1:
+            remove_item_qlist(self.accounts_list)
+        else:
+            pass
 
     def setupUi(self, MainWindow, login, password):
         MainWindow.setObjectName("MainWindow")
@@ -119,6 +150,7 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.add_size_btn.clicked.connect(self.add_size)
         self.del_size_btn.setGeometry(QtCore.QRect(270, 130, 141, 41))
         self.del_size_btn.setObjectName("del_size_btn")
+        self.del_size_btn.clicked.connect(self.del_size)
         self.add_brand_btn.setGeometry(QtCore.QRect(270, 210, 141, 41))
         self.add_brand_btn.setObjectName("add_brand_btn")
         self.add_brand_btn.clicked.connect(self.add_brand)

@@ -117,7 +117,7 @@ class ShoppingBot:
             except NoSuchElementException:
                 break
 
-    def __init__(self, email, password, selected_sizes, selected_brands):
+    def __init__(self, email, password, selected_sizes, selected_brands, CID, max_price):
         options = Options()
         # options.add_argument("--disable-notifications")
         self.driver = webdriver.Firefox(options=options)
@@ -147,7 +147,7 @@ class ShoppingBot:
         element.submit()
 
         # Go to selected event
-        campaign_id = 'campaign-ZZO10BY'
+        campaign_id = 'campaign-' + CID
 
         action = ActionChains(self.driver)
         first_compaing = WebDriverWait(self.driver, 20).until(
@@ -193,7 +193,7 @@ class ShoppingBot:
                     self.set_brands(selected_brands)
                 elif sample.text == 'CENA':
                     sample.click()
-                    self.set_max_per_item(120)
+                    self.set_max_per_item(max_price)
             except NoSuchElementException:
                 break
 
@@ -209,7 +209,7 @@ class ShoppingBot:
         self.scroll_down()
 
 
-ShoppingBot("piotrpopisgames@gmail.com", 'testertest', ['M', 'L'], ['GAP', 'Fila', 'Kappa', 'Lee'])
+#ShoppingBot("piotrpopisgames@gmail.com", 'testertest', ['M', 'L'], ['GAP', 'Fila', 'Kappa', 'Lee'], 'ZZO10BY',120)
 
 """
     def set_categories_23fgc(self, wanted_categories):
