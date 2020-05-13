@@ -5,7 +5,7 @@ import sys
 from time import sleep
 
 from selenium import webdriver
-from selenium.common.exceptions import TimeoutException, NoSuchElementException
+from selenium.common.exceptions import TimeoutException, NoSuchElementException, ElementClickInterceptedException
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -27,17 +27,6 @@ def sendMail(to, file):
 
 def adjust_categories(categories):
     return [cat[:len(cat) - 1] for cat in categories]
-
-
-def choose_species_path(jeans, underwear, upper_part):
-    if upper_part:
-        return "/html/body/div[2]/div/div/section/div[2]/div[1]/div/div/div[3]/div[1]/div/span/span"
-    elif jeans:
-        return "/html/body/div[2]/div/div/section/div[2]/div[1]/div/div/div[3]/div[2]/div/span/span"
-    elif underwear:
-        return "/html/body/div[2]/div/div/section/div[2]/div[1]/div/div/div[3]/div[3]/div/span/span"
-    else:
-        raise ValueError
 
 
 class ShoppingBot:
@@ -92,12 +81,6 @@ class ShoppingBot:
                 print('some kind of exception in price inputing max prive')
 
     def set_brands(self, wanted_brands):
-        try:
-            WebDriverWait(self.driver, 5).until(EC.presence_of_element_located(
-                (By.XPATH, '/html/body/div[2]/div/div/section/div[2]/nav/a[3]/div/span/span')))
-        except TimeoutException:
-            print("Timed out waiting for page to load")
-        self.driver.find_element_by_xpath("/html/body/div[2]/div/div/section/div[2]/nav/a[3]/div/span").click()
         i = 1
         already_selected = []
         while i:
@@ -109,14 +92,15 @@ class ShoppingBot:
                     if brand.lower() in brand_web and brand_web not in already_selected:
                         print(brand_web)
                         already_selected.append(brand_web)
-                        sample.click()
+                        try:
+                            sample.click()
+                        except ElementClickInterceptedException:
+                            pass
                 i += 1
             except NoSuchElementException:
                 break
 
     def set_sizes(self, wanted_sizes):
-        path = choose_species_path(False, False, upper_part=True)
-        self.driver.find_element_by_xpath(path).click()
         i = 1
         already_selected = []
         while i:
@@ -183,6 +167,7 @@ class ShoppingBot:
 
         # sometimes banner pop up
         self.turn_off_banner()
+
         i = 1
         try:
             element_present = EC.presence_of_element_located(
@@ -192,18 +177,6 @@ class ShoppingBot:
             print("Timed out waiting for page to load")
 
         hrefs = []
-
-        all_items = self.driver.find_elements_by_xpath("//div[starts-with(@id, 'article-')]/a")
-        for item in all_items:
-            hrefs.append(item.get_attribute("href"))
-        for href in hrefs:
-            self.driver.get(href)
-            element = WebDriverWait(self.driver, 20).until \
-                (EC.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]/div[1]/div[1]/span'))).click()
-            self.driver.back()
-            sleep(1)
-        self.scroll_down()
-
         while i:
             try:
                 element = "/html/body/div[2]/div/div/section/div[2]/nav/a[" + str(i) + "]"
@@ -211,8 +184,6 @@ class ShoppingBot:
                 i += 1
                 print(sample.text)
                 if sample.text == 'KATEGORIE':
-                    # sample.click()
-                    # self.set_categories(selected_categories)
                     pass
                 elif sample.text == 'ROZMIAR':
                     sample.click()
@@ -225,6 +196,17 @@ class ShoppingBot:
                     self.set_max_per_item(120)
             except NoSuchElementException:
                 break
+
+        all_items = self.driver.find_elements_by_xpath("//div[starts-with(@id, 'article-')]/a")
+        for item in all_items:
+            hrefs.append(item.get_attribute("href"))
+        for href in hrefs:
+            self.driver.get(href)
+            element = WebDriverWait(self.driver, 20).until \
+                (EC.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]/div[1]/div[1]/span'))).click()
+            self.driver.back()
+            sleep(1)
+        self.scroll_down()
 
 
 ShoppingBot("piotrpopisgames@gmail.com", 'testertest', ['M', 'L'], ['GAP', 'Fila', 'Kappa', 'Lee'])

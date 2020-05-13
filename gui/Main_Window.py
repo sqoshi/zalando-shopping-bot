@@ -61,15 +61,18 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         print('Adding size')
 
     def add_brand(self):
+        self.brands_list.addItem(self.showDialog())
         print('Adding brand')
 
     def add_category(self):
+        self.categories_list.addItem(self.showDialog())
         print('Adding category')
 
     def add_account(self):
         print('Adding account')
 
     def set_max_price(self):
+        self.lcdNumber.display(self.showDialog())
         print('Setting max price')
 
     def setupUi(self, MainWindow, login, password):
