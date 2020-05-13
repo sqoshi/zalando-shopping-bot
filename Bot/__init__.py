@@ -136,21 +136,27 @@ class ShoppingBot:
         second_compaing.click()
 
 
-        price = '150'
+        price = '100'
         self.driver.find_element_by_xpath('//*[@id="inner-wrapper"]/section/div[2]/nav/a[5]/div/span').click()
+        sleep(1)
         price_max=self.driver.find_element_by_xpath('//*[@id="price-max"]')
         sleep(1)
         self.driver.execute_script('document.getElementById("price-max").value = "'+price+'";')
         price_max.send_keys(Keys.ENTER)
 
         self.scroll_down()
-
+        
+        #Store all href for availables items
         hrefs = []
 
         all_items = self.driver.find_elements_by_xpath("//div[starts-with(@id, 'article-')]/a")
         for item in all_items:
-            hrefs.append(item.get_attribute("href"))
+            href = item.get_attribute("href")
+            if (len(self.driver.find_elements_by_xpath('//a[@href="' + href[29:] + '"]/div[3]')) == 0):
+                hrefs.append(href)
 
+
+        # Add all items from hrefs to cart
         for href in hrefs:
             self.driver.get(href)
             element = WebDriverWait(self.driver, 20).until \
