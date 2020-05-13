@@ -1,6 +1,6 @@
 import sys
 
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtGui
 
 from gui.Login_Panel import Ui_LoginPanel
 from gui.Main_Window import Ui_MainWindow
@@ -29,6 +29,7 @@ class Controller:
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
+    app.setWindowIcon(QtGui.QIcon('icon.png'))
     controller = Controller()
     controller.show_login()
     sys.exit(app.exec_())
