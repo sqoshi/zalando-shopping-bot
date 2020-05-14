@@ -12,6 +12,10 @@ def remove_item_qlist(given_qlist):
         given_qlist.takeItem(given_qlist.row(item))
 
 
+def qlist_to_list(listWidget):
+    return [str(listWidget.item(i).text()) for i in range(listWidget.count())]
+
+
 class Ui_MainWindow(PyQt5.QtCore.QObject):
     def __init__(self):
         super(Ui_MainWindow, self).__init__()
@@ -66,8 +70,8 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
     def start_bot(self):
         print('Creating Bot object start ')
         # TODO : TypeError: 'QListWidget' object is not iterable
-        ShoppingBot("piotrpopisgames@gmail.com", 'testertest', self.sizes_list, self.brands_list,
-                    self.textEdit.toPlainText(), self.lcdNumber.intValue())
+        ShoppingBot("piotrpopisgames@gmail.com", 'testertest', qlist_to_list(self.sizes_list),
+                    qlist_to_list(self.brands_list), self.textEdit.toPlainText(), self.lcdNumber.intValue())
 
     def stop_bot(self):
         print('Stopping bot')

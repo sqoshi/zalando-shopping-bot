@@ -161,10 +161,6 @@ class ShoppingBot:
         action.move_to_element(second_compaing).perform()
         second_compaing.click()
 
-        # we have to remove  last char in string
-        # for example if someone input bluza or bluzy.
-        # bluz is preffix that occurs in both single and multiple form.
-
         # sometimes banner pop up
         self.turn_off_banner()
 
@@ -194,6 +190,7 @@ class ShoppingBot:
                 elif sample.text == 'CENA':
                     sample.click()
                     self.set_max_per_item(max_price)
+                print('kraze')
             except NoSuchElementException:
                 break
 
