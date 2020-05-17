@@ -10,21 +10,20 @@ from gui.Main_Window import Ui_MainWindow
 
 class Controller:
     def __init__(self):
-        pass
+        self.lp = Ui_LoginPanel()
+        self.LoginPanel = QtWidgets.QMainWindow()
+        self.MainWin = QtWidgets.QMainWindow()
+        self.mw = Ui_MainWindow(self.MainWin)
 
     def show_login(self):
-        self.LoginPanel = QtWidgets.QMainWindow()
-        self.lp = Ui_LoginPanel()
         self.lp.setupUi(self.LoginPanel)
         self.lp.switch_window.connect(self.show_main)
         self.LoginPanel.show()
 
     def show_main(self):
-        self.MainWindow = QtWidgets.QMainWindow()
-        self.mw = Ui_MainWindow()
-        self.mw.setupUi(self.MainWindow, self.lp.login, self.lp.password)
+        self.mw.setupUi(self.MainWin, self.lp.login, self.lp.password)
         self.LoginPanel.close()
-        self.MainWindow.show()
+        self.MainWin.show()
 
 
 def main():

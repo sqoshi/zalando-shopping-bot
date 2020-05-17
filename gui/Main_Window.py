@@ -17,7 +17,7 @@ def qlist_to_list(listWidget):
 
 
 class Ui_MainWindow(PyQt5.QtCore.QObject):
-    def __init__(self):
+    def __init__(self, MainWindow):
         super(Ui_MainWindow, self).__init__()
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.actionDonate = QtWidgets.QAction(MainWindow)
@@ -230,13 +230,13 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.actionInfo.setText(_translate("MainWindow", "Info"))
         self.actionDonate.setText(_translate("MainWindow", "Donate"))
 
-
+"""
 if __name__ == "__main__":
     import sys
-
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow, 'franek0', 'haslo')
     MainWindow.show()
     sys.exit(app.exec_())
+"""
