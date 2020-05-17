@@ -104,23 +104,13 @@ class ShoppingBot:
             sys.stderr.write("Happily banner has not shown on....\n")
 
     def set_max_per_item(self, max_cost_per_item):
-        try:
-            WebDriverWait(self.driver, 5).until(EC.presence_of_element_located(
-                (By.XPATH, '/html/body/div[2]/div/div/section/div[2]/nav/a[5]')))
-        except TimeoutException:
-            print("Timed out waiting for page to load")
-        self.driver.find_element_by_xpath("/html/body/div[2]/div/div/section/div[2]/nav/a[5]").click()
-        while 1:
-            try:
-                self.driver.find_element_by_xpath("//*[@id=\"price-max\"]").click()
-                self.driver.find_element_by_xpath("//*[@id=\"price-max\"]").clear()
-                self.driver.find_element_by_xpath("//*[@id=\"price-max\"]").send_keys(max_cost_per_item)
-                self.driver.find_element_by_xpath("//*[@id=\"price-max\"]").clear()
-                self.driver.find_element_by_xpath("//*[@id=\"price-max\"]").send_keys(max_cost_per_item)
-                self.driver.find_element_by_xpath("//*[@id=\"price-max\"]").send_keys(Keys.ENTER)
-                break
-            except:
-                print('some kind of exception in price inputing max prive')
+
+        WebDriverWait(self.driver, 5).until \
+            (EC.element_to_be_clickable((By.XPATH, '//span[.="Cena"]'))).click()
+        price_max=self.driver.find_element_by_xpath('//*[@id="price-max"]')
+        self.driver.execute_script('document.getElementById("price-max").value = "'+str(max_cost_per_item)+'";')
+        price_max.send_keys(Keys.ENTER) 
+
 
     def set_brands(self, wanted_brands):
         try:
@@ -227,8 +217,8 @@ class ShoppingBot:
         self.driver.get("https://www.zalando-lounge.pl")
        
         # Wait for cookies banner and close it
-        # WebDriverWait(self.driver, 20).until \
-        #     (EC.element_to_be_clickable((By.XPATH, '//*[@id=\"uc-btn-accept-banner\"]'))).click()
+        WebDriverWait(self.driver, 20).until \
+            (EC.element_to_be_clickable((By.XPATH, '//*[@id=\"uc-btn-accept-banner\"]'))).click()
     
         # Open loggin panel
         self.driver.find_element_by_xpath("/html/body/div[2]/div/div[2]/div[1]/div/div/div[1]/div/div/div[2]/div/div/button").click()
@@ -247,7 +237,7 @@ class ShoppingBot:
         element.submit()
 
         #Go to selected event
-        campaign_id = 'campaign-ZZO105N'
+        campaign_id = 'campaign-ZZO10BY'
         
         action = ActionChains(self.driver)
         first_compaing = WebDriverWait(self.driver, 20).until(EC.presence_of_element_located((By.XPATH,'//*[@id="'+campaign_id+'"]/div')))
@@ -259,12 +249,45 @@ class ShoppingBot:
         action.move_to_element(second_compaing).perform()
         second_compaing.click()
 
-        price = '150'
-        self.driver.find_element_by_xpath('//*[@id="inner-wrapper"]/section/div[2]/nav/a[5]/div/span').click()
-        price_max=self.driver.find_element_by_xpath('//*[@id="price-max"]')
-        sleep(1)
-        self.driver.execute_script('document.getElementById("price-max").value = "'+price+'";')
-        price_max.send_keys(Keys.ENTER)
+        # Wait until filters load
+        WebDriverWait(self.driver, 20).until(EC.presence_of_element_located((By.XPATH,'//div[starts-with(@class, "filters")]')))
+
+
+        # we have to remove  last char in string
+        # for example if someone input bluza or bluzy.
+        # bluz is preffix that occurs in both single and multiple form.
+        
+        # TODO: function to decide what is in catergories [ SPODNIE, GORNE CZESCI GARDEROBY, BIELIZNA]
+
+        selected_categories = adjust_categories(['koszule', 'koszulki'])
+        selected_sizes = ['M', 'L']
+        selected_brands = ['GAP', 'Fila', 'Kappa', 'Lee']
+
+        # sometimes banner pop up
+        self.turn_off_banner()
+        i = 1
+
+        while i:
+            try:
+                element = "/html/body/div[2]/div/div/section/div[2]/nav/a[" + str(i) + "]"
+                sample = self.driver.find_element_by_xpath(element)
+                i += 1
+                print(sample)
+                if sample.text == 'KATEGORIE':
+                    sample.click()
+                    # self.set_categories(selected_categories)
+                elif sample.text == 'ROZMIAR':
+                    sample.click()
+                    self.set_sizes(selected_sizes)
+                elif sample.text == 'MARKA':
+                    sample.click()
+                    # self.set_brands(selected_brands)
+                elif sample.text == 'CENA':
+                    sample.click()
+                    self.set_max_per_item(120)
+            except NoSuchElementException:
+                break
+
 
         self.scroll_down()
 
@@ -276,49 +299,20 @@ class ShoppingBot:
 
         for href in hrefs:
             self.driver.get(href)
-            element = WebDriverWait(self.driver, 20).until \
+
+            WebDriverWait(self.driver, 5).until \
+            (EC.presence_of_element_located((By.XPATH, "//div[starts-with(@class, 'ArticleSizestyles')]")))
+
+            element = WebDriverWait(self.driver, 5).until \
+            (EC.element_to_be_clickable((By.XPATH, '//span[contains(@class, "Size") and text()="M"]'))).click()
+
+            element = WebDriverWait(self.driver, 5).until \
             (EC.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]/div[1]/div[1]/span'))).click()
-            self.driver.back()
-            sleep(1)
+            
+            
 
 
-        # we have to remove  last char in string
-        # for example if someone input bluza or bluzy.
-        # bluz is preffix that occurs in both single and multiple form.
-        selected_categories = adjust_categories(['koszule', 'koszulki', 'odzież'])
-        # TODO: function to decide what is in catergories [ SPODNIE, GORNE CZESCI GARDEROBY, BIELIZNA]
-        selected_sizes = ['M', 'L']
-        selected_brands = ['GAP', 'Fila', 'Kappa', 'Lee']
-        # sometimes banner pop up
-        self.turn_off_banner()
-        i = 1
-        try:
-            element_present = EC.presence_of_element_located(
-                (By.XPATH, "/html/body/div[2]/div/div/section/div[2]/nav/a[1]"))
-            WebDriverWait(self.driver, 15).until(element_present)
-        except TimeoutException:
-            print("Timed out waiting for page to load")
-
-        while i:
-            try:
-                element = "/html/body/div[2]/div/div/section/div[2]/nav/a[" + str(i) + "]"
-                sample = self.driver.find_element_by_xpath(element)
-                i += 1
-                print(sample)
-                if sample.text == 'KATEGORIE':
-                    sample.click()
-                    self.set_categories(selected_categories)
-                elif sample.text == 'ROZMIAR':
-                    sample.click()
-                    self.set_sizes(selected_sizes)
-                elif sample.text == 'MARKA':
-                    sample.click()
-                    self.set_brands(selected_brands)
-                elif sample.text == 'CENA':
-                    sample.click()
-                    self.set_max_per_item(120)
-            except NoSuchElementException:
-                break
+        
         print('finished')
 
 
