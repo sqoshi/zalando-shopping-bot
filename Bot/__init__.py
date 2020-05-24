@@ -6,7 +6,7 @@ from datetime import datetime
 from time import sleep
 
 from selenium import webdriver
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -101,6 +101,35 @@ class ShoppingBot:
             except NoSuchElementException:
                 break
 
+    def wait_for(self):
+        try:
+            WebDriverWait(self.driver, 1).until \
+            (EC.presence_of_element_located((By.XPATH, '//div[contains(@class,"sizeOverlayDialog")]')))
+                  
+            WebDriverWait(self.driver, 5).until \
+            (EC.element_to_be_clickable((By.XPATH, '//span[text() = "Mimo to zamawiam oba rozmiary"]'))).click()
+
+            WebDriverWait(self.driver, 5).until \
+            (EC.element_to_be_clickable((By.XPATH, '//span[text() = "Potwierdź"]'))).click()
+        except TimeoutException:
+
+            element = WebDriverWait(self.driver, 5).until \
+                (EC.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]'))).click()
+            self.wait_for()
+           
+    def wait_for_atcButton(self):
+        try:
+            # WebDriverWait(self.driver, 5).until \
+            # (EC.presence_of_element_located((By.XPATH, '//div[contains(@class, "animation-ball") and starts-with(@style, "display: none;") ]')))
+            WebDriverWait(self.driver, 5).until \
+            (EC.presence_of_element_located((By.XPATH, '//div[contains(@class, "animation-ball") and starts-with(@style, "transf") ]')))
+            WebDriverWait(self.driver, 5).until \
+            (EC.presence_of_element_located((By.XPATH, '//div[contains(@class, "animation-ball") and starts-with(@style, "display: none;") ]')))
+            
+        except TimeoutException:
+            print('atcBtn')
+
+
     def __init__(self, email, password, sizes_list, brands_list, campaign_id, max_per_item):
         options = Options()
         # options.add_argument("--disable-notifications")
@@ -170,25 +199,72 @@ class ShoppingBot:
                     self.set_max_per_item(max_per_item)
             except NoSuchElementException:
                 break
+
         self.scroll_down()
+
+        #Store all href for availables items
         hrefs = []
+
         all_items = self.driver.find_elements_by_xpath("//div[starts-with(@id, 'article-')]/a")
         for item in all_items:
-            hrefs.append(item.get_attribute("href"))
-        print(hrefs)
-        """
+            href = item.get_attribute("href")
+            if (len(self.driver.find_elements_by_xpath('//a[@href="' + href[29:] + '"]/div[3]')) == 0):
+                hrefs.append(href)
+
+
+        selected_sizes = sizes_list
+        # Add all items from hrefs to cart
         for href in hrefs:
             self.driver.get(href)
-            WebDriverWait(self.driver, 5).until \
-                (EC.presence_of_element_located((By.XPATH, "//div[starts-with(@class, 'ArticleSizestyles')]")))
 
             WebDriverWait(self.driver, 5).until \
-                (EC.element_to_be_clickable((By.XPATH, '//span[contains(@class, "Size") and text()="M"]'))).click()
+            (EC.presence_of_element_located((By.XPATH, "//div[starts-with(@class, 'ArticleSizestyles')]")))
 
-            WebDriverWait(self.driver, 5).until \
-                (EC.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]/div[1]/div[1]/span'))).click()
-        """
+            selected = 0
+
+            for size in selected_sizes:
+                element = WebDriverWait(self.driver, 5).until \
+                (EC.element_to_be_clickable((By.XPATH, '//span[contains(@class, "Size") and text()="' + size + '"]')))
+                #addtoCartButton = WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]')))
+                parent = element.find_element_by_xpath("./..")
+                is_clickable = parent.value_of_css_property("color")               
+                if is_clickable == 'rgb(53, 53, 53)':
+                    ammount = -1
+                    try:
+                        ammount_span = parent.find_element_by_xpath('./span[2]')
+                        ammount = int(ammount_span.text[-1:])
+                    except NoSuchElementException:  
+                        ammount = 5
+
+                    element.click()
+                    selected = selected + 1
+                    for x in range(ammount):
+                        WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]'))).click()
+                         
+                        if selected==2 and x==0:
+                            self.wait_for()
+                            WebDriverWait(self.driver, 20).until \
+                            (EC.invisibility_of_element_located((By.XPATH, '//div[contains(@class,"styles___backdrop")]')))
+                        else:
+                            self.wait_for_atcButton()#sleep(1.5)
+
+                # if selected == 1: ZZO125F
+                #     sleep(.7)
+                    # WebDriverWait(self.driver, 5).until \
+                    # (EC.presence_of_element_located((By.XPATH, '//div[contains(@class, "animation-ball") and starts-with(@style, "display: none;") ]')))
+                    # WebDriverWait(self.driver, 5).until \
+                    # (EC.presence_of_element_located((By.XPATH, '//div[contains(@class, "animation-ball") and starts-with(@style, "transf") ]')))
+                    # WebDriverWait(self.driver, 5).until \
+                    # (EC.presence_of_element_located((By.XPATH, '//div[contains(@class, "animation-ball") and starts-with(@style, "display: none;") ]')))
+                # if selected==2:
+                #     print("no nie dziala")
+                #     self.wait_for()
         print('finished')
+                    
+        
+   
+
+
 
 
 datetime_str = '24/05/20 15:31:00'
@@ -198,4 +274,4 @@ datetime_object = datetime.strptime(datetime_str, '%d/%m/%y %H:%M:%S')
 print(type(datetime_object))
 print(datetime_object)  # printed in default format
 
-# ShoppingBot("piotrpopisgames@gmail.com", 'testertest')
+# ShoppingBot("piotrpopisgames@gmail.com", 'testertest') ZZO0ZLB
