@@ -70,6 +70,8 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
     def start_bot(self):
         print('Creating Bot object start ')
         # TODO : TypeError: 'QListWidget' object is not iterable
+        if self.checkBox_2 ==1:
+
         ShoppingBot("piotrpopisgames@gmail.com", 'testertest', qlist_to_list(self.sizes_list),
                     qlist_to_list(self.brands_list), self.textEdit.toPlainText(), self.lcdNumber.intValue())
 
@@ -229,14 +231,3 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.actionReset_preferences.setText(_translate("MainWindow", "Reset preferences"))
         self.actionInfo.setText(_translate("MainWindow", "Info"))
         self.actionDonate.setText(_translate("MainWindow", "Donate"))
-
-"""
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow, 'franek0', 'haslo')
-    MainWindow.show()
-    sys.exit(app.exec_())
-"""

@@ -1,6 +1,6 @@
 import os
 
-files = [f for f in os.listdir('.') if os.path.isfile(f)]
+files = [f for f in os.listdir('..') if os.path.isfile(f)]
 for f in files:
     if ".ui" in f:
         print(f[:len(f) - 3])

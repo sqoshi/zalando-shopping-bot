@@ -5,10 +5,10 @@ from PyQt5 import QtWidgets, QtGui
 from gui.Login_Panel import Ui_LoginPanel
 from gui.Main_Window import Ui_MainWindow
 
-""" Switching between frames."""
-
 
 class Controller:
+    """ Switching between frames."""
+
     def __init__(self):
         self.lp = Ui_LoginPanel()
         self.LoginPanel = QtWidgets.QMainWindow()
@@ -28,7 +28,7 @@ class Controller:
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
-    app.setWindowIcon(QtGui.QIcon('icon.png'))
+    app.setWindowIcon(QtGui.QIcon('features/icon.png'))
     controller = Controller()
     controller.show_login()
     sys.exit(app.exec_())
