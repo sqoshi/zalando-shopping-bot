@@ -30,7 +30,8 @@ def qlist_to_list(listWidget):
 
 def get_delay(later_time):
     first_time = datetime.now()
-    f_a = str(first_time)[:16].replace("-", " ").replace(":", " ").split() + ['00']
+    print(first_time)
+    f_a = str(first_time)[:19].replace("-", " ").replace(":", " ").split()
     l_a = [str(x) for x in later_time.replace(".", " ").replace(":", " ").split()] + ['00']
     f_a[0], f_a[2] = f_a[2], f_a[0]
     f_a[2], l_a[2] = f_a[2][:2], l_a[2][:2]
@@ -42,7 +43,7 @@ def get_delay(later_time):
     print(f_str)
     later = datetime.strptime(str(l_str), '%d/%m/%y %H:%M:%S')
     first = datetime.strptime(f_str, '%d/%m/%y %H:%M:%S')
-    return millis_interval(first, later)
+    return seconds_interval(first, later)
 
 
 class Ui_MainWindow(PyQt5.QtCore.QObject):
@@ -103,7 +104,7 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         else:
             delay = 0
         time.sleep(delay)
-        ShoppingBot("piotrpopisgames@gmail.com", 'testertest', qlist_to_list(self.sizes_list),
+        ShoppingBot("piotrpopisgames@gmail.com", 'testertest', qlist_to_list(self.categories_list), qlist_to_list(self.sizes_list),
                     qlist_to_list(self.brands_list), self.textEdit.toPlainText(), self.lcdNumber.intValue())
 
     def stop_bot(self):

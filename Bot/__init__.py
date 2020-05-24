@@ -130,7 +130,7 @@ class ShoppingBot:
             print('atcBtn')
 
 
-    def __init__(self, email, password, sizes_list, brands_list, campaign_id, max_per_item):
+    def __init__(self, email, password, categories_list, sizes_list, brands_list, campaign_id, max_per_item):
         options = Options()
         # options.add_argument("--disable-notifications")
         self.driver = webdriver.Firefox(options=options)
@@ -208,9 +208,12 @@ class ShoppingBot:
         all_items = self.driver.find_elements_by_xpath("//div[starts-with(@id, 'article-')]/a")
         for item in all_items:
             href = item.get_attribute("href")
+            item_parent = item.find_element_by_xpath("./..")
+            item_description = item_parent.find_element_by_xpath('./div/div[1]').text
+            #print(item_description)
             if (len(self.driver.find_elements_by_xpath('//a[@href="' + href[29:] + '"]/div[3]')) == 0):
-                hrefs.append(href)
-
+                if any(category_name.lower() in item_description.lower() for category_name in categories_list):
+                    hrefs.append(href)
 
         selected_sizes = sizes_list
         # Add all items from hrefs to cart
@@ -268,7 +271,6 @@ class ShoppingBot:
 
 
 datetime_str = '24/05/20 15:31:00'
-
 datetime_object = datetime.strptime(datetime_str, '%d/%m/%y %H:%M:%S')
 
 print(type(datetime_object))
