@@ -1,3 +1,6 @@
+import time
+from datetime import datetime
+
 import PyQt5
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWidgets import QInputDialog, QLineEdit
@@ -12,8 +15,34 @@ def remove_item_qlist(given_qlist):
         given_qlist.takeItem(given_qlist.row(item))
 
 
+def seconds_interval(start, end):
+    """start and end are datetime instances"""
+    diff = end - start
+    millis = diff.days * 24 * 60 * 60 * 1000
+    millis += diff.seconds * 1000
+    millis += diff.microseconds / 1000
+    return millis / 1000
+
+
 def qlist_to_list(listWidget):
     return [str(listWidget.item(i).text()) for i in range(listWidget.count())]
+
+
+def get_delay(later_time):
+    first_time = datetime.now()
+    f_a = str(first_time)[:16].replace("-", " ").replace(":", " ").split() + ['00']
+    l_a = [str(x) for x in later_time.replace(".", " ").replace(":", " ").split()] + ['00']
+    f_a[0], f_a[2] = f_a[2], f_a[0]
+    f_a[2], l_a[2] = f_a[2][:2], l_a[2][:2]
+    l_str = l_a[0] + '/' + l_a[1] + '/' + l_a[2] + " " + l_a[3] + ":" + l_a[4] + ":" + l_a[5]
+    f_str = f_a[0] + '/' + f_a[1] + '/' + f_a[2] + " " + f_a[3] + ":" + f_a[4] + ":" + f_a[5]
+    print(l_a)
+    print(str(l_str))
+    print(f_a)
+    print(f_str)
+    later = datetime.strptime(str(l_str), '%d/%m/%y %H:%M:%S')
+    first = datetime.strptime(f_str, '%d/%m/%y %H:%M:%S')
+    return millis_interval(first, later)
 
 
 class Ui_MainWindow(PyQt5.QtCore.QObject):
@@ -25,7 +54,7 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.actionReset_preferences = QtWidgets.QAction(MainWindow)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
-        self.checkBox_2 = QtWidgets.QCheckBox(self.centralwidget)
+        self.check_box_date = QtWidgets.QCheckBox(self.centralwidget)
         self.del_account_btn = QtWidgets.QPushButton(self.centralwidget)
         self.add_account_btn = QtWidgets.QPushButton(self.centralwidget)
         self.label_10 = QtWidgets.QLabel(self.centralwidget)
@@ -69,9 +98,11 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
 
     def start_bot(self):
         print('Creating Bot object start ')
-        # TODO : TypeError: 'QListWidget' object is not iterable
-        if self.checkBox_2 ==1:
-
+        if self.check_box_date.isChecked():
+            delay = get_delay(self.dateTimeEdit.textFromDateTime(self.dateTimeEdit.dateTime()))
+        else:
+            delay = 0
+        time.sleep(delay)
         ShoppingBot("piotrpopisgames@gmail.com", 'testertest', qlist_to_list(self.sizes_list),
                     qlist_to_list(self.brands_list), self.textEdit.toPlainText(), self.lcdNumber.intValue())
 
@@ -184,8 +215,8 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.add_account_btn.clicked.connect(self.add_account)
         self.del_account_btn.setGeometry(QtCore.QRect(690, 130, 141, 41))
         self.del_account_btn.setObjectName("del_account_btn")
-        self.checkBox_2.setGeometry(QtCore.QRect(620, 340, 91, 31))
-        self.checkBox_2.setObjectName("checkBox_2")
+        self.check_box_date.setGeometry(QtCore.QRect(620, 340, 91, 31))
+        self.check_box_date.setObjectName("check_box_date")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
@@ -226,7 +257,7 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.label_10.setText(_translate("MainWindow", "Accounts"))
         self.add_account_btn.setText(_translate("MainWindow", "Add"))
         self.del_account_btn.setText(_translate("MainWindow", "Delete"))
-        self.checkBox_2.setText(_translate("MainWindow", "Date"))
+        self.check_box_date.setText(_translate("MainWindow", "Date"))
         self.menuMenu.setTitle(_translate("MainWindow", "Menu"))
         self.actionReset_preferences.setText(_translate("MainWindow", "Reset preferences"))
         self.actionInfo.setText(_translate("MainWindow", "Info"))

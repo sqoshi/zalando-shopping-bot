@@ -2,6 +2,7 @@
 # shopping123bot
 import smtplib
 import sys
+from datetime import datetime
 from time import sleep
 
 from selenium import webdriver
@@ -188,5 +189,13 @@ class ShoppingBot:
                 (EC.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]/div[1]/div[1]/span'))).click()
         """
         print('finished')
+
+
+datetime_str = '24/05/20 15:31:00'
+
+datetime_object = datetime.strptime(datetime_str, '%d/%m/%y %H:%M:%S')
+
+print(type(datetime_object))
+print(datetime_object)  # printed in default format
 
 # ShoppingBot("piotrpopisgames@gmail.com", 'testertest')
