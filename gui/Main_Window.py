@@ -1,3 +1,5 @@
+import gc
+import multiprocessing
 import time
 from datetime import datetime
 
@@ -32,7 +34,7 @@ def seconds_interval(start, end):
     return millis
 
 
-def qlist_to_list(listWidget):
+def convert_qlist(listWidget):
     """
     Convert qwidgetlist to list
     :param listWidget:
@@ -81,6 +83,9 @@ def get_integer():
 
 
 class Ui_MainWindow(PyQt5.QtCore.QObject):
+    def threaded_function(self):
+        self.pp.start_bot()
+
     def configure_slider(self):
         """
         Configures slider
@@ -101,6 +106,7 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         """
         super(Ui_MainWindow, self).__init__()
         MainWindow.setFixedSize(980, 538)
+        self.sb = None
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.actionDonate = QtWidgets.QAction(MainWindow)
         self.actionInfo = QtWidgets.QAction(MainWindow)
@@ -165,18 +171,26 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         :return:
         """
         print('Creating Bot object start ')
+        self.pp = ShoppingBot("piotrpopisgames@gmail.com", 'testertest', convert_qlist(self.categories_list),
+                              convert_qlist(self.sizes_list),
+                              convert_qlist(self.brands_list), self.textEdit.toPlainText(),
+                              self.lcdNumber.intValue())
         if self.check_box_date.isChecked():
             delay = get_delay(self.dateTimeEdit.textFromDateTime(self.dateTimeEdit.dateTime()))
         else:
             delay = 0
         time.sleep(delay)
-        ShoppingBot("piotrpopisgames@gmail.com", 'testertest', qlist_to_list(self.categories_list),
-                    qlist_to_list(self.sizes_list),
-                    qlist_to_list(self.brands_list), self.textEdit.toPlainText(), self.lcdNumber.intValue())
+        self.process = multiprocessing.Process(target=self.threaded_function)
+        self.process.start()
+        print('stworzylem')
 
     def stop_bot(self):
-        # TODO : IMPLEMENT
-        print('Stopping bot')
+        print('killing')
+        quiter = multiprocessing.Process(target=self.pp.driver.quit)
+        quiter.start()
+        self.process.terminate()
+        # self.process.join()
+        gc.collect()
 
     def add_size(self):
         """

@@ -104,36 +104,46 @@ class ShoppingBot:
     def wait_for(self):
         try:
             WebDriverWait(self.driver, 1).until \
-            (EC.presence_of_element_located((By.XPATH, '//div[contains(@class,"sizeOverlayDialog")]')))
-                  
-            WebDriverWait(self.driver, 5).until \
-            (EC.element_to_be_clickable((By.XPATH, '//span[text() = "Mimo to zamawiam oba rozmiary"]'))).click()
+                (EC.presence_of_element_located((By.XPATH, '//div[contains(@class,"sizeOverlayDialog")]')))
 
             WebDriverWait(self.driver, 5).until \
-            (EC.element_to_be_clickable((By.XPATH, '//span[text() = "Potwierdź"]'))).click()
+                (EC.element_to_be_clickable((By.XPATH, '//span[text() = "Mimo to zamawiam oba rozmiary"]'))).click()
+
+            WebDriverWait(self.driver, 5).until \
+                (EC.element_to_be_clickable((By.XPATH, '//span[text() = "Potwierdź"]'))).click()
         except TimeoutException:
 
             element = WebDriverWait(self.driver, 5).until \
                 (EC.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]'))).click()
             self.wait_for()
-           
+
     def wait_for_atcButton(self):
         try:
             # WebDriverWait(self.driver, 5).until \
             # (EC.presence_of_element_located((By.XPATH, '//div[contains(@class, "animation-ball") and starts-with(@style, "display: none;") ]')))
             WebDriverWait(self.driver, 5).until \
-            (EC.presence_of_element_located((By.XPATH, '//div[contains(@class, "animation-ball") and starts-with(@style, "transf") ]')))
+                    (EC.presence_of_element_located(
+                    (By.XPATH, '//div[contains(@class, "animation-ball") and starts-with(@style, "transf") ]')))
             WebDriverWait(self.driver, 5).until \
-            (EC.presence_of_element_located((By.XPATH, '//div[contains(@class, "animation-ball") and starts-with(@style, "display: none;") ]')))
-            
+                    (EC.presence_of_element_located(
+                    (By.XPATH, '//div[contains(@class, "animation-ball") and starts-with(@style, "display: none;") ]')))
+
         except TimeoutException:
             print('atcBtn')
 
-
-    def __init__(self, email, password, categories_list, sizes_list, brands_list, campaign_id, max_per_item):
+    def __init__(self, em, pwd, cats, sizs, brds, cid, mpi):
         options = Options()
         # options.add_argument("--disable-notifications")
         self.driver = webdriver.Firefox(options=options)
+        self.email = em
+        self.password = pwd
+        self.categories_list = cats
+        self.sizes_list = sizs
+        self.brands_list = brds
+        self.campaign_id = cid
+        self.max_per_item = mpi
+
+    def start_bot(self):
 
         # Open website
         self.driver.get("https://www.zalando-lounge.pl")
@@ -149,26 +159,27 @@ class ShoppingBot:
         # email
         element = WebDriverWait(self.driver, 20).until \
             (EC.element_to_be_clickable((By.XPATH, '//*[@id="form-email"]')))
-        element.send_keys(email)
+        element.send_keys(self.email)
 
         # password
         element = WebDriverWait(self.driver, 20).until \
             (EC.element_to_be_clickable((By.XPATH, '//*[@id="form-password"]')))
-        element.send_keys(password)
+        element.send_keys(self.password)
 
         # loggin in
         element.submit()
 
         # Go to selected event
-        campaign_id = 'campaign-' + campaign_id
+        self.campaign_id = 'campaign-' + self.campaign_id
 
         action = ActionChains(self.driver)
         first_compaing = WebDriverWait(self.driver, 20).until(
-            EC.presence_of_element_located((By.XPATH, '//*[@id="' + campaign_id + '"]/div')))
+            EC.presence_of_element_located((By.XPATH, '//*[@id="' + self.campaign_id + '"]/div')))
         self.scroll_shim(first_compaing)
         action.move_to_element(first_compaing).perform()
         second_compaing = WebDriverWait(self.driver, 20).until(
-            EC.presence_of_element_located((By.XPATH, '//*[@id="' + campaign_id + '"]/div/div[1]/div/button/span')))
+            EC.presence_of_element_located(
+                (By.XPATH, '//*[@id="' + self.campaign_id + '"]/div/div[1]/div/button/span')))
         action.move_to_element(second_compaing).perform()
         second_compaing.click()
 
@@ -190,19 +201,19 @@ class ShoppingBot:
                     pass
                 elif sample.text == 'ROZMIAR':
                     sample.click()
-                    self.set_sizes(sizes_list)
+                    self.set_sizes(self.sizes_list)
                 elif sample.text == 'MARKA':
                     sample.click()
-                    self.set_brands(brands_list)
+                    self.set_brands(self.brands_list)
                 elif sample.text == 'CENA':
                     sample.click()
-                    self.set_max_per_item(max_per_item)
+                    self.set_max_per_item(self.max_per_item)
             except NoSuchElementException:
                 break
 
         self.scroll_down()
 
-        #Store all href for availables items
+        # Store all href for availables items
         hrefs = []
 
         all_items = self.driver.find_elements_by_xpath("//div[starts-with(@id, 'article-')]/a")
@@ -210,64 +221,62 @@ class ShoppingBot:
             href = item.get_attribute("href")
             item_parent = item.find_element_by_xpath("./..")
             item_description = item_parent.find_element_by_xpath('./div/div[1]').text
-            #print(item_description)
+            # print(item_description)
             if (len(self.driver.find_elements_by_xpath('//a[@href="' + href[29:] + '"]/div[3]')) == 0):
-                if any(category_name.lower() in item_description.lower() for category_name in categories_list):
+                if any(category_name.lower() in item_description.lower() for category_name in self.categories_list):
                     hrefs.append(href)
 
-        selected_sizes = sizes_list
+        selected_sizes = self.sizes_list
         # Add all items from hrefs to cart
         for href in hrefs:
             self.driver.get(href)
 
             WebDriverWait(self.driver, 5).until \
-            (EC.presence_of_element_located((By.XPATH, "//div[starts-with(@class, 'ArticleSizestyles')]")))
+                (EC.presence_of_element_located((By.XPATH, "//div[starts-with(@class, 'ArticleSizestyles')]")))
 
             selected = 0
 
             for size in selected_sizes:
                 element = WebDriverWait(self.driver, 5).until \
-                (EC.element_to_be_clickable((By.XPATH, '//span[contains(@class, "Size") and text()="' + size + '"]')))
-                #addtoCartButton = WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]')))
+                        (EC.element_to_be_clickable(
+                        (By.XPATH, '//span[contains(@class, "Size") and text()="' + size + '"]')))
+                # addtoCartButton = WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]')))
                 parent = element.find_element_by_xpath("./..")
-                is_clickable = parent.value_of_css_property("color")               
+                is_clickable = parent.value_of_css_property("color")
                 if is_clickable == 'rgb(53, 53, 53)':
                     ammount = -1
                     try:
                         ammount_span = parent.find_element_by_xpath('./span[2]')
                         ammount = int(ammount_span.text[-1:])
-                    except NoSuchElementException:  
+                    except NoSuchElementException:
                         ammount = 5
 
                     element.click()
                     selected = selected + 1
                     for x in range(ammount):
-                        WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]'))).click()
-                         
-                        if selected==2 and x==0:
+                        WebDriverWait(self.driver, 5).until(
+                            EC.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]'))).click()
+
+                        if selected == 2 and x == 0:
                             self.wait_for()
                             WebDriverWait(self.driver, 20).until \
-                            (EC.invisibility_of_element_located((By.XPATH, '//div[contains(@class,"styles___backdrop")]')))
+                                    (EC.invisibility_of_element_located(
+                                    (By.XPATH, '//div[contains(@class,"styles___backdrop")]')))
                         else:
-                            self.wait_for_atcButton()#sleep(1.5)
+                            self.wait_for_atcButton()  # sleep(1.5)
 
                 # if selected == 1: ZZO125F
                 #     sleep(.7)
-                    # WebDriverWait(self.driver, 5).until \
-                    # (EC.presence_of_element_located((By.XPATH, '//div[contains(@class, "animation-ball") and starts-with(@style, "display: none;") ]')))
-                    # WebDriverWait(self.driver, 5).until \
-                    # (EC.presence_of_element_located((By.XPATH, '//div[contains(@class, "animation-ball") and starts-with(@style, "transf") ]')))
-                    # WebDriverWait(self.driver, 5).until \
-                    # (EC.presence_of_element_located((By.XPATH, '//div[contains(@class, "animation-ball") and starts-with(@style, "display: none;") ]')))
+                # WebDriverWait(self.driver, 5).until \
+                # (EC.presence_of_element_located((By.XPATH, '//div[contains(@class, "animation-ball") and starts-with(@style, "display: none;") ]')))
+                # WebDriverWait(self.driver, 5).until \
+                # (EC.presence_of_element_located((By.XPATH, '//div[contains(@class, "animation-ball") and starts-with(@style, "transf") ]')))
+                # WebDriverWait(self.driver, 5).until \
+                # (EC.presence_of_element_located((By.XPATH, '//div[contains(@class, "animation-ball") and starts-with(@style, "display: none;") ]')))
                 # if selected==2:
                 #     print("no nie dziala")
                 #     self.wait_for()
         print('finished')
-                    
-        
-   
-
-
 
 
 datetime_str = '24/05/20 15:31:00'
