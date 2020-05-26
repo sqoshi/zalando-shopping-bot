@@ -8,7 +8,6 @@ from gui.Main_Window import Ui_MainWindow
 
 class Controller:
     """ Switching between frames."""
-
     def __init__(self):
         self.lp = Ui_LoginPanel()
         self.LoginPanel = QtWidgets.QMainWindow()

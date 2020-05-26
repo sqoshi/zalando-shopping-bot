@@ -5,7 +5,7 @@ from PyQt5 import QtWidgets, QtGui
 from PyQt5.QtWidgets import QLineEdit
 
 
-class Ui_Registration:
+class Ui_Registration(QtWidgets.QMainWindow):
     def __init__(self, RegistrationPanel):
         super(Ui_Registration, self).__init__()
         self.statusbar = QtWidgets.QStatusBar(RegistrationPanel)
@@ -21,8 +21,7 @@ class Ui_Registration:
         RegistrationPanel.setObjectName("RegistrationPanel")
         RegistrationPanel.resize(1000, 548)
         self.centralwidget.setObjectName("centralwidget")
-        RegistrationPanel.setStyleSheet(
-            "QWidget#RegistrationPanel {border-image: url(back.png) 0 0 0 0 stretch stretch;}")
+
         self.label.setGeometry(QtCore.QRect(360, 130, 41, 17))
         self.label.setObjectName("label")
         self.label_2.setGeometry(QtCore.QRect(550, 210, 67, 17))
@@ -50,6 +49,8 @@ class Ui_Registration:
     def retranslateUi(self, RegistrationPanel):
         _translate = QtCore.QCoreApplication.translate
         RegistrationPanel.setWindowTitle(_translate("RegistrationPanel", "RegistrationPanel"))
+        RegistrationPanel.setStyleSheet(
+            "QWidget#RegistrationPanel {border-image: url(back.png) 0 0 0 0 stretch stretch;}")
         self.label.setText(_translate("RegistrationPanel", "Login"))
         self.label.setStyleSheet("QLabel { background-color : red; color : white; }")
         self.label_2.setStyleSheet("QLabel { background-color : red; color : white; }")
@@ -59,7 +60,7 @@ class Ui_Registration:
     def register(self):
         print('register')
 
-
+"""
 def main():
     app = QtWidgets.QApplication(sys.argv)
     app.setWindowIcon(QtGui.QIcon('features/icon.png'))
@@ -71,3 +72,4 @@ def main():
 
 
 main()
+"""
