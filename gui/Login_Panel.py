@@ -32,7 +32,7 @@ class Ui_LoginPanel(PyQt5.QtCore.QObject):
         self.start_btn = QtWidgets.QPushButton(self.centralwidget)
         self.start_btn.setGeometry(QtCore.QRect(660, 370, 251, 81))
         self.start_btn.setObjectName("start_btn")
-        self.start_btn.clicked.connect(self.login)
+        self.start_btn.clicked.connect(self.log_in)
         LoginPanel.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(LoginPanel)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1000, 22))
@@ -51,7 +51,7 @@ class Ui_LoginPanel(PyQt5.QtCore.QObject):
         self.label_2.setText(_translate("LoginPanel", "Password"))
         self.start_btn.setText(_translate("LoginPanel", "Login"))
 
-    def login(self):
+    def log_in(self):
         if self.textEdit.toPlainText() == "" or '@' not in self.textEdit.toPlainText() or self.textEdit_2.text() == "":
             error_dialog = QtWidgets.QErrorMessage()
             error_dialog.showMessage('You need to input e-mail from zalando longue account!')
