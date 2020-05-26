@@ -30,25 +30,30 @@ def qlist_to_list(listWidget):
 
 def get_delay(later_time):
     first_time = datetime.now()
-    print(first_time)
     f_a = str(first_time)[:19].replace("-", " ").replace(":", " ").split()
     l_a = [str(x) for x in later_time.replace(".", " ").replace(":", " ").split()] + ['00']
     f_a[0], f_a[2] = f_a[2], f_a[0]
     f_a[2], l_a[2] = f_a[2][:2], l_a[2][:2]
     l_str = l_a[0] + '/' + l_a[1] + '/' + l_a[2] + " " + l_a[3] + ":" + l_a[4] + ":" + l_a[5]
     f_str = f_a[0] + '/' + f_a[1] + '/' + f_a[2] + " " + f_a[3] + ":" + f_a[4] + ":" + f_a[5]
-    print(l_a)
-    print(str(l_str))
-    print(f_a)
-    print(f_str)
     later = datetime.strptime(str(l_str), '%d/%m/%y %H:%M:%S')
     first = datetime.strptime(f_str, '%d/%m/%y %H:%M:%S')
     return seconds_interval(first, later)
 
 
 class Ui_MainWindow(PyQt5.QtCore.QObject):
+    def configure_slider(self):
+        self.stuck_slider.setTickInterval(1)
+        self.stuck_slider.setSingleStep(1)
+        self.stuck_slider.setRange(1, 5)
+        self.stuck_slider.senderSignalIndex()
+        self.stuck_slider.setOrientation(QtCore.Qt.Vertical)
+        self.stuck_slider.setMinimum(1)
+        self.stuck_slider.setMaximum(5)
+
     def __init__(self, MainWindow):
         super(Ui_MainWindow, self).__init__()
+        MainWindow.setFixedSize(980, 538)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.actionDonate = QtWidgets.QAction(MainWindow)
         self.actionInfo = QtWidgets.QAction(MainWindow)
@@ -58,7 +63,12 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.check_box_date = QtWidgets.QCheckBox(self.centralwidget)
         self.del_account_btn = QtWidgets.QPushButton(self.centralwidget)
         self.add_account_btn = QtWidgets.QPushButton(self.centralwidget)
+        self.stuck_slider = QtWidgets.QSlider(self.centralwidget)
+        self.configure_slider()
+        self.stuck_slider.valueChanged[int].connect(self.set_stuck)
         self.label_10 = QtWidgets.QLabel(self.centralwidget)
+        self.up_range_stuck = QtWidgets.QLabel(self.centralwidget)
+        self.down_range_stuck = QtWidgets.QLabel(self.centralwidget)
         self.accounts_list = QtWidgets.QListWidget(self.centralwidget)
         self.set_max_price_btn = QtWidgets.QPushButton(self.centralwidget)
         self.del_category_btn = QtWidgets.QPushButton(self.centralwidget)
@@ -87,6 +97,9 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.stop_btn = QtWidgets.QPushButton(self.centralwidget)
         self.menuMenu = QtWidgets.QMenu(self.menubar)
 
+    def set_stuck(self, value):
+        print(value)
+
     def get_text(self):
         text, okPressed = QInputDialog.getText(QInputDialog(), "Get text", "Size:", QLineEdit.Normal, "")
         if okPressed and text != '':
@@ -104,7 +117,8 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         else:
             delay = 0
         time.sleep(delay)
-        ShoppingBot("piotrpopisgames@gmail.com", 'testertest', qlist_to_list(self.categories_list), qlist_to_list(self.sizes_list),
+        ShoppingBot("piotrpopisgames@gmail.com", 'testertest', qlist_to_list(self.categories_list),
+                    qlist_to_list(self.sizes_list),
                     qlist_to_list(self.brands_list), self.textEdit.toPlainText(), self.lcdNumber.intValue())
 
     def stop_bot(self):
@@ -146,7 +160,6 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
 
     def setupUi(self, MainWindow, login, password):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1000, 548)
         self.start_btn.setGeometry(QtCore.QRect(630, 400, 141, 41))
         self.start_btn.setObjectName("start_btn")
         self.start_btn.clicked.connect(self.start_bot)
@@ -165,6 +178,12 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.progressBar_2.setObjectName("progressBar_2")
         self.sizes_list.setGeometry(QtCore.QRect(20, 80, 241, 91))
         self.sizes_list.setObjectName("sizes_list")
+        self.stuck_slider.setGeometry(QtCore.QRect(880, 80, 41, 161))
+        self.stuck_slider.setObjectName("stuck_slider")
+        self.up_range_stuck.setGeometry(QtCore.QRect(875, 80, 11, 21))
+        self.up_range_stuck.setObjectName("up_range_stuck")
+        self.down_range_stuck.setGeometry(QtCore.QRect(875, 221, 11, 21))
+        self.down_range_stuck.setObjectName("down_range_stuck")
         self.textEdit.setGeometry(QtCore.QRect(440, 210, 171, 31))
         self.textEdit.setObjectName("textEdit")
         self.label_4.setGeometry(QtCore.QRect(450, 190, 101, 17))
@@ -243,10 +262,13 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.stop_btn.setText(_translate("MainWindow", "Stop"))
         self.label_4.setText(_translate("MainWindow", "Campaign ID"))
         self.label_5.setText(_translate("MainWindow", "Max Price( Per Item)"))
+        self.stuck_slider.setObjectName("Quantity")
         self.checkBox.setText(_translate("MainWindow", "Send Mail"))
         self.label_6.setText(_translate("MainWindow", "Email"))
         self.label_7.setText(_translate("MainWindow", "Sizes"))
         self.label_8.setText(_translate("MainWindow", "Brands"))
+        self.up_range_stuck.setText(_translate("MainWindow", "5 - "))
+        self.down_range_stuck.setText(_translate("MainWindow", "1 - "))
         self.add_size_btn.setText(_translate("MainWindow", "Add"))
         self.del_size_btn.setText(_translate("MainWindow", "Delete"))
         self.add_brand_btn.setText(_translate("MainWindow", "Add"))

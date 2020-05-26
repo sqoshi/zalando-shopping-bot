@@ -19,8 +19,8 @@ def sendMail(to, file):
     """Function to inform user about founded products by e-mail."""
     server = smtplib.SMTP("smtp.gmail.com", 587)
     server.starttls()
-    server.login(open('/home/piotr/Music/music/email', 'r').read(), open('/home/piotr/Music/music/mp3.txt', 'r').read())
-    from_mail = open('/home/piotr/Music/music/email', 'r').read()
+    server.login('info.shopping.bot@gmail.com', 'shopping123bot')
+    from_mail = 'info.shopping.bot@gmail.com'
     body = (open(file, "r").read())
     message = ("From: %s\r\n" % from_mail + "To: %s\r\n" % to + "Subject: %s\r\n" % '' + "\r\n" + body)
     server.sendmail(from_mail, to, message)
