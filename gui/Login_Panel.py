@@ -47,10 +47,10 @@ class Ui_LoginPanel(PyQt5.QtCore.QObject):
         self.statusbar = QtWidgets.QStatusBar(LoginPanel)
         self.statusbar.setObjectName("statusbar")
         LoginPanel.setStatusBar(self.statusbar)
-        self.retranslateUi(LoginPanel)
+        self.translate_ui(LoginPanel)
         QtCore.QMetaObject.connectSlotsByName(LoginPanel)
 
-    def retranslateUi(self, LoginPanel):
+    def translate_ui(self, LoginPanel):
         _translate = QtCore.QCoreApplication.translate
         LoginPanel.setWindowTitle(_translate("LoginPanel", "LoginPanel"))
         self.label.setText(_translate("LoginPanel", "Login"))
@@ -74,6 +74,6 @@ class Ui_LoginPanel(PyQt5.QtCore.QObject):
         self.main_frame = QtWidgets.QMainWindow()
         self.register_ui = Ui_Registration(self.main_frame)
         self.register_ui.setupUi(self.main_frame)
-        self.register_ui.retranslateUi(self.main_frame)
+        self.register_ui.translate_ui(self.main_frame)
         self.main_frame.show()
         # sys.exit(app.exec_())

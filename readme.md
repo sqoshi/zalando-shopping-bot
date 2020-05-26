@@ -101,6 +101,15 @@ limit ilości w koszyku był ogromny i była by równie duża ilość przedmiot�
 - sygnał informujący o zakończeniu działania botowania
 - kolekcjonowanie wszystkich itemów ( dynamiczny koszyk w interfejsie ( nie jestem pewny czy nie jest zbędny))
 - UPGRADE projekt.txt ( jest bardziej czytelny! :D)
+- modyfikacja gui 
+    - dodanie sliderów 
+- zaimplementowane zostały funkcjonalności buttonów start,stop
+- program teraz działa na osobnych subprocesach? 
+    - przy wciskaniu startu osobny procces tworzy nowy startuje nowy obiekt bota, (mozna ich otworzyc kilka
+na kilka konfiguracji)
+    - stop oprócz terminacji processu wyłącza przeglądarki i czyści zużywane wcześniej zasoby
+- potężny clean up w main_window - front
+- front -> dokumentacja funkcji
 
 # 2020.05.29 po VI tygodniu (koniec projektu)
 

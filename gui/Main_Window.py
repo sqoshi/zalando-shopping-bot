@@ -16,7 +16,8 @@ def remove_item_qlist(given_qlist):
     :return: removing item from qlist
     """
     listItems = given_qlist.selectedItems()
-    if not listItems: return
+    if not listItems:
+        return
     for item in listItems:
         given_qlist.takeItem(given_qlist.row(item))
 
@@ -105,7 +106,9 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         :param MainWindow:
         """
         super(Ui_MainWindow, self).__init__()
+        self.process = multiprocessing.Process(target=self.threaded_function)
         MainWindow.setFixedSize(980, 538)
+        self.stucks = 1
         self.sb = None
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.actionDonate = QtWidgets.QAction(MainWindow)
@@ -156,7 +159,7 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         :param value:
         :return:
         """
-        self.value = value
+        self.stucks = value
 
     def get_stuck(self):
         """
@@ -170,8 +173,7 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         Creates bot object and passes arguments.
         :return:
         """
-        print('Creating Bot object start ')
-        self.pp = ShoppingBot("piotrpopisgames@gmail.com", 'testertest', convert_qlist(self.categories_list),
+        self.sb = ShoppingBot("piotrpopisgames@gmail.com", 'testertest', convert_qlist(self.categories_list),
                               convert_qlist(self.sizes_list),
                               convert_qlist(self.brands_list), self.textEdit.toPlainText(),
                               self.lcdNumber.intValue())
@@ -180,16 +182,16 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         else:
             delay = 0
         time.sleep(delay)
-        self.process = multiprocessing.Process(target=self.threaded_function)
         self.process.start()
-        print('stworzylem')
 
     def stop_bot(self):
-        print('killing')
+        """
+        Terminating the subprocces of creation, and closes windows.
+        :return:
+        """
         quiter = multiprocessing.Process(target=self.pp.driver.quit)
         quiter.start()
         self.process.terminate()
-        # self.process.join()
         gc.collect()
 
     def add_size(self):
@@ -215,6 +217,12 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
 
     # TODO IMPLEMENT
     def add_account(self):
+        """
+        Add accounts to widget list and,
+        and login,passwords pairs to account list passed
+        to shopping bot
+        :return:
+        """
         print('Adding account')
 
     def set_max_price(self):
@@ -344,7 +352,7 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.menubar.setObjectName("menubar")
         self.menuMenu.setObjectName("menuMenu")
 
-    def connect_btns(self):
+    def connect_buttons(self):
         """
         connect buttons to functionalities
         :return:
@@ -383,7 +391,7 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         MainWindow.setObjectName("MainWindow")
         self.setup_labels()
         self.setup_geometry()
-        self.connect_btns()
+        self.connect_buttons()
         self.setup_obj_names()
         self.progressBar.setProperty("value", 24)
         self.progressBar_2.setProperty("value", 24)
@@ -391,10 +399,10 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         MainWindow.setCentralWidget(self.centralwidget)
         MainWindow.setStatusBar(self.statusbar)
         MainWindow.setMenuBar(self.menubar)
-        self.retranslateUi(MainWindow)
+        self.translate_ui(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-    def retranslateUi(self, MainWindow):
+    def translate_ui(self, MainWindow):
         """
         Assign correct words to automatically named
         objects. Readability improvement.+

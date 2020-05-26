@@ -43,10 +43,10 @@ class Ui_Registration(QtWidgets.QMainWindow):
         RegistrationPanel.setMenuBar(self.menubar)
         self.statusbar.setObjectName("statusbar")
         RegistrationPanel.setStatusBar(self.statusbar)
-        self.retranslateUi(RegistrationPanel)
+        self.translate_ui(RegistrationPanel)
         QtCore.QMetaObject.connectSlotsByName(RegistrationPanel)
 
-    def retranslateUi(self, RegistrationPanel):
+    def translate_ui(self, RegistrationPanel):
         _translate = QtCore.QCoreApplication.translate
         RegistrationPanel.setWindowTitle(_translate("RegistrationPanel", "RegistrationPanel"))
         RegistrationPanel.setStyleSheet(
