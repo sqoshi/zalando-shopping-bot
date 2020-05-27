@@ -111,7 +111,8 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.stucks = 1
         self.sb = None
         self.centralwidget = QtWidgets.QWidget(MainWindow)
-        self.actionDonate = QtWidgets.QAction(MainWindow)
+        self.actionSave = QtWidgets.QAction(MainWindow)
+        self.actionOpen = QtWidgets.QAction(MainWindow)
         self.actionInfo = QtWidgets.QAction(MainWindow)
         self.actionReset_preferences = QtWidgets.QAction(MainWindow)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
@@ -264,6 +265,20 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         else:
             pass
 
+    def reset_config(self):
+        print('reset')
+        self.categories_list.clear()
+        self.sizes_list.clear()
+        self.brands_list.clear()
+        self.accounts_list.clear()
+        self.textEdit.clear()
+        self.textEdit_3.clear()
+        self.stuck_slider.setValue(1)
+        self.progressBar.setProperty("value", 0)
+        self.progressBar_2.setProperty("value", 0)
+        self.dateTimeEdit.set()
+        self.lcdNumber.display('0')
+
     def setup_labels(self):
         """
         Creates all labels
@@ -351,6 +366,10 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.statusbar.setObjectName("statusbar")
         self.menubar.setObjectName("menubar")
         self.menuMenu.setObjectName("menuMenu")
+        self.actionReset_preferences.setObjectName("actionReset_preferences")
+        self.actionInfo.setObjectName("actionInfo")
+        self.actionSave.setObjectName("actionSave")
+        self.actionOpen.setObjectName("actionOpen")
 
     def connect_buttons(self):
         """
@@ -365,19 +384,19 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.add_category_btn.clicked.connect(self.add_category)
         self.set_max_price_btn.clicked.connect(self.set_max_price)
         self.add_account_btn.clicked.connect(self.add_account)
+        self.actionReset_preferences.triggered.connect(self.reset_config)
 
     def setup_menu(self):
         """
         setup menu bar and options.
         :return:
         """
-        self.actionReset_preferences.setObjectName("actionReset_preferences")
-        self.actionInfo.setObjectName("actionInfo")
-        self.actionDonate.setObjectName("actionDonate")
+
         self.menuMenu.addSeparator()
         self.menuMenu.addAction(self.actionReset_preferences)
         self.menuMenu.addAction(self.actionInfo)
-        self.menuMenu.addAction(self.actionDonate)
+        self.menuMenu.addAction(self.actionSave)
+        self.menuMenu.addAction(self.actionOpen)
         self.menubar.addAction(self.menuMenu.menuAction())
 
     def setupUi(self, MainWindow, login, password):
@@ -399,6 +418,7 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         MainWindow.setCentralWidget(self.centralwidget)
         MainWindow.setStatusBar(self.statusbar)
         MainWindow.setMenuBar(self.menubar)
+        self.setup_menu()
         self.translate_ui(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -437,4 +457,5 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.menuMenu.setTitle(_translate("MainWindow", "Menu"))
         self.actionReset_preferences.setText(_translate("MainWindow", "Reset preferences"))
         self.actionInfo.setText(_translate("MainWindow", "Info"))
-        self.actionDonate.setText(_translate("MainWindow", "Donate"))
+        self.actionSave.setText(_translate("MainWindow", "Save"))
+        self.actionOpen.setText(_translate("MainWindow", "Open"))
