@@ -8,6 +8,7 @@ from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWidgets import QInputDialog, QLineEdit
 
 from Bot import ShoppingBot
+from gui.Add_Account_Input_Dialog import Login
 
 
 def remove_item_qlist(given_qlist):
@@ -47,7 +48,7 @@ def convert_qlist(listWidget):
 def get_delay(later_time):
     """
     Gets difference between 2 times in different
-    object datetimes.
+    object date_times.
     :param later_time:
     :return:
     """
@@ -99,6 +100,7 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.stuck_slider.setOrientation(QtCore.Qt.Vertical)
         self.stuck_slider.setMinimum(1)
         self.stuck_slider.setMaximum(5)
+        self.stuck_slider.valueChanged[int].connect(self.set_stuck)
 
     def __init__(self, MainWindow):
         """
@@ -110,49 +112,48 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         MainWindow.setFixedSize(980, 538)
         self.stucks = 1
         self.sb = None
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.central_widget = QtWidgets.QWidget(MainWindow)
         self.actionSave = QtWidgets.QAction(MainWindow)
         self.actionOpen = QtWidgets.QAction(MainWindow)
         self.actionInfo = QtWidgets.QAction(MainWindow)
         self.actionReset_preferences = QtWidgets.QAction(MainWindow)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
-        self.check_box_date = QtWidgets.QCheckBox(self.centralwidget)
-        self.del_account_btn = QtWidgets.QPushButton(self.centralwidget)
-        self.add_account_btn = QtWidgets.QPushButton(self.centralwidget)
-        self.stuck_slider = QtWidgets.QSlider(self.centralwidget)
+        self.check_box_date = QtWidgets.QCheckBox(self.central_widget)
+        self.del_account_btn = QtWidgets.QPushButton(self.central_widget)
+        self.add_account_btn = QtWidgets.QPushButton(self.central_widget)
+        self.stuck_slider = QtWidgets.QSlider(self.central_widget)
         self.configure_slider()
-        self.stuck_slider.valueChanged[int].connect(self.set_stuck)
-        self.label_10 = QtWidgets.QLabel(self.centralwidget)
-        self.up_range_stuck = QtWidgets.QLabel(self.centralwidget)
-        self.down_range_stuck = QtWidgets.QLabel(self.centralwidget)
-        self.accounts_list = QtWidgets.QListWidget(self.centralwidget)
-        self.set_max_price_btn = QtWidgets.QPushButton(self.centralwidget)
-        self.del_category_btn = QtWidgets.QPushButton(self.centralwidget)
-        self.add_category_btn = QtWidgets.QPushButton(self.centralwidget)
-        self.label_9 = QtWidgets.QLabel(self.centralwidget)
-        self.categories_list = QtWidgets.QListWidget(self.centralwidget)
-        self.del_brand_btn = QtWidgets.QPushButton(self.centralwidget)
-        self.add_brand_btn = QtWidgets.QPushButton(self.centralwidget)
-        self.del_size_btn = QtWidgets.QPushButton(self.centralwidget)
-        self.add_size_btn = QtWidgets.QPushButton(self.centralwidget)
-        self.brands_list = QtWidgets.QListWidget(self.centralwidget)
-        self.label_8 = QtWidgets.QLabel(self.centralwidget)
-        self.label_7 = QtWidgets.QLabel(self.centralwidget)
-        self.label_6 = QtWidgets.QLabel(self.centralwidget)
-        self.textEdit_3 = QtWidgets.QTextEdit(self.centralwidget)
-        self.checkBox = QtWidgets.QCheckBox(self.centralwidget)
-        self.dateTimeEdit = QtWidgets.QDateTimeEdit(self.centralwidget)
+        self.label_10 = QtWidgets.QLabel(self.central_widget)
+        self.up_range_stuck = QtWidgets.QLabel(self.central_widget)
+        self.down_range_stuck = QtWidgets.QLabel(self.central_widget)
+        self.accounts_list = QtWidgets.QListWidget(self.central_widget)
+        self.set_max_price_btn = QtWidgets.QPushButton(self.central_widget)
+        self.del_category_btn = QtWidgets.QPushButton(self.central_widget)
+        self.add_category_btn = QtWidgets.QPushButton(self.central_widget)
+        self.label_9 = QtWidgets.QLabel(self.central_widget)
+        self.categories_list = QtWidgets.QListWidget(self.central_widget)
+        self.del_brand_btn = QtWidgets.QPushButton(self.central_widget)
+        self.add_brand_btn = QtWidgets.QPushButton(self.central_widget)
+        self.del_size_btn = QtWidgets.QPushButton(self.central_widget)
+        self.add_size_btn = QtWidgets.QPushButton(self.central_widget)
+        self.brands_list = QtWidgets.QListWidget(self.central_widget)
+        self.label_8 = QtWidgets.QLabel(self.central_widget)
+        self.label_7 = QtWidgets.QLabel(self.central_widget)
+        self.label_6 = QtWidgets.QLabel(self.central_widget)
+        self.textEdit_3 = QtWidgets.QTextEdit(self.central_widget)
+        self.checkBox = QtWidgets.QCheckBox(self.central_widget)
+        self.dateTimeEdit = QtWidgets.QDateTimeEdit(self.central_widget)
         self.dateTimeEdit.setDateTime(QtCore.QDateTime.currentDateTime())
-        self.lcdNumber = QtWidgets.QLCDNumber(self.centralwidget)
-        self.progressBar = QtWidgets.QProgressBar(self.centralwidget)
-        self.progressBar_2 = QtWidgets.QProgressBar(self.centralwidget)
-        self.sizes_list = QtWidgets.QListWidget(self.centralwidget)
-        self.textEdit = QtWidgets.QTextEdit(self.centralwidget)
-        self.label_4 = QtWidgets.QLabel(self.centralwidget)
-        self.label_5 = QtWidgets.QLabel(self.centralwidget)
-        self.start_btn = QtWidgets.QPushButton(self.centralwidget)
-        self.stop_btn = QtWidgets.QPushButton(self.centralwidget)
+        self.lcdNumber = QtWidgets.QLCDNumber(self.central_widget)
+        self.progressBar = QtWidgets.QProgressBar(self.central_widget)
+        self.progressBar_2 = QtWidgets.QProgressBar(self.central_widget)
+        self.sizes_list = QtWidgets.QListWidget(self.central_widget)
+        self.textEdit = QtWidgets.QTextEdit(self.central_widget)
+        self.label_4 = QtWidgets.QLabel(self.central_widget)
+        self.label_5 = QtWidgets.QLabel(self.central_widget)
+        self.start_btn = QtWidgets.QPushButton(self.central_widget)
+        self.stop_btn = QtWidgets.QPushButton(self.central_widget)
         self.menuMenu = QtWidgets.QMenu(self.menubar)
 
     def set_stuck(self, value):
@@ -217,7 +218,6 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         """
         self.categories_list.addItem(get_text())
 
-    # TODO IMPLEMENT
     def add_account(self):
         """
         Add accounts to widget list and,
@@ -225,7 +225,11 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         to shopping bot
         :return:
         """
-        print('Adding account')
+        self.log = Login()
+        self.log.show()
+        if self.log.exec_() == QtWidgets.QDialog.Accepted:
+            self.accounts_list.addItem(str(self.log.log) + ' ' + str(self.log.pwd))
+        self.log.close()
 
     def set_max_price(self):
         """
@@ -265,6 +269,10 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
             remove_item_qlist(self.accounts_list)
         else:
             pass
+
+    def get_config(self):
+        return convert_qlist(self.accounts_list), convert_qlist(self.categories_list), convert_qlist(
+            self.sizes_list), convert_qlist(self.brands_list), self.lcdNumber.intValue(), self.textEdit.toPlainText()
 
     def reset_config(self):
         """
@@ -418,10 +426,10 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.setup_geometry()
         self.connect_buttons()
         self.setup_obj_names()
-        self.progressBar.setProperty("value", 24)
-        self.progressBar_2.setProperty("value", 24)
-        self.accounts_list.addItem(login)
-        MainWindow.setCentralWidget(self.centralwidget)
+        self.progressBar.setProperty("value", 0)
+        self.progressBar_2.setProperty("value", 0)
+        self.accounts_list.addItem(login + ' ' + password)
+        MainWindow.setCentralWidget(self.central_widget)
         MainWindow.setStatusBar(self.statusbar)
         MainWindow.setMenuBar(self.menubar)
         self.setup_menu()

@@ -32,22 +32,23 @@ Modyfikacji i usprawnień można wymyślić naprawdę wiele ciekawych rozszerze�
 
 Ogólnie:
  na pewno mamy zamiar wykorzystać
-  -- _Selenium_,
-  -- _geckodriver do firefox'a
-  -- pięknie wszystko opiszemy w readme, aby każdy mógł skorzystać
-  -- BeautifulSoup 4 do badania struktury html, bs4
-  -- PyQt5 - interfejs graficzny
-  -- pyvirtualdisplay otwiranie przeglądarki w tle. (silent mode)
-  -- smtpb lib do wysyłania maili
+- _Selenium_,
+- _geckodriver do firefox'a
+- pięknie wszystko opiszemy w readme, aby każdy mógł skorzystać
+- BeautifulSoup 4 do badania struktury html, bs4
+- PyQt5 - interfejs graficzny
+- pyvirtualdisplay otwiranie przeglądarki w tle. (silent mode)
+- smtplib do wysyłania maili
 
 i pewnie wiele innych ,o których się dowiemy na drodze projektowej.
 
 
 # 2020.05.03 po II tygodniu
 
-Głębsza analiza struktur Zalando,
- opanowanie podstawowych teorii z dokumentacji Selenium,
-logowanie na stronę i wyłączanie irytujących bannerów.
+- Głębsza analiza struktur Zalando,
+- opanowanie podstawowej teorii, dokumentacji Selenium,
+- logowanie na stronę 
+- wyłączanie irytujących bannerów.
 
 # 2020.05.10 po III tygodniu
 Główne (schmeta wersja beta) okno GUI w PyQt5, drobne zapoznanie z PyQt5.
