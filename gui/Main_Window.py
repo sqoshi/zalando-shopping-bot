@@ -143,6 +143,7 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.textEdit_3 = QtWidgets.QTextEdit(self.centralwidget)
         self.checkBox = QtWidgets.QCheckBox(self.centralwidget)
         self.dateTimeEdit = QtWidgets.QDateTimeEdit(self.centralwidget)
+        self.dateTimeEdit.setDateTime(QtCore.QDateTime.currentDateTime())
         self.lcdNumber = QtWidgets.QLCDNumber(self.centralwidget)
         self.progressBar = QtWidgets.QProgressBar(self.centralwidget)
         self.progressBar_2 = QtWidgets.QProgressBar(self.centralwidget)
@@ -266,7 +267,10 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
             pass
 
     def reset_config(self):
-        print('reset')
+        """
+        Resets current config to default.
+        :return:
+        """
         self.categories_list.clear()
         self.sizes_list.clear()
         self.brands_list.clear()
@@ -276,8 +280,10 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.stuck_slider.setValue(1)
         self.progressBar.setProperty("value", 0)
         self.progressBar_2.setProperty("value", 0)
-        self.dateTimeEdit.set()
+        self.dateTimeEdit.setDateTime(QtCore.QDateTime.currentDateTime())
         self.lcdNumber.display('0')
+        self.checkBox.setChecked(False)
+        self.check_box_date.setChecked(False)
 
     def setup_labels(self):
         """
