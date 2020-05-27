@@ -131,17 +131,18 @@ class ShoppingBot:
         except TimeoutException:
             print('atcBtn')
 
-    def __init__(self, em, pwd, cats, sizs, brds, cid, mpi):
+    def __init__(self, acc, cats, sizs, brds, cid, mpi):
         options = Options()
         # options.add_argument("--disable-notifications")
         self.driver = webdriver.Firefox(options=options)
-        self.email = em
-        self.password = pwd
+        self.email = 'piotrpopisgames@gmail.com'
+        self.password = 'testertest'
         self.categories_list = cats
         self.sizes_list = sizs
         self.brands_list = brds
         self.campaign_id = cid
         self.max_per_item = mpi
+        self.accounts_list = acc
 
     def start_bot(self):
 
