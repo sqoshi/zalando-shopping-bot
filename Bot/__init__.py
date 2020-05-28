@@ -101,7 +101,7 @@ class ShoppingBot:
             except NoSuchElementException:
                 break
 
-    def wait_for(self):
+    def wait_for_popup(self):
         try:
             WebDriverWait(self.driver, 1).until \
                 (EC.presence_of_element_located((By.XPATH, '//div[contains(@class,"sizeOverlayDialog")]')))
@@ -115,34 +115,42 @@ class ShoppingBot:
 
             element = WebDriverWait(self.driver, 5).until \
                 (EC.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]'))).click()
-            self.wait_for()
+            self.wait_for_popup()
 
     def wait_for_atcButton(self):
         try:
+            sleep(1.5)
             # WebDriverWait(self.driver, 5).until \
             # (EC.presence_of_element_located((By.XPATH, '//div[contains(@class, "animation-ball") and starts-with(@style, "display: none;") ]')))
-            WebDriverWait(self.driver, 5).until \
-                    (EC.presence_of_element_located(
-                    (By.XPATH, '//div[contains(@class, "animation-ball") and starts-with(@style, "transf") ]')))
-            WebDriverWait(self.driver, 5).until \
-                    (EC.presence_of_element_located(
-                    (By.XPATH, '//div[contains(@class, "animation-ball") and starts-with(@style, "display: none;") ]')))
+            # WebDriverWait(self.driver, 5).until \
+            #         (EC.presence_of_element_located(
+            #         (By.XPATH, '//div[contains(@class, "animation-ball") and starts-with(@style, "transf") ]')))
+            # WebDriverWait(self.driver, 5).until \
+            #         (EC.presence_of_element_located(
+            #         (By.XPATH, '//div[contains(@class, "animation-ball") and starts-with(@style, "display: none;") ]')))
 
         except TimeoutException:
             print('atcBtn')
+    
+    def change_acc(self):
+        self.driver.quit()
+        ShoppingBot(["piotrpopisgames@gmail.com testertest","mtarka1337@gmail.com Azexs1998"],['koszula'],['M'],[],'ZZO1008',300,3,1).start_bot()
 
-    def __init__(self, acc, cats, sizs, brds, cid, mpi):
+
+    def __init__(self, acc, cats, sizs, brds, cid, mpi,maa,ite):
         options = Options()
         # options.add_argument("--disable-notifications")
         self.driver = webdriver.Firefox(options=options)
-        self.email = 'piotrpopisgames@gmail.com'
-        self.password = 'testertest'
+        self.email = acc[ite].split()[0]
+        self.password = acc[ite].split()[1]
         self.categories_list = cats
         self.sizes_list = sizs
         self.brands_list = brds
         self.campaign_id = cid
         self.max_per_item = mpi
         self.accounts_list = acc
+        self.max_ammount = maa
+        
 
     def start_bot(self):
 
@@ -224,11 +232,18 @@ class ShoppingBot:
             item_description = item_parent.find_element_by_xpath('./div/div[1]').text
             # print(item_description)
             if (len(self.driver.find_elements_by_xpath('//a[@href="' + href[29:] + '"]/div[3]')) == 0):
-                if any(category_name.lower() in item_description.lower() for category_name in self.categories_list):
+                if (self.categories_list):
+                    if any(category_name.lower() in item_description.lower() for category_name in self.categories_list):
+                        hrefs.append(href)
+                else:
                     hrefs.append(href)
+
 
         selected_sizes = self.sizes_list
         # Add all items from hrefs to cart
+
+        total_items = 0
+
         for href in hrefs:
             self.driver.get(href)
 
@@ -238,9 +253,14 @@ class ShoppingBot:
             selected = 0
 
             for size in selected_sizes:
-                element = WebDriverWait(self.driver, 5).until \
-                        (EC.element_to_be_clickable(
-                        (By.XPATH, '//span[contains(@class, "Size") and text()="' + size + '"]')))
+
+                try:
+                    element = WebDriverWait(self.driver, 5).until \
+                            (EC.element_to_be_clickable(
+                            (By.XPATH, '//span[contains(@class, "Size") and text()="' + size + '"]')))
+                except: 
+                    continue
+
                 # addtoCartButton = WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]')))
                 parent = element.find_element_by_xpath("./..")
                 is_clickable = parent.value_of_css_property("color")
@@ -250,21 +270,28 @@ class ShoppingBot:
                         ammount_span = parent.find_element_by_xpath('./span[2]')
                         ammount = int(ammount_span.text[-1:])
                     except NoSuchElementException:
-                        ammount = 5
+                        ammount = self.max_ammount
 
                     element.click()
                     selected = selected + 1
+
                     for x in range(ammount):
                         WebDriverWait(self.driver, 5).until(
-                            EC.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]'))).click()
+                        EC.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]'))).click()
+                        total_items+=1
+                        if (total_items==9):
+                            self.change_acc()
+                            return
+                           
 
                         if selected == 2 and x == 0:
-                            self.wait_for()
+                            self.wait_for_popup()
                             WebDriverWait(self.driver, 20).until \
                                     (EC.invisibility_of_element_located(
                                     (By.XPATH, '//div[contains(@class,"styles___backdrop")]')))
                         else:
-                            self.wait_for_atcButton()  # sleep(1.5)
+                            self.wait_for_atcButton()
+
 
                 # if selected == 1: ZZO125F
                 #     sleep(.7)
@@ -277,7 +304,7 @@ class ShoppingBot:
                 # if selected==2:
                 #     print("no nie dziala")
                 #     self.wait_for()
-        print('finished')
+        
 
 
 datetime_str = '24/05/20 15:31:00'
@@ -286,4 +313,5 @@ datetime_object = datetime.strptime(datetime_str, '%d/%m/%y %H:%M:%S')
 print(type(datetime_object))
 print(datetime_object)  # printed in default format
 
-# ShoppingBot("piotrpopisgames@gmail.com", 'testertest') ZZO0ZLB
+ShoppingBot(["piotrpopisgames@gmail.com testertest","mtarka1337@gmail.com Azexs1998"],['koszula'],['M'],[],'ZZO1008',300,3,0).start_bot()
+
