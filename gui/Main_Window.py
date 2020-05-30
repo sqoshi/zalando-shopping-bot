@@ -128,10 +128,10 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
             error_dialog.showMessage('You need to input account and pass campaign id ')
             error_dialog.exec_()
         else:
-            self.sb = ShoppingBot(convert_qlist(self.accounts_list),convert_qlist(self.categories_list),
+            self.sb = ShoppingBot(convert_qlist(self.accounts_list), convert_qlist(self.categories_list),
                                   convert_qlist(self.sizes_list),
                                   convert_qlist(self.brands_list), self.textEdit.toPlainText(),
-                                  self.lcdNumber.intValue())
+                                  self.lcdNumber.intValue(), self.get_stuck, 0)
             if self.check_box_date.isChecked():
                 delay = get_delay(self.dateTimeEdit.textFromDateTime(self.dateTimeEdit.dateTime()))
             else:
