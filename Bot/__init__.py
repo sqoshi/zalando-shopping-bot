@@ -6,7 +6,7 @@ from datetime import datetime
 from time import sleep
 
 from selenium import webdriver
-from selenium.common.exceptions import NoSuchElementException, TimeoutException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException, StaleElementReferenceException,ElementClickInterceptedException
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -77,7 +77,7 @@ class ShoppingBot:
                 for brand in wanted_brands:
                     brand_web = sample.text.lower()
                     if brand.lower() in brand_web and brand_web not in already_selected:
-                        print(brand_web)
+                        #print(brand_web)
                         already_selected.append(brand_web)
                         sample.click()
                 i += 1
@@ -94,7 +94,7 @@ class ShoppingBot:
                 for given_size in wanted_sizes:
                     size_web = sample.text.upper()
                     if given_size == size_web and size_web not in already_selected:
-                        print(size_web)
+                        #print(size_web)
                         already_selected.append(size_web)
                         sample.click()
                 i += 1
@@ -131,10 +131,51 @@ class ShoppingBot:
 
         except TimeoutException:
             print('atcBtn')
+
+    def wait_login_error(self):
+        sleep(2)
+
+        if len(self.driver.find_elements_by_xpath('/html/body/div[1]/div/div[2]/div[2]/div/div/div/form/button')) != 0:
+             self.driver.find_element_by_xpath('/html/body/div[1]/div/div[2]/div[2]/div/div/div/form/button').click()
+             self.wait_login_error()
+
+        
+
+
     
-    def change_acc(self):
-        self.driver.quit()
-        ShoppingBot(["piotrpopisgames@gmail.com testertest","mtarka1337@gmail.com Azexs1998"],['koszula'],['M'],[],'ZZO1008',300,3,1).start_bot()
+    def change_acc(self,href,size):
+        self.driver.find_element_by_xpath('//span[text() = "Konto"]').click()
+        self.driver.find_element_by_xpath('//span[contains(text(), "Wyloguj")]').click()
+        WebDriverWait(self.driver, 5).until \
+                                    (EC.element_to_be_clickable(
+                                    (By.XPATH, '//span[contains(text(), "Zaloguj")]'))).click()
+
+        element = WebDriverWait(self.driver,5).until \
+            (EC.element_to_be_clickable((By.XPATH, '//*[@id="form-email"]')))
+        element.send_keys('mtarka1337@gmail.com')
+
+
+        element = WebDriverWait(self.driver, 5).until \
+            (EC.element_to_be_clickable((By.XPATH, '//*[@id="form-password"]')))
+        element.send_keys('Azexs1998')
+
+        element.submit()
+
+        self.wait_login_error()
+
+        self.driver.get(href)
+
+        WebDriverWait(self.driver, 5).until \
+                            (EC.element_to_be_clickable(
+                            (By.XPATH, '//span[contains(@class, "Size") and text()="' + size + '"]'))).click()
+
+        
+        
+
+        
+
+        
+        # ShoppingBot(["piotrpopisgames@gmail.com testertest","mtarka1337@gmail.com Azexs1998"],['koszula'],['M'],[],'ZZO1008',300,3,1).start_bot()
 
 
     def __init__(self, acc, cats, sizs, brds, cid, mpi,maa,ite):
@@ -158,15 +199,14 @@ class ShoppingBot:
         self.driver.get("https://www.zalando-lounge.pl")
 
         # Wait for cookies banner and close it
-        WebDriverWait(self.driver, 20).until \
+        WebDriverWait(self.driver, 5).until \
             (EC.element_to_be_clickable((By.XPATH, '//*[@id=\"uc-btn-accept-banner\"]'))).click()
 
-        # Open loggin panel
         self.driver.find_element_by_xpath(
             "/html/body/div[2]/div/div[2]/div[1]/div/div/div[1]/div/div/div[2]/div/div/button").click()
 
         # email
-        element = WebDriverWait(self.driver, 20).until \
+        element = WebDriverWait(self.driver, 5).until \
             (EC.element_to_be_clickable((By.XPATH, '//*[@id="form-email"]')))
         element.send_keys(self.email)
 
@@ -177,6 +217,8 @@ class ShoppingBot:
 
         # loggin in
         element.submit()
+
+        self.wait_login_error()
 
         # Go to selected event
         self.campaign_id = 'campaign-' + self.campaign_id
@@ -279,11 +321,9 @@ class ShoppingBot:
                         WebDriverWait(self.driver, 5).until(
                         EC.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]'))).click()
                         total_items+=1
-                        if (total_items==9):
-                            self.change_acc()
-                            return
-                           
-
+                        if (total_items==2):
+                            self.change_acc(href,size)
+                            
                         if selected == 2 and x == 0:
                             self.wait_for_popup()
                             WebDriverWait(self.driver, 20).until \
@@ -293,25 +333,5 @@ class ShoppingBot:
                             self.wait_for_atcButton()
 
 
-                # if selected == 1: ZZO125F
-                #     sleep(.7)
-                # WebDriverWait(self.driver, 5).until \
-                # (EC.presence_of_element_located((By.XPATH, '//div[contains(@class, "animation-ball") and starts-with(@style, "display: none;") ]')))
-                # WebDriverWait(self.driver, 5).until \
-                # (EC.presence_of_element_located((By.XPATH, '//div[contains(@class, "animation-ball") and starts-with(@style, "transf") ]')))
-                # WebDriverWait(self.driver, 5).until \
-                # (EC.presence_of_element_located((By.XPATH, '//div[contains(@class, "animation-ball") and starts-with(@style, "display: none;") ]')))
-                # if selected==2:
-                #     print("no nie dziala")
-                #     self.wait_for()
-        
-
-
-datetime_str = '24/05/20 15:31:00'
-datetime_object = datetime.strptime(datetime_str, '%d/%m/%y %H:%M:%S')
-
-print(type(datetime_object))
-print(datetime_object)  # printed in default format
-
-ShoppingBot(["piotrpopisgames@gmail.com testertest","mtarka1337@gmail.com Azexs1998"],['koszula'],['M'],[],'ZZO1008',300,3,0).start_bot()
+ShoppingBot(["piotrpopisgames@gmail.com testertest","mtarka1337@gmail.com Azexs1998"],['bluza'],['M'],[],'ZZO0ZEK',300,3,0).start_bot()
 
