@@ -283,7 +283,6 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
             "Password": "Mortimer 'Morty' Smith"
         }
         db = firebase.database()
-        print(self.user['idToken'])
         results = db.child("users").push(data, self.user['idToken'])
         print(results)
 
