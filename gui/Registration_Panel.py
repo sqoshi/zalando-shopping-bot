@@ -1,8 +1,9 @@
-import sys
-
+import pyrebase
 from PyQt5 import QtCore
-from PyQt5 import QtWidgets, QtGui
+from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QLineEdit
+
+from firebase.Configuration import config
 
 
 class Ui_Registration(QtWidgets.QMainWindow):
@@ -18,6 +19,7 @@ class Ui_Registration(QtWidgets.QMainWindow):
         self.label = QtWidgets.QLabel(self.central_widget)
 
     def setupUi(self, RegistrationPanel):
+        self.regr = RegistrationPanel
         RegistrationPanel.setObjectName("RegistrationPanel")
         RegistrationPanel.resize(1000, 548)
         self.central_widget.setObjectName("central_widget")
@@ -58,18 +60,17 @@ class Ui_Registration(QtWidgets.QMainWindow):
         self.start_btn.setText(_translate("RegistrationPanel", "Register"))
 
     def register(self):
-        print('register')
+        try:
+            firebase = pyrebase.initialize_app(config)
+            auth = firebase.auth()
+            auth.create_user_with_email_and_password(self.textEdit.toPlainText(), self.textEdit_2.text())
+            self.regr.close()
+        except Exception:
+            error_dialog = QtWidgets.QErrorMessage()
+            error_dialog.showMessage('Rules! <br>'
+                                     '  1. Login must be an email<br>'
+                                     '  2. Password must have at least 6 symbols.<br>'
+                                     'If rules are fulfilled, login may already exists in database, try other. <br>')
+            error_dialog.exec_()
 
-"""
-def main():
-    app = QtWidgets.QApplication(sys.argv)
-    app.setWindowIcon(QtGui.QIcon('features/icon.png'))
-    MainWin = QtWidgets.QMainWindow()
-    mw = Ui_Registration(MainWin)
-    mw.setupUi(MainWin)
-    MainWin.show()
-    sys.exit(app.exec_())
 
-
-main()
-"""

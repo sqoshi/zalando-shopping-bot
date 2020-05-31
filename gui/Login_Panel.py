@@ -1,7 +1,9 @@
 import PyQt5
+import pyrebase
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWidgets import QLineEdit
 
+from firebase.Configuration import config
 from gui.Registration_Panel import Ui_Registration
 
 
@@ -59,14 +61,17 @@ class Ui_LoginPanel(PyQt5.QtCore.QObject):
         self.register_btn.setText(_translate("LoginPanel", "Register"))
 
     def log_in(self):
-        if self.textEdit.toPlainText() == "" or '@' not in self.textEdit.toPlainText() or self.textEdit_2.text() == "":
-            error_dialog = QtWidgets.QErrorMessage()
-            error_dialog.showMessage('You need to input e-mail from zalando longue account!')
-            error_dialog.exec_()
-        else:
-            self.login = self.textEdit.toPlainText()
-            self.password = self.textEdit_2.text()
+        firebase = pyrebase.initialize_app(config)
+        self.auth = firebase.auth()
+        self.login = self.textEdit.toPlainText()
+        self.password = self.textEdit_2.text()
+        try:
+            self.user = self.auth.sign_in_with_email_and_password(self.login, self.password)
             self.switch_window.emit()
+        except:
+            error_dial = QtWidgets.QErrorMessage()
+            error_dial.showMessage('Wrong data or no login in database')
+            error_dial.exec_()
 
     def register(self):
         self.main_frame = QtWidgets.QMainWindow()

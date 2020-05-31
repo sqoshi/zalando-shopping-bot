@@ -2,7 +2,6 @@
 # shopping123bot
 import smtplib
 import sys
-from datetime import datetime
 from time import sleep
 
 from selenium import webdriver
@@ -334,4 +333,3 @@ class ShoppingBot:
 
 
 ShoppingBot(["piotrpopisgames@gmail.com testertest","mtarka1337@gmail.com Azexs1998"],['bluza'],['M'],[],'ZZO0ZEK',300,3,0).start_bot()
-

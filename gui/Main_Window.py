@@ -4,10 +4,12 @@ import time
 from datetime import datetime
 
 import PyQt5
+import pyrebase
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWidgets import QInputDialog, QLineEdit
 
 from Bot import ShoppingBot
+from firebase.Configuration import config
 from gui.Add_Account_Input_Dialog import Login
 
 
@@ -128,10 +130,10 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
             error_dialog.showMessage('You need to input account and pass campaign id ')
             error_dialog.exec_()
         else:
-            self.sb = ShoppingBot(convert_qlist(self.accounts_list),convert_qlist(self.categories_list),
+            self.sb = ShoppingBot(convert_qlist(self.accounts_list), convert_qlist(self.categories_list),
                                   convert_qlist(self.sizes_list),
                                   convert_qlist(self.brands_list), self.textEdit.toPlainText(),
-                                  self.lcdNumber.intValue(),self.get_stuck,0)
+                                  self.lcdNumber.intValue(), self.get_stuck, 0)
             if self.check_box_date.isChecked():
                 delay = get_delay(self.dateTimeEdit.textFromDateTime(self.dateTimeEdit.dateTime()))
             else:
@@ -272,6 +274,17 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.lcdNumber.display('0')
         self.checkBox.setChecked(False)
         self.check_box_date.setChecked(False)
+
+    def save_config(self):
+        print('save')
+        firebase = pyrebase.initialize_app(config)
+        data = {
+            "Login": "Mortimer 'Morty' Smith",
+            "Password": "Mortimer 'Morty' Smith"
+        }
+        db = firebase.database()
+        results = db.child("users").push(data, self.user['idToken'])
+        print(results)
 
     def __init__(self, MainWindow):
         """
@@ -434,13 +447,13 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.set_max_price_btn.clicked.connect(self.set_max_price)
         self.add_account_btn.clicked.connect(self.add_account)
         self.actionReset_preferences.triggered.connect(self.reset_config)
+        self.actionSave.triggered.connect(self.save_config)
 
     def setup_menu(self):
         """
         setup menu bar and options.
         :return:
         """
-
         self.menuMenu.addSeparator()
         self.menuMenu.addAction(self.actionReset_preferences)
         self.menuMenu.addAction(self.actionInfo)
@@ -448,7 +461,7 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.menuMenu.addAction(self.actionOpen)
         self.menubar.addAction(self.menuMenu.menuAction())
 
-    def setupUi(self, MainWindow, login, password):
+    def setupUi(self, MainWindow, user):
         """
         main function to operate over setups
         :param MainWindow:
@@ -463,12 +476,13 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.setup_obj_names()
         self.progressBar.setProperty("value", 0)
         self.progressBar_2.setProperty("value", 0)
-        self.accounts_list.addItem(login + ' ' + password)
+        # self.accounts_list.addItem(login + ' ' + password)
         MainWindow.setCentralWidget(self.central_widget)
         MainWindow.setStatusBar(self.statusbar)
         MainWindow.setMenuBar(self.menubar)
         self.setup_menu()
         self.translate_ui(MainWindow)
+        self.user = user
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def translate_ui(self, MainWindow):
