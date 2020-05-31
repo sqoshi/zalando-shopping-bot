@@ -3,6 +3,8 @@ from PyQt5 import QtCore
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QLineEdit
 
+from firebase.Configuration import config
+
 
 class Ui_Registration(QtWidgets.QMainWindow):
     def __init__(self, RegistrationPanel):
@@ -59,13 +61,6 @@ class Ui_Registration(QtWidgets.QMainWindow):
 
     def register(self):
         try:
-            config = {
-                "apiKey": "AIzaSyCnut8SgRAcPz7MQ6B74soTw_Lyqz9fSbw ",
-                "authDomain": "shopping-bot-c75af.firebaseapp.com",
-                "databaseURL": "https://shopping-bot-c75af.firebaseio.com/users",
-                "storageBucket": "shopping-bot-c75af.appspot.com",
-                "serviceAccount": "firebase/shopping-bot-c75af-firebase-adminsdk-bawov-21d8c0da9d.json"
-            }
             firebase = pyrebase.initialize_app(config)
             auth = firebase.auth()
             auth.create_user_with_email_and_password(self.textEdit.toPlainText(), self.textEdit_2.text())

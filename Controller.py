@@ -30,19 +30,12 @@ class Controller:
         self.LoginPanel.show()
 
     def show_main(self):
-        self.mw.setupUi(self.MainWin, self.lp.login, self.lp.password)
+        self.mw.setupUi(self.MainWin, self.lp.user)
         self.LoginPanel.close()
         self.MainWin.show()
 
 
 def main():
-    firebase = pyrebase.initialize_app(config)
-    a = firebase.auth()
-    db = firebase.database()
-    stor = firebase.storage()
-    data = {
-        "name": "Mortimer 'Morty' Smith"
-    }
     # results = db.child("users").push(data)
     app = QtWidgets.QApplication(sys.argv)
     app.setWindowIcon(QtGui.QIcon('features/icon.png'))
