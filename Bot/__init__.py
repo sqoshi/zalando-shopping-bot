@@ -2,7 +2,6 @@
 # shopping123bot
 import smtplib
 import sys
-from datetime import datetime
 from time import sleep
 
 from selenium import webdriver
@@ -135,7 +134,7 @@ class ShoppingBot:
     def change_acc(self):
         self.driver.quit()
         ShoppingBot(["piotrpopisgames@gmail.com testertest", "mtarka1337@gmail.com Azexs1998"], ['koszula'], ['M'], [],
-                    'ZZO1008', 300, 3, 1).start_bot()
+                    'ZZO0ZNS', 300, 3, 1).start_bot()
 
     def __init__(self, acc, cats, sizs, brds, cid, mpi, maa, ite):
         options = Options()
@@ -302,11 +301,5 @@ class ShoppingBot:
                 #     self.wait_for()
 
 
-datetime_str = '24/05/20 15:31:00'
-datetime_object = datetime.strptime(datetime_str, '%d/%m/%y %H:%M:%S')
-
-print(type(datetime_object))
-print(datetime_object)  # printed in default format
-
-ShoppingBot(["piotrpopisgames@gmail.com testertest", "mtarka1337@gmail.com Azexs1998"], ['koszula'], ['M'], [],
-            'ZZO1008', 300, 3, 0).start_bot()
+#ShoppingBot(["piotrpopisgames@gmail.com testertest", "mtarka1337@gmail.com Azexs1998"], ['koszula'], ['M'], [],
+         #   'ZZO0ZNS', 300, 3, 0).start_bot()
