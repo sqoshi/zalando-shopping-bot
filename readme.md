@@ -1,13 +1,13 @@
 
 #### Instrukcja dla Firefox mozilla, Ubuntu 20.04 ( 3 czerwiec 2020)
 
-#####Library  
+##### Biblioteki  
 ```pip install pyrebase```
 ```pip install selenium```
 ```pip install pyqt5```
 
 Dla uproszczenia stworzony został skrypt instalujący powyższe : ```./build```.
-#####Geckodriver
+##### Geckodriver
 Jedynym problem zostaje zainstalowanie Geckodriver, instrukcja :
 1. Należy znaleźć i pobrać najnowszą wersję sterownika
  [geckodriver newest version](https://github.com/mozilla/geckodriver/releases), przykładowo:
