@@ -1,4 +1,31 @@
 
+#### Instrukcja dla Firefox mozilla, Ubuntu 20.04 ( 3 czerwiec 2020)
+
+#####Library  
+```pip install pyrebase```
+```pip install selenium```
+```pip install pyqt5```
+
+Dla uproszczenia stworzony został skrypt instalujący powyższe : ```./build```.
+#####Geckodriver
+Jedynym problem zostaje zainstalowanie Geckodriver, instrukcja :
+1. Należy znaleźć i pobrać najnowszą wersję sterownika
+ [geckodriver newest version](https://github.com/mozilla/geckodriver/releases), przykładowo:
+
+    ```wget https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz```
+    
+2. Następnie rozpakować
+
+    ```tar -xvzf geckodriver*```
+3. Nadać prawa pliku wykonywalnego
+
+    ``chmod +x geckodriver``
+4. Dodać ścięzkę sterownika do PATH
+
+    ``export PATH=$PATH:/path-to-extracted-file/.``
+
+[ASK UBUNTU POMOCNY LINK GECKODRIVER](https://askubuntu.com/questions/870530/how-to-install-geckodriver-in-ubuntu)
+
 ## Krótki opis stanu projektu na:
 
 
@@ -112,8 +139,16 @@ na kilka konfiguracji)
 - potężny clean up w main_window - front
 - front -> dokumentacja funkcji
 
-# 2020.05.29 po VI tygodniu (koniec projektu)
+# 2020.05.29 po VI tygodniu 
+- podłączenie aplikacji do nierelacyjnej bazy danych ( NoSQL) - firebase, wykorzystujemy bibliotekę pyrebase
+- ustalenie struktury przechowywanych dokumentów
+- ustalenie reguł w konsoli firebase
+- rejestracja kont firebase w interfejsie pyqt5 i walidacja
+- logowanie do konta firebase
+- obsługa błędów z firebase
+- dokumentacja nowo powstałych metod
+- zapisywanie konfiguracji w bazie danych dla unikatowego użytkownika
+- odczytywanie konfiguracji usera
+- komunikacja interfejs - firebase
+- readme ++ ( usage) 
 
-Tutaj proszę krótko opisać co się udało, co nie jest ewentualnie
-skończone i czy są jeszcze może jakieś plany (opis może być taki sam dla
-wszystkich członków grupy)
