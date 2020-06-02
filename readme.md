@@ -159,7 +159,7 @@ na kilka konfiguracji)
 - zapisywanie konfiguracji w bazie danych dla unikatowego użytkownika
 - odczytywanie konfiguracji usera
 - komunikacja interfejs - firebase
-- readme ++ ( usage) 
+- readme ++ ( instrukcja) 
 - skrypt budujący
 - skrypt uruchamiający
 
