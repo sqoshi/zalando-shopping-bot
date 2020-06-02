@@ -1,0 +1,3 @@
+#!/usr/bin/env python3
+import subprocess
+process = subprocess.Popen(['python3','Controller.py'])

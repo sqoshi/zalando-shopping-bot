@@ -1,0 +1,6 @@
+#!/usr/bin/env python3
+import os
+os.system("pip install pyrebase")
+os.system("pip install PyQt5")
+os.system("pip install selenium")
+print('Finished installing selenium, PyQt5 and pyrebase')

@@ -1,18 +1,26 @@
 
-#### Instrukcja dla Firefox mozilla, Ubuntu 20.04 ( 3 czerwiec 2020)
+### Instrukcja dla Firefox mozilla, Ubuntu 20.04 ( 3 czerwiec 2020), python3.8
+#### Uruchamianie
+``./run`` lub przez Controller.py
+#### Instalacja
+``./build `` - instaluje poniższe biblioteki, należy jeszcze samodzielnie
+ zainstalować [_geckodriver_](https://github.com/mozilla/geckodriver/releases)
 
 ##### Biblioteki  
 ```pip install pyrebase```
 ```pip install selenium```
-```pip install pyqt5```
+```pip install PyQt5```
 
-Dla uproszczenia stworzony został skrypt instalujący powyższe : ```./build```.
 ##### Geckodriver
-Jedynym problem zostaje zainstalowanie Geckodriver, instrukcja :
+Jedynym problem to zainstalowanie Geckodriver dla firefoxa.
+W module features znajduje się geckodriver w wersji 0.26, który działa dla najnowszej wersji firefoxa 76.0.1 (64-bit)
+( 3 czerwiec 2020).
+
+##### Instrukcja geckodriver :
 1. Należy znaleźć i pobrać najnowszą wersję sterownika
  [geckodriver newest version](https://github.com/mozilla/geckodriver/releases), przykładowo:
 
-    ```wget https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz```
+    ```wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz```
     
 2. Następnie rozpakować
 
@@ -20,11 +28,12 @@ Jedynym problem zostaje zainstalowanie Geckodriver, instrukcja :
 3. Nadać prawa pliku wykonywalnego
 
     ``chmod +x geckodriver``
-4. Dodać ścięzkę sterownika do PATH
+4. Dodać ścieżkę sterownika do PATH
 
     ``export PATH=$PATH:/path-to-extracted-file/.``
 
 [ASK UBUNTU POMOCNY LINK GECKODRIVER](https://askubuntu.com/questions/870530/how-to-install-geckodriver-in-ubuntu)
+
 
 ## Krótki opis stanu projektu na:
 
@@ -151,4 +160,18 @@ na kilka konfiguracji)
 - odczytywanie konfiguracji usera
 - komunikacja interfejs - firebase
 - readme ++ ( usage) 
+- skrypt budujący
+- skrypt uruchamiający
 
+### Przydatne linki
+[firebase](https://firebase.com)
+
+[pyrebase](https://github.com/thisbejim/Pyrebase/blob/master/README.md?fbclid=IwAR0MfG6lXHNXciGdLzK0AdW7lkIUWmNrHd4jQvUjrV8heOXVvvIu2SK1Usw)
+
+[geckodriver askubuntu](https://askubuntu.com/questions/870530/how-to-install-geckodriver-in-ubuntu)
+
+[selenium](https://selenium-python.readthedocs.io/)
+
+[PyQt5](https://pypi.org/project/PyQt5/)
+
+[Python Scripts](https://realpython.com/run-python-scripts/)
