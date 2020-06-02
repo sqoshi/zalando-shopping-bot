@@ -91,7 +91,7 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         :param MainWindow:
         """
         super(Ui_MainWindow, self).__init__()
-        self.process = multiprocessing.Process(target=self.threaded_function)
+        self.process = multiprocessing.Process(target=self.start_boting_thread)
         self.firebase = firebase
         self.auth = auth
         MainWindow.setFixedSize(980, 538)
@@ -249,6 +249,7 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.add_account_btn.clicked.connect(self.add_account)
         self.actionReset_preferences.triggered.connect(self.reset_config)
         self.actionSave.triggered.connect(self.save_config)
+        self.actionOpen.triggered.connect(self.load_config)
 
     def setup_menu(self):
         """
@@ -283,6 +284,7 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.setup_menu()
         self.translate_ui(MainWindow)
         self.user = user
+        self.user = self.auth.refresh(self.user['refreshToken'])
         self.login = login
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -322,10 +324,10 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.actionReset_preferences.setText(_translate("MainWindow", "Reset preferences"))
         self.actionInfo.setText(_translate("MainWindow", "Info"))
         self.actionSave.setText(_translate("MainWindow", "Save"))
-        self.actionOpen.setText(_translate("MainWindow", "Open"))
+        self.actionOpen.setText(_translate("MainWindow", "Load"))
         self.update_config_progress()
 
-    def threaded_function(self):
+    def start_boting_thread(self):
         self.pp.start_bot()
 
     def configure_slider(self):
@@ -531,9 +533,37 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
             "Sizes": conf[2],
             "Brands": conf[3]
         }
-        custom_tok = self.auth.create_custom_token(self.login)
         db = self.firebase.database()
-        print(self.login)
-        self.user = self.auth.refresh(self.user['refreshToken'])
         results = db.child(self.user['userId']).set(data)
-        print(results)
+
+    def load_config(self):
+        print('load')
+        db = self.firebase.database()
+        results = db.child(self.user['userId']).get()
+        for row in results.each():
+            key = row.key()
+            val = row.val()
+            if key == "Max Price":
+                self.lcdNumber.setProperty("value", val)
+            elif key == "Email":
+                self.textEdit_3.setText(key)
+            elif key == "Send Mail":
+                if val:
+                    self.checkBox.setChecked(val)
+            elif key == "Pieces":
+                self.stuck_slider.setValue(val)
+                self.stucks = val
+            elif key == "Accounts":
+                for v in val:
+                    self.accounts_list.addItem(v)
+            elif key == "Categories":
+                for v in val:
+                    self.categories_list.addItem(v)
+            elif key == "Sizes":
+                for v in val:
+                    self.sizes_list.addItem(v)
+            elif key == "Brands":
+                for v in val:
+                    self.brands_list.addItem(v)
+
+            print(row.val())  # {name": "Mortimer 'Morty' Smith"}
