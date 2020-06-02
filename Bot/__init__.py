@@ -332,4 +332,4 @@ class ShoppingBot:
                             self.wait_for_atcButton()
 
 
-ShoppingBot(["piotrpopisgames@gmail.com testertest","mtarka1337@gmail.com Azexs1998"],['bluza'],['M'],[],'ZZO0ZEK',300,3,0).start_bot()
+#ShoppingBot(["piotrpopisgames@gmail.com testertest","mtarka1337@gmail.com Azexs1998"],['bluza'],['M'],[],'ZZO0ZEK',300,3,0).start_bot()

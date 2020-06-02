@@ -11,6 +11,8 @@ class Ui_LoginPanel(PyQt5.QtCore.QObject):
     switch_window = QtCore.pyqtSignal()
     login = ""
     password = ""
+    firebase = pyrebase.initialize_app(config)
+    auth = firebase.auth()
 
     def setupUi(self, LoginPanel):
         LoginPanel.setObjectName("LoginPanel")
@@ -61,8 +63,6 @@ class Ui_LoginPanel(PyQt5.QtCore.QObject):
         self.register_btn.setText(_translate("LoginPanel", "Register"))
 
     def log_in(self):
-        firebase = pyrebase.initialize_app(config)
-        self.auth = firebase.auth()
         self.login = self.textEdit.toPlainText()
         self.password = self.textEdit_2.text()
         try:

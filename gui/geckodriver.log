@@ -26,3 +26,12 @@ JavaScript error: https://zl-acquire-production.ztat.net/homepage/master/product
 1590311397040	Marionette	WARN	TLS certificate errors will be ignored for this session
 console.warn: services.settings: main/whats-new-panel sync interrupted by shutdown
 1590311403254	Marionette	INFO	Stopped listening on port 39509
+1591095278969	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofiletGH4ZU"
+1591095279357	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591095279674	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591095279675	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591095279675	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591095279675	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1591095281394	Marionette	INFO	Listening on port 40707
+1591095281491	Marionette	WARN	TLS certificate errors will be ignored for this session
+1591095288146	Marionette	INFO	Stopped listening on port 40707

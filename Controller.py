@@ -1,6 +1,5 @@
 import sys
 
-import pyrebase
 from PyQt5 import QtWidgets, QtGui
 
 from gui.Login_Panel import Ui_LoginPanel
@@ -22,7 +21,7 @@ class Controller:
         self.lp = Ui_LoginPanel()
         self.LoginPanel = QtWidgets.QMainWindow()
         self.MainWin = QtWidgets.QMainWindow()
-        self.mw = Ui_MainWindow(self.MainWin)
+        self.mw = Ui_MainWindow(self.MainWin,self.lp.firebase,self.lp.auth)
 
     def show_login(self):
         self.lp.setupUi(self.LoginPanel)
@@ -30,7 +29,7 @@ class Controller:
         self.LoginPanel.show()
 
     def show_main(self):
-        self.mw.setupUi(self.MainWin, self.lp.user)
+        self.mw.setupUi(self.MainWin, self.lp.user, self.lp.login)
         self.LoginPanel.close()
         self.MainWin.show()
 

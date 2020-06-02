@@ -4,12 +4,10 @@ import time
 from datetime import datetime
 
 import PyQt5
-import pyrebase
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWidgets import QInputDialog, QLineEdit
 
 from Bot import ShoppingBot
-from firebase.Configuration import config
 from gui.Add_Account_Input_Dialog import Login
 
 
@@ -87,216 +85,19 @@ def get_integer():
 
 
 class Ui_MainWindow(PyQt5.QtCore.QObject):
-    def threaded_function(self):
-        self.pp.start_bot()
-
-    def configure_slider(self):
-        """
-        Configures slider
-        :return:
-        """
-        self.stuck_slider.setTickInterval(1)
-        self.stuck_slider.setSingleStep(1)
-        self.stuck_slider.setRange(1, 5)
-        self.stuck_slider.senderSignalIndex()
-        self.stuck_slider.setOrientation(QtCore.Qt.Vertical)
-        self.stuck_slider.setMinimum(1)
-        self.stuck_slider.setMaximum(5)
-        self.stuck_slider.valueChanged[int].connect(self.set_stuck)
-
-    def set_stuck(self, value):
-        """
-        Set stuck value
-        :param value:
-        :return:
-        """
-        self.stucks = value
-        self.update_config_progress()
-
-    def get_stuck(self):
-        """
-        :return: stuck value (per item)
-        """
-        if self.value:
-            return self.value
-
-    def start_bot(self):
-        """
-        Creates bot object and passes arguments.
-        :return:
-        """
-        if self.textEdit.toPlainText() == "":
-            error_dialog = QtWidgets.QErrorMessage()
-            error_dialog.showMessage('You need to input account and pass campaign id ')
-            error_dialog.exec_()
-        else:
-            self.sb = ShoppingBot(convert_qlist(self.accounts_list), convert_qlist(self.categories_list),
-                                  convert_qlist(self.sizes_list),
-                                  convert_qlist(self.brands_list), self.textEdit.toPlainText(),
-                                  self.lcdNumber.intValue(), self.get_stuck, 0)
-            if self.check_box_date.isChecked():
-                delay = get_delay(self.dateTimeEdit.textFromDateTime(self.dateTimeEdit.dateTime()))
-            else:
-                delay = 0
-            time.sleep(delay)
-            self.process.start()
-
-    def stop_bot(self):
-        """
-        Terminating the subprocces of creation, and closes windows.
-        :return:
-        """
-        quiter = multiprocessing.Process(target=self.pp.driver.quit)
-        quiter.start()
-        self.process.terminate()
-        gc.collect()
-
-    def add_size(self):
-        """
-        Adds size to sizes_qlist
-        :return:
-        """
-        self.sizes_list.addItem(get_text())
-        self.update_config_progress()
-
-    def add_brand(self):
-        """
-        Add new brand to brand_qlist
-        :return:
-        """
-        self.brands_list.addItem(get_text())
-        self.update_config_progress()
-
-    def add_category(self):
-        """
-        Inserting new category to category list.
-        :return:
-        """
-        self.categories_list.addItem(get_text())
-        self.update_config_progress()
-
-    def add_account(self):
-        """
-        Add accounts to widget list and,
-        and login,passwords pairs to account list passed
-        to shopping bot
-        :return:
-        """
-        self.log = Login()
-        self.log.show()
-        if self.log.exec_() == QtWidgets.QDialog.Accepted:
-            self.accounts_list.addItem(str(self.log.log) + ' ' + str(self.log.pwd))
-        self.log.close()
-        self.update_config_progress()
-
-    def set_max_price(self):
-        """
-        Sets max price per item. default - none on
-        lcd displayer
-        :return:
-        """
-        self.lcdNumber.display(str(get_integer()))
-        self.update_config_progress()
-
-    def del_size(self):
-        """
-        Removes given size. from size list
-        :return:
-        """
-        remove_item_qlist(self.sizes_list)
-        self.update_config_progress()
-
-    def del_brand(self):
-        """
-        Deletes brand from brand list
-        :return:
-        """
-        remove_item_qlist(self.brands_list)
-        self.update_config_progress()
-
-    def del_category(self):
-        """
-        Remove category from category list
-        :return:
-        """
-        remove_item_qlist(self.categories_list)
-        self.update_config_progress()
-
-    def del_account(self):
-        """
-        Remove zalando account from account list.
-        :return:
-        """
-        if len(self.accounts_list) > 1:
-            remove_item_qlist(self.accounts_list)
-        else:
-            pass
-        self.update_config_progress()
-
-    def get_config(self):
-        return convert_qlist(self.categories_list), convert_qlist(self.accounts_list), convert_qlist(
-            self.sizes_list), convert_qlist(self.brands_list), self.lcdNumber.intValue(), self.textEdit.toPlainText()
-
-    def update_config_progress(self):
-        points = 0
-        max_p = 6
-        l1, l2, l3, l4, lcd, cid = self.get_config()
-        if len(l1) > 0:
-            points += 1
-        if len(l2) > 0:
-            points += 1
-        if len(l3) > 0:
-            points += 1
-        if len(l4) > 0:
-            points += 1
-        if lcd != 0:
-            points += 1
-        if cid != "":
-            points += 1
-        if points != 0:
-            self.progressBar.setProperty("value", int(100 * points / max_p))
-
-    def reset_config(self):
-        """
-        Resets current config to default.
-        :return:
-        """
-        self.categories_list.clear()
-        self.sizes_list.clear()
-        self.brands_list.clear()
-        self.accounts_list.clear()
-        self.textEdit.clear()
-        self.textEdit_3.clear()
-        self.stuck_slider.setValue(1)
-        self.progressBar.setProperty("value", 0)
-        self.progressBar_2.setProperty("value", 0)
-        self.dateTimeEdit.setDateTime(QtCore.QDateTime.currentDateTime())
-        self.lcdNumber.display('0')
-        self.checkBox.setChecked(False)
-        self.check_box_date.setChecked(False)
-
-    def save_config(self):
-        print('save')
-        firebase = pyrebase.initialize_app(config)
-        data = {
-            "Login": "Mortimer 'Morty' Smith",
-            "Password": "Mortimer 'Morty' Smith"
-        }
-        db = firebase.database()
-        results = db.child("users").push(data, self.user['idToken'])
-        print(results)
-
-    def __init__(self, MainWindow):
+    def __init__(self, MainWindow, firebase, auth):
         """
         Initate all components.
         :param MainWindow:
         """
         super(Ui_MainWindow, self).__init__()
         self.process = multiprocessing.Process(target=self.threaded_function)
-
+        self.firebase = firebase
+        self.auth = auth
         MainWindow.setFixedSize(980, 538)
         self.stucks = 1
         self.sb = None
+        self.login = None
         self.central_widget = QtWidgets.QWidget(MainWindow)
         self.actionSave = QtWidgets.QAction(MainWindow)
         self.actionOpen = QtWidgets.QAction(MainWindow)
@@ -461,7 +262,7 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.menuMenu.addAction(self.actionOpen)
         self.menubar.addAction(self.menuMenu.menuAction())
 
-    def setupUi(self, MainWindow, user):
+    def setupUi(self, MainWindow, user, login):
         """
         main function to operate over setups
         :param MainWindow:
@@ -476,13 +277,13 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.setup_obj_names()
         self.progressBar.setProperty("value", 0)
         self.progressBar_2.setProperty("value", 0)
-        # self.accounts_list.addItem(login + ' ' + password)
         MainWindow.setCentralWidget(self.central_widget)
         MainWindow.setStatusBar(self.statusbar)
         MainWindow.setMenuBar(self.menubar)
         self.setup_menu()
         self.translate_ui(MainWindow)
         self.user = user
+        self.login = login
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def translate_ui(self, MainWindow):
@@ -523,3 +324,216 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.actionSave.setText(_translate("MainWindow", "Save"))
         self.actionOpen.setText(_translate("MainWindow", "Open"))
         self.update_config_progress()
+
+    def threaded_function(self):
+        self.pp.start_bot()
+
+    def configure_slider(self):
+        """
+        Configures slider
+        :return:
+        """
+        self.stuck_slider.setTickInterval(1)
+        self.stuck_slider.setSingleStep(1)
+        self.stuck_slider.setRange(1, 5)
+        self.stuck_slider.senderSignalIndex()
+        self.stuck_slider.setOrientation(QtCore.Qt.Vertical)
+        self.stuck_slider.setMinimum(1)
+        self.stuck_slider.setMaximum(5)
+        self.stuck_slider.valueChanged[int].connect(self.set_stuck)
+
+    def set_stuck(self, value):
+        """
+        Set stuck value
+        :param value:
+        :return:
+        """
+        self.stucks = value
+        self.update_config_progress()
+
+    def get_stuck(self):
+        """
+        :return: stuck value (per item)
+        """
+        if self.value:
+            return self.value
+
+    def start_bot(self):
+        """
+        Creates bot object and passes arguments.
+        :return:
+        """
+        if self.textEdit.toPlainText() == "":
+            error_dialog = QtWidgets.QErrorMessage()
+            error_dialog.showMessage('You need to input account and pass campaign id ')
+            error_dialog.exec_()
+        else:
+            self.sb = ShoppingBot(convert_qlist(self.accounts_list), convert_qlist(self.categories_list),
+                                  convert_qlist(self.sizes_list),
+                                  convert_qlist(self.brands_list), self.textEdit.toPlainText(),
+                                  self.lcdNumber.intValue(), self.get_stuck, 0)
+            if self.check_box_date.isChecked():
+                delay = get_delay(self.dateTimeEdit.textFromDateTime(self.dateTimeEdit.dateTime()))
+            else:
+                delay = 0
+            time.sleep(delay)
+            self.process.start()
+
+    def stop_bot(self):
+        """
+        Terminating the subprocces of creation, and closes windows.
+        :return:
+        """
+        quiter = multiprocessing.Process(target=self.pp.driver.quit)
+        quiter.start()
+        self.process.terminate()
+        gc.collect()
+
+    def add_size(self):
+        """
+        Adds size to sizes_qlist
+        :return:
+        """
+        self.sizes_list.addItem(get_text())
+        self.update_config_progress()
+
+    def add_brand(self):
+        """
+        Add new brand to brand_qlist
+        :return:
+        """
+        self.brands_list.addItem(get_text())
+        self.update_config_progress()
+
+    def add_category(self):
+        """
+        Inserting new category to category list.
+        :return:
+        """
+        self.categories_list.addItem(get_text())
+        self.update_config_progress()
+
+    def add_account(self):
+        """
+        Add accounts to widget list and,
+        and login,passwords pairs to account list passed
+        to shopping bot
+        :return:
+        """
+        self.log = Login()
+        self.log.show()
+        if self.log.exec_() == QtWidgets.QDialog.Accepted:
+            self.accounts_list.addItem(str(self.log.log) + ' ' + str(self.log.pwd))
+        self.log.close()
+        self.update_config_progress()
+
+    def set_max_price(self):
+        """
+        Sets max price per item. default - none on
+        lcd displayer
+        :return:
+        """
+        self.lcdNumber.display(str(get_integer()))
+        self.update_config_progress()
+
+    def del_size(self):
+        """
+        Removes given size. from size list
+        :return:
+        """
+        remove_item_qlist(self.sizes_list)
+        self.update_config_progress()
+
+    def del_brand(self):
+        """
+        Deletes brand from brand list
+        :return:
+        """
+        remove_item_qlist(self.brands_list)
+        self.update_config_progress()
+
+    def del_category(self):
+        """
+        Remove category from category list
+        :return:
+        """
+        remove_item_qlist(self.categories_list)
+        self.update_config_progress()
+
+    def del_account(self):
+        """
+        Remove zalando account from account list.
+        :return:
+        """
+        if len(self.accounts_list) > 1:
+            remove_item_qlist(self.accounts_list)
+        else:
+            pass
+        self.update_config_progress()
+
+    def get_config(self):
+        return convert_qlist(self.categories_list), convert_qlist(self.accounts_list), convert_qlist(
+            self.sizes_list), convert_qlist(
+            self.brands_list), self.lcdNumber.intValue(), self.textEdit_3.toPlainText(), self.checkBox.isChecked(), self.stuck_slider.value()
+
+    def update_config_progress(self):
+        """
+        Updates progress bar should be used after each operation on config.
+        :return:
+        """
+        points = 0
+        max_p = 6
+        l1, l2, l3, l4, lcd, cid, n0, n1 = self.get_config()
+        if len(l1) > 0:
+            points += 1
+        if len(l2) > 0:
+            points += 1
+        if len(l3) > 0:
+            points += 1
+        if len(l4) > 0:
+            points += 1
+        if lcd != 0:
+            points += 1
+        if cid != "":
+            points += 1
+        if points != 0:
+            self.progressBar.setProperty("value", int(100 * points / max_p))
+
+    def reset_config(self):
+        """
+        Resets current config to default.
+        :return:
+        """
+        self.categories_list.clear()
+        self.sizes_list.clear()
+        self.brands_list.clear()
+        self.accounts_list.clear()
+        self.textEdit.clear()
+        self.textEdit_3.clear()
+        self.stuck_slider.setValue(1)
+        self.progressBar.setProperty("value", 0)
+        self.progressBar_2.setProperty("value", 0)
+        self.dateTimeEdit.setDateTime(QtCore.QDateTime.currentDateTime())
+        self.lcdNumber.display('0')
+        self.checkBox.setChecked(False)
+        self.check_box_date.setChecked(False)
+
+    def save_config(self):
+        print(self.get_config())
+        conf = self.get_config()
+        data = {
+            "Max Price": conf[4],
+            "Email": conf[5],
+            "Send Mail": conf[6],
+            "Pieces": conf[7],
+            "Categories": conf[0],
+            "Accounts": conf[1],
+            "Sizes": conf[2],
+            "Brands": conf[3]
+        }
+        custom_tok = self.auth.create_custom_token(self.login)
+        db = self.firebase.database()
+        print(self.login)
+        self.user = self.auth.refresh(self.user['refreshToken'])
+        results = db.child(self.user['userId']).set(data)
+        print(results)
