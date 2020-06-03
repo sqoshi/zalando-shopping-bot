@@ -357,4 +357,4 @@ class ShoppingBot:
 
                         
 
-ShoppingBot(["piotrpopisgames@gmail.com testertest","mtarka1337@gmail.com Azexs1998"],['bluza'],['M'],[],'ZZO1219',150,6,0).work()
+ShoppingBot(["piotrpopisgames@gmail.com testertest","mtarka1337@gmail.com Azexs1998"],['bluza'],['M'],[],'ZZO1219',150,4,0).work()
