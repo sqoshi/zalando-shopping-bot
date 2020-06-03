@@ -5790,3 +5790,1225 @@ dispatch/<@chrome://marionette/content/listener.js:520:15
 1591143527173	Marionette	INFO	Stopped listening on port 40763
 1591143528484	Marionette	INFO	Stopped listening on port 40545
 1591143529610	Marionette	INFO	Stopped listening on port 45895
+1591179768732	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\xyz\\AppData\\Local\\Temp\\rust_mozprofilemzvHfv"
+1591179769040	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591179769506	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591179769506	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591179769507	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591179769507	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1591179772165	Marionette	INFO	Listening on port 50809
+1591179772583	Marionette	WARN	TLS certificate errors will be ignored for this session
+1591179797998	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\xyz\\AppData\\Local\\Temp\\rust_mozprofiledyA35m"
+1591179798308	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591179798796	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591179798796	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591179798796	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591179798796	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1591179801116	Marionette	INFO	Listening on port 50882
+1591179801233	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+console.error: (new Error("Protocol error (noSuchActor): No such actor for ID: server0.conn0.child2/domnode26", "resource://devtools/shared/protocol/Front.js", 294))
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+console.error: "Error while calling actor 'pagestyle's method 'getUsedFontFaces'" "node is null"
+console.error: "getUsedFontFaces@resource://devtools/server/actors/styles.js:384:24\nhandler@resource://devtools/shared/protocol/Actor.js:154:37\nonPacket@resource://devtools/server/devtools-server-connection.js:380:58\nreceiveMessage@resource://devtools/shared/transport/child-transport.js:66:16\n"
+console.error: "Could not get the list of font families" (new Error("Protocol error (unknownError): node is null", "resource://devtools/shared/protocol/Front.js", 294))
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x58000D,name=PHttpChannel::Msg_DeletingChannel) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1591179831574	Marionette	INFO	Stopped listening on port 50882
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1591179839991	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\xyz\\AppData\\Local\\Temp\\rust_mozprofileR7mnaV"
+1591179840306	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591179840698	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591179840698	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591179840698	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591179840698	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1591179842920	Marionette	INFO	Listening on port 51040
+1591179843233	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+1591179850714	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:850:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591179851174	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:850:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591179851404	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+1591179888174	Marionette	INFO	Stopped listening on port 51040
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1591180412525	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\xyz\\AppData\\Local\\Temp\\rust_mozprofileaOUGqI"
+1591180412825	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591180413306	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591180413306	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591180413306	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591180413306	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1591180415573	Marionette	INFO	Listening on port 51798
+1591180415755	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+1591180423815	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:850:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591180424033	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:850:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591180424288	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+1591180527590	Marionette	INFO	Stopped listening on port 51798
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1591180531523	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\xyz\\AppData\\Local\\Temp\\rust_mozprofilekWwmic"
+1591180531831	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591180532315	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591180532315	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591180532316	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591180532316	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1591180534759	Marionette	INFO	Listening on port 52058
+1591180534853	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+1591180544396	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:850:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591180544806	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:850:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591180545056	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+1591180696831	Marionette	INFO	Stopped listening on port 52058
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1591180723827	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\xyz\\AppData\\Local\\Temp\\rust_mozprofileVKha3V"
+1591180724129	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591180724645	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591180724645	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591180724645	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591180724645	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1591180726835	Marionette	INFO	Listening on port 52593
+1591180727090	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+1591180734685	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:850:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591180735067	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:850:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591180735342	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+1591180857435	Marionette	INFO	Stopped listening on port 52593
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1591180860777	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\xyz\\AppData\\Local\\Temp\\rust_mozprofileFOWYO8"
+1591180861079	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591180861563	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591180861564	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591180861564	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591180861564	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1591180863771	Marionette	INFO	Listening on port 52859
+1591180864032	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+1591180872323	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:850:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591180872536	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:850:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591180872787	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+1591180961664	Marionette	INFO	Stopped listening on port 52859
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1591181191915	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\xyz\\AppData\\Local\\Temp\\rust_mozprofile1Po4XS"
+1591181192235	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591181192718	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591181192718	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591181192718	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591181192718	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1591181194936	Marionette	INFO	Listening on port 53508
+1591181195178	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+1591181202724	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:850:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591181203043	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:850:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591181203301	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x37012B,name=PContent::Msg_ScriptError) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x37012B,name=PContent::Msg_ScriptError) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1591181219975	Marionette	INFO	Stopped listening on port 53508
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1591181224371	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\xyz\\AppData\\Local\\Temp\\rust_mozprofilepuC5ol"
+1591181224689	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591181225165	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591181225166	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591181225166	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591181225166	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1591181227371	Marionette	INFO	Listening on port 53669
+1591181227659	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+1591181234986	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:850:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591181235209	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:850:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591181235501	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+1591181373132	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\xyz\\AppData\\Local\\Temp\\rust_mozprofile2kHVvN"
+1591181373445	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591181373906	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591181373906	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591181373906	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591181373906	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1591181376204	Marionette	INFO	Listening on port 54091
+1591181376368	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+1591181384682	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:850:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591181385105	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:850:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591181385366	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+JavaScript error: resource:///modules/FaviconLoader.jsm, line 568: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: resource:///modules/FaviconLoader.jsm, line 568: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x37012B,name=PContent::Msg_ScriptError) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x37012B,name=PContent::Msg_ScriptError) Channel closing: too late to send/recv, messages will be lost
+
+1591181408457	Marionette	INFO	Stopped listening on port 54091
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1591181516488	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\xyz\\AppData\\Local\\Temp\\rust_mozprofilerVPkQz"
+1591181516780	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591181517243	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591181517244	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591181517244	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591181517244	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+JavaScript error: , line 0: AbortError: A request was aborted, for example through a call to IDBTransaction.abort.
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1591181532583	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\xyz\\AppData\\Local\\Temp\\rust_mozprofilejlazDt"
+1591181532869	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591181533240	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591181533240	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591181533240	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591181533240	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1591181535545	Marionette	INFO	Listening on port 54396
+1591181535850	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+1591181543982	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:850:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591181544393	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:850:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591181544650	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+1591181565965	Marionette	WARN	TimedPromise timed out after 500 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+interaction.flushEventLoop@chrome://marionette/content/interaction.js:416:10
+webdriverClickElement@chrome://marionette/content/interaction.js:182:31
+1591181566759	Marionette	WARN	TimedPromise timed out after 500 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+interaction.flushEventLoop@chrome://marionette/content/interaction.js:416:10
+webdriverClickElement@chrome://marionette/content/interaction.js:182:31
+1591181568990	Marionette	WARN	TimedPromise timed out after 500 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+interaction.flushEventLoop@chrome://marionette/content/interaction.js:416:10
+webdriverClickElement@chrome://marionette/content/interaction.js:182:31
+1591181669416	Marionette	INFO	Stopped listening on port 54396
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591181664507	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591181664507	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591181664507	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591181664507	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1591181666926	Marionette	INFO	Listening on port 54654
+1591181667024	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+1591181675029	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:850:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591181675355	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:850:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591181675577	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+1591181860644	Marionette	INFO	Stopped listening on port 54654
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ile" "C:\\Users\\xyz\\AppData\\Local\\Temp\\rust_mozprofileVENt9G"
+1591181744706	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591181745177	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591181745177	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591181745177	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591181745177	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1591181747466	Marionette	INFO	Listening on port 54852
+1591181747646	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+1591181755216	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:850:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591181755556	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:850:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591181755814	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+1591181761898	Marionette	INFO	Stopped listening on port 54852
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1591181766763	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\xyz\\AppData\\Local\\Temp\\rust_mozprofileMC0vPc"
+1591181767060	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591181767539	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591181767539	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591181767539	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591181767539	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1591181769730	Marionette	INFO	Listening on port 54973
+1591181770014	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+1591181777216	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:850:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591181777524	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:850:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591181777813	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+1591181859036	Marionette	INFO	Stopped listening on port 54973
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1591181865594	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\xyz\\AppData\\Local\\Temp\\rust_mozprofilekkeuXr"
+1591181865890	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591181866391	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591181866392	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591181866392	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591181866392	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1591181868592	Marionette	INFO	Listening on port 55185
+1591181868827	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+1591181877401	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:850:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591181877743	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:850:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591181878004	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+1591181909849	Marionette	INFO	Stopped listening on port 55185
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1591182045933	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\xyz\\AppData\\Local\\Temp\\rust_mozprofileiyugtk"
+1591182046244	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591182046617	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591182046617	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591182046617	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591182046617	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1591182048712	Marionette	INFO	Listening on port 55484
+1591182049189	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+1591182056969	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:850:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591182057374	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:850:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591182057628	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+1591182085683	Marionette	INFO	Stopped listening on port 55484
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1591182097123	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\xyz\\AppData\\Local\\Temp\\rust_mozprofileiooqs8"
+1591182097418	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591182097864	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591182097864	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591182097864	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591182097864	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1591182100184	Marionette	INFO	Listening on port 55645
+1591182100378	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+1591182108540	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:850:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591182108853	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:850:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591182109163	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+1591182166789	Marionette	INFO	Stopped listening on port 55645
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591182133362	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591182133363	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591182133363	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591182133363	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1591182135729	Marionette	INFO	Listening on port 55797
+1591182135815	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+1591182145276	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:850:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591182145597	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:850:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591182145911	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+1591182163775	Marionette	INFO	Stopped listening on port 55797
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1591182246549	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\xyz\\AppData\\Local\\Temp\\rust_mozprofile9LDGAk"
+1591182247152	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591182247604	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591182247605	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591182247605	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591182247605	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1591182249787	Marionette	INFO	Listening on port 56026
+1591182249885	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+1591182257696	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:850:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591182258011	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:850:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591182258265	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1591182300744	Marionette	INFO	Stopped listening on port 56026
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1591182339123	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\xyz\\AppData\\Local\\Temp\\rust_mozprofile7N6t7y"
+1591182339409	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591182339888	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591182339889	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591182339889	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591182339889	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1591182342193	Marionette	INFO	Listening on port 56240
+1591182342361	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+1591182349933	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:850:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591182350153	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:850:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591182350416	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:244:13
+TimedPromise@chrome://marionette/content/sync.js:229:10
+Sleep@chrome://marionette/content/sync.js:282:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x580011,name=PHttpChannel::Msg___delete__) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x690029,name=PNecko::Msg_RemoveRequestContext) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1591182360271	Marionette	INFO	Stopped listening on port 56240
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
