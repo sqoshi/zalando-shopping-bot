@@ -5,7 +5,8 @@ import sys
 from time import sleep
 
 from selenium import webdriver
-from selenium.common.exceptions import NoSuchElementException, TimeoutException, StaleElementReferenceException,ElementClickInterceptedException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException, StaleElementReferenceException, \
+    ElementClickInterceptedException
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -76,7 +77,7 @@ class ShoppingBot:
                 for brand in wanted_brands:
                     brand_web = sample.text.lower()
                     if brand.lower() in brand_web and brand_web not in already_selected:
-                        #print(brand_web)
+                        # print(brand_web)
                         already_selected.append(brand_web)
                         sample.click()
                 i += 1
@@ -93,7 +94,7 @@ class ShoppingBot:
                 for given_size in wanted_sizes:
                     size_web = sample.text.upper()
                     if given_size == size_web and size_web not in already_selected:
-                        #print(size_web)
+                        # print(size_web)
                         already_selected.append(size_web)
                         sample.click()
                 i += 1
@@ -135,24 +136,19 @@ class ShoppingBot:
         sleep(2)
 
         if len(self.driver.find_elements_by_xpath('/html/body/div[1]/div/div[2]/div[2]/div/div/div/form/button')) != 0:
-             self.driver.find_element_by_xpath('/html/body/div[1]/div/div[2]/div[2]/div/div/div/form/button').click()
-             self.wait_login_error()
+            self.driver.find_element_by_xpath('/html/body/div[1]/div/div[2]/div[2]/div/div/div/form/button').click()
+            self.wait_login_error()
 
-        
-
-
-    
-    def change_acc(self,href,size):
+    def change_acc(self, href, size):
         self.driver.find_element_by_xpath('//span[text() = "Konto"]').click()
         self.driver.find_element_by_xpath('//span[contains(text(), "Wyloguj")]').click()
         WebDriverWait(self.driver, 5).until \
-                                    (EC.element_to_be_clickable(
-                                    (By.XPATH, '//span[contains(text(), "Zaloguj")]'))).click()
+                (EC.element_to_be_clickable(
+                (By.XPATH, '//span[contains(text(), "Zaloguj")]'))).click()
 
-        element = WebDriverWait(self.driver,5).until \
+        element = WebDriverWait(self.driver, 5).until \
             (EC.element_to_be_clickable((By.XPATH, '//*[@id="form-email"]')))
         element.send_keys('mtarka1337@gmail.com')
-
 
         element = WebDriverWait(self.driver, 5).until \
             (EC.element_to_be_clickable((By.XPATH, '//*[@id="form-password"]')))
@@ -165,19 +161,12 @@ class ShoppingBot:
         self.driver.get(href)
 
         WebDriverWait(self.driver, 5).until \
-                            (EC.element_to_be_clickable(
-                            (By.XPATH, '//span[contains(@class, "Size") and text()="' + size + '"]'))).click()
+                (EC.element_to_be_clickable(
+                (By.XPATH, '//span[contains(@class, "Size") and text()="' + size + '"]'))).click()
 
-        
-        
-
-        
-
-        
         # ShoppingBot(["piotrpopisgames@gmail.com testertest","mtarka1337@gmail.com Azexs1998"],['koszula'],['M'],[],'ZZO1008',300,3,1).start_bot()
 
-
-    def __init__(self, acc, cats, sizs, brds, cid, mpi,maa,ite):
+    def __init__(self, acc, cats, sizs, brds, cid, mpi, maa, ite):
         options = Options()
         # options.add_argument("--disable-notifications")
         self.driver = webdriver.Firefox(options=options)
@@ -190,9 +179,8 @@ class ShoppingBot:
         self.max_per_item = mpi
         self.accounts_list = acc
         self.max_ammount = maa
-        
 
-    def start_bot(self):
+    def work(self):
 
         # Open website
         self.driver.get("https://www.zalando-lounge.pl")
@@ -279,7 +267,6 @@ class ShoppingBot:
                 else:
                     hrefs.append(href)
 
-
         selected_sizes = self.sizes_list
         # Add all items from hrefs to cart
 
@@ -299,7 +286,7 @@ class ShoppingBot:
                     element = WebDriverWait(self.driver, 5).until \
                             (EC.element_to_be_clickable(
                             (By.XPATH, '//span[contains(@class, "Size") and text()="' + size + '"]')))
-                except: 
+                except:
                     continue
 
                 # addtoCartButton = WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]')))
@@ -318,11 +305,11 @@ class ShoppingBot:
 
                     for x in range(ammount):
                         WebDriverWait(self.driver, 5).until(
-                        EC.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]'))).click()
-                        total_items+=1
-                        if (total_items==2):
-                            self.change_acc(href,size)
-                            
+                            EC.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]'))).click()
+                        total_items += 1
+                        if (total_items == 2):
+                            self.change_acc(href, size)
+
                         if selected == 2 and x == 0:
                             self.wait_for_popup()
                             WebDriverWait(self.driver, 20).until \
@@ -331,5 +318,4 @@ class ShoppingBot:
                         else:
                             self.wait_for_atcButton()
 
-
-#ShoppingBot(["piotrpopisgames@gmail.com testertest","mtarka1337@gmail.com Azexs1998"],['bluza'],['M'],[],'ZZO0ZEK',300,3,0).start_bot()
+# ShoppingBot(["piotrpopisgames@gmail.com testertest","mtarka1337@gmail.com Azexs1998"],['bluza'],['M'],[],'ZZO0ZEK',300,3,0).start_bot()

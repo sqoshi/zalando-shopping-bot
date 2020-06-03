@@ -91,12 +91,12 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         :param MainWindow:
         """
         super(Ui_MainWindow, self).__init__()
-        self.process = multiprocessing.Process(target=self.start_boting_thread)
+        self.account_adder = Login()
         self.firebase = firebase
         self.auth = auth
         MainWindow.setFixedSize(980, 538)
         self.stucks = 1
-        self.sb = None
+        self.bot_list = [(None, multiprocessing.Process(target=self.start_boting_thread))]
         self.login = None
         self.central_widget = QtWidgets.QWidget(MainWindow)
         self.actionSave = QtWidgets.QAction(MainWindow)
@@ -234,23 +234,6 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.actionSave.setObjectName("actionSave")
         self.actionOpen.setObjectName("actionOpen")
 
-    def connect_buttons(self):
-        """
-        connect buttons to functionalities
-        :return:
-        """
-        self.start_btn.clicked.connect(self.start_bot)
-        self.stop_btn.clicked.connect(self.stop_bot)
-        self.add_size_btn.clicked.connect(self.add_size)
-        self.del_size_btn.clicked.connect(self.del_size)
-        self.add_brand_btn.clicked.connect(self.add_brand)
-        self.add_category_btn.clicked.connect(self.add_category)
-        self.set_max_price_btn.clicked.connect(self.set_max_price)
-        self.add_account_btn.clicked.connect(self.add_account)
-        self.actionReset_preferences.triggered.connect(self.reset_config)
-        self.actionSave.triggered.connect(self.save_config)
-        self.actionOpen.triggered.connect(self.load_config)
-
     def setup_menu(self):
         """
         setup menu bar and options.
@@ -268,7 +251,7 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         main function to operate over setups
         :param MainWindow:
         :param login:
-        :param password:
+        :param user:
         :return:
         """
         MainWindow.setObjectName("MainWindow")
@@ -327,8 +310,25 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.actionOpen.setText(_translate("MainWindow", "Load"))
         self.update_config_progress()
 
-    def start_boting_thread(self):
-        self.pp.start_bot()
+    def connect_buttons(self):
+        """
+        connect buttons to functionalities
+        :return:
+        """
+        self.start_btn.clicked.connect(self.create_bot)
+        self.stop_btn.clicked.connect(self.stop_bot)
+        self.add_size_btn.clicked.connect(self.add_size)
+        self.del_size_btn.clicked.connect(self.del_size)
+        self.add_brand_btn.clicked.connect(self.add_brand)
+        self.del_brand_btn.clicked.connect(self.del_brand)
+        self.add_category_btn.clicked.connect(self.add_category)
+        self.del_category_btn.clicked.connect(self.del_category)
+        self.set_max_price_btn.clicked.connect(self.set_max_price)
+        self.add_account_btn.clicked.connect(self.add_account)
+        self.del_account_btn.clicked.connect(self.del_account)
+        self.actionReset_preferences.triggered.connect(self.reset_config)
+        self.actionSave.triggered.connect(self.save_config)
+        self.actionOpen.triggered.connect(self.load_config)
 
     def configure_slider(self):
         """
@@ -360,7 +360,15 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         if self.value:
             return self.value
 
-    def start_bot(self):
+    def start_boting_thread(self):
+        """
+        Start bot on new thread
+        :return:
+        """
+        self.bot_list[-1][0].work()
+        print(self.bot_list)
+
+    def create_bot(self):
         """
         Creates bot object and passes arguments.
         :return:
@@ -370,25 +378,36 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
             error_dialog.showMessage('You need to input account and pass campaign id ')
             error_dialog.exec_()
         else:
-            self.sb = ShoppingBot(convert_qlist(self.accounts_list), convert_qlist(self.categories_list),
-                                  convert_qlist(self.sizes_list),
-                                  convert_qlist(self.brands_list), self.textEdit.toPlainText(),
-                                  self.lcdNumber.intValue(), self.get_stuck, 0)
+            sb = ShoppingBot(convert_qlist(self.accounts_list),
+                             convert_qlist(self.categories_list),
+                             convert_qlist(self.sizes_list),
+                             convert_qlist(self.brands_list),
+                             self.textEdit.toPlainText(),
+                             self.lcdNumber.intValue(),
+                             self.get_stuck, 0)
+            p = multiprocessing.Process(target=self.start_boting_thread)
+            self.bot_list.append((sb, p))
+            if self.bot_list[0][0] is None:
+                self.bot_list.pop(0)
             if self.check_box_date.isChecked():
                 delay = get_delay(self.dateTimeEdit.textFromDateTime(self.dateTimeEdit.dateTime()))
             else:
                 delay = 0
             time.sleep(delay)
-            self.process.start()
+            self.bot_list[-1][1].start()
 
     def stop_bot(self):
         """
         Terminating the subprocces of creation, and closes windows.
         :return:
         """
-        quiter = multiprocessing.Process(target=self.pp.driver.quit)
-        quiter.start()
-        self.process.terminate()
+        try:
+            quiter = multiprocessing.Process(target=self.bot_list[0][0].driver.quit)
+            quiter.start()
+            self.bot_list[0][1].terminate()
+        except AttributeError:
+            pass
+        self.bot_list.pop(0)
         gc.collect()
 
     def add_size(self):
@@ -422,11 +441,10 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         to shopping bot
         :return:
         """
-        self.log = Login()
-        self.log.show()
-        if self.log.exec_() == QtWidgets.QDialog.Accepted:
-            self.accounts_list.addItem(str(self.log.log) + ' ' + str(self.log.pwd))
-        self.log.close()
+        self.account_adder.show()
+        if self.account_adder.exec_() == QtWidgets.QDialog.Accepted:
+            self.accounts_list.addItem(str(self.account_adder.log) + ' ' + str(self.account_adder.pwd))
+        self.account_adder.close()
         self.update_config_progress()
 
     def set_max_price(self):
@@ -467,16 +485,18 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         Remove zalando account from account list.
         :return:
         """
-        if len(self.accounts_list) > 1:
-            remove_item_qlist(self.accounts_list)
-        else:
-            pass
+        remove_item_qlist(self.accounts_list)
         self.update_config_progress()
 
     def get_config(self):
+        """
+        Returns current user configuration
+        :return:
+        """
         return convert_qlist(self.categories_list), convert_qlist(self.accounts_list), convert_qlist(
             self.sizes_list), convert_qlist(
-            self.brands_list), self.lcdNumber.intValue(), self.textEdit_3.toPlainText(), self.checkBox.isChecked(), self.stuck_slider.value()
+            self.brands_list), self.lcdNumber.intValue(), self.textEdit_3.toPlainText(), \
+               self.checkBox.isChecked(), self.stuck_slider.value()
 
     def update_config_progress(self):
         """
@@ -521,7 +541,6 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.check_box_date.setChecked(False)
 
     def save_config(self):
-        print(self.get_config())
         conf = self.get_config()
         data = {
             "Max Price": conf[4],
@@ -534,10 +553,13 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
             "Brands": conf[3]
         }
         db = self.firebase.database()
-        results = db.child(self.user['userId']).set(data)
+        db.child(self.user['userId']).set(data)
 
     def load_config(self):
-        print('load')
+        """
+        Loads config from firebase
+        :return:
+        """
         db = self.firebase.database()
         results = db.child(self.user['userId']).get()
         for row in results.each():
@@ -546,7 +568,7 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
             if key == "Max Price":
                 self.lcdNumber.setProperty("value", val)
             elif key == "Email":
-                self.textEdit_3.setText(key)
+                self.textEdit_3.setText(val)
             elif key == "Send Mail":
                 if val:
                     self.checkBox.setChecked(val)
@@ -565,5 +587,3 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
             elif key == "Brands":
                 for v in val:
                     self.brands_list.addItem(v)
-
-            print(row.val())  # {name": "Mortimer 'Morty' Smith"}
