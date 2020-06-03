@@ -95,7 +95,7 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.firebase = firebase
         self.auth = auth
         MainWindow.setFixedSize(980, 538)
-        self.stucks = 1
+        self.pieces = 1
         self.bot_list = [(None, multiprocessing.Process(target=self.start_boting_thread))]
         self.login = None
         self.central_widget = QtWidgets.QWidget(MainWindow)
@@ -279,7 +279,7 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         :return:
         """
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Shopping Bot for Zalando Longue"))
         self.start_btn.setText(_translate("MainWindow", "Start"))
         self.stop_btn.setText(_translate("MainWindow", "Stop"))
         self.label_4.setText(_translate("MainWindow", "Campaign ID"))
@@ -306,8 +306,8 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.menuMenu.setTitle(_translate("MainWindow", "Menu"))
         self.actionReset_preferences.setText(_translate("MainWindow", "Reset preferences"))
         self.actionInfo.setText(_translate("MainWindow", "Info"))
-        self.actionSave.setText(_translate("MainWindow", "Save"))
-        self.actionOpen.setText(_translate("MainWindow", "Load"))
+        self.actionSave.setText(_translate("MainWindow", "Save Configuration"))
+        self.actionOpen.setText(_translate("MainWindow", "Load Configuration"))
         self.update_config_progress()
 
     def connect_buttons(self):
@@ -350,7 +350,7 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         :param value:
         :return:
         """
-        self.stucks = value
+        self.pieces = value
         self.update_config_progress()
 
     def get_stuck(self):
@@ -383,8 +383,8 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
                              convert_qlist(self.sizes_list),
                              convert_qlist(self.brands_list),
                              self.textEdit.toPlainText(),
-                             self.lcdNumber.intValue(),
-                             self.get_stuck, 0)
+                             int(self.lcdNumber.intValue()),
+                             int(self.stuck_slider.value()), 0)
             p = multiprocessing.Process(target=self.start_boting_thread)
             self.bot_list.append((sb, p))
             if self.bot_list[0][0] is None:
@@ -496,7 +496,7 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         return convert_qlist(self.categories_list), convert_qlist(self.accounts_list), convert_qlist(
             self.sizes_list), convert_qlist(
             self.brands_list), self.lcdNumber.intValue(), self.textEdit_3.toPlainText(), \
-               self.checkBox.isChecked(), self.stuck_slider.value()
+            self.checkBox.isChecked(), self.stuck_slider.value()
 
     def update_config_progress(self):
         """
@@ -574,7 +574,7 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
                     self.checkBox.setChecked(val)
             elif key == "Pieces":
                 self.stuck_slider.setValue(val)
-                self.stucks = val
+                self.pieces = val
             elif key == "Accounts":
                 for v in val:
                     self.accounts_list.addItem(v)
