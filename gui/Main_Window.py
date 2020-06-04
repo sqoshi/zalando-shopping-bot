@@ -541,6 +541,10 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.check_box_date.setChecked(False)
 
     def save_config(self):
+        """
+        Saves current configuration in database.
+        :return:
+        """
         conf = self.get_config()
         data = {
             "Max Price": conf[4],
