@@ -1,16 +1,16 @@
 Bot został stworzony na przeglądarkę mozilla firefox, w systemie linux ubuntu 20.04, pisany w python wersji 3.8.
-#### Uruchamianie
+# Uruchamianie
 ``./run`` lub przez Controller.py
-#### Instalacja
+# Instalacja
 ``./build `` - instaluje poniższe biblioteki, należy jeszcze samodzielnie
  zainstalować [_geckodriver_](https://github.com/mozilla/geckodriver/releases)
 
-##### Biblioteki  
+### Biblioteki  
 ```pip install pyrebase```
 ```pip install selenium```
 ```pip install PyQt5```
 
-##### Geckodriver ( 3 czerwiec 2020).
+## Geckodriver ( 3 czerwiec 2020).
 Jedynym problem jest Geckodriver (dla firefoxa).
 W module features znajduje się geckodriver w wersji 0.26 dla aktualnie najnowszej wersji firefoxa 76.0.1 (64-bit)
 
@@ -32,7 +32,7 @@ W module features znajduje się geckodriver w wersji 0.26 dla aktualnie najnowsz
 
 [ASK UBUNTU POMOCNY LINK GECKODRIVER](https://askubuntu.com/questions/870530/how-to-install-geckodriver-in-ubuntu)
 
-#### Campaign - ID
+## Campaign - ID
 Aby zdobyć campaign- id nadchodzącej wyprzedaży, 
 należy znaleźć ją w sekcji " Wkrótce u nas "
  pojawiającej się po zalogowaniu na stronie zalando longue.
@@ -168,7 +168,7 @@ na kilka konfiguracji)
 - skrypt budujący
 - skrypt uruchamiający
 
-### Przydatne linki
+## Przydatne linki
 [firebase](https://firebase.com)
 [pyrebase](https://github.com/thisbejim/Pyrebase/blob/master/README.md?fbclid=IwAR0MfG6lXHNXciGdLzK0AdW7lkIUWmNrHd4jQvUjrV8heOXVvvIu2SK1Usw)
 [geckodriver askubuntu](https://askubuntu.com/questions/870530/how-to-install-geckodriver-in-ubuntu)
