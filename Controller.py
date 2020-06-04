@@ -15,7 +15,9 @@ config = {
 
 
 class Controller:
-    """ Switching between frames."""
+    """
+    Switching between frames.
+    """
 
     def __init__(self):
         self.lp = Ui_LoginPanel()
@@ -24,11 +26,19 @@ class Controller:
         self.mw = Ui_MainWindow(self.MainWin,self.lp.firebase,self.lp.auth)
 
     def show_login(self):
+        """
+        Show login frame
+        :return:
+        """
         self.lp.setupUi(self.LoginPanel)
         self.lp.switch_window.connect(self.show_main)
         self.LoginPanel.show()
 
     def show_main(self):
+        """
+        Show main window
+        :return:
+        """
         self.mw.setupUi(self.MainWin, self.lp.user, self.lp.login)
         self.LoginPanel.close()
         self.MainWin.show()

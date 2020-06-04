@@ -384,7 +384,10 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
                              convert_qlist(self.brands_list),
                              self.textEdit.toPlainText(),
                              int(self.lcdNumber.intValue()),
-                             int(self.stuck_slider.value()), 0)
+                             int(self.stuck_slider.value()),
+                             self.textEdit_3.toPlainText(),
+                             self.checkBox.isChecked(),
+                             0)
             p = multiprocessing.Process(target=self.start_boting_thread)
             self.bot_list.append((sb, p))
             if self.bot_list[0][0] is None:
