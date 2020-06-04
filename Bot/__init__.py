@@ -5,7 +5,7 @@ import sys
 from time import sleep
 
 from selenium import webdriver
-from selenium.common.exceptions import NoSuchElementException, TimeoutException,ElementClickInterceptedException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException,ElementClickInterceptedException,StaleElementReferenceException
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -220,8 +220,14 @@ class ShoppingBot:
         self.driver.get("https://www.zalando-lounge.pl")
 
         # Wait for cookies banner and close it
-        WebDriverWait(self.driver, 5).until \
-            (EC.element_to_be_clickable((By.XPATH, '//*[@id=\"uc-btn-accept-banner\"]'))).click()
+        while True:
+            try:
+                WebDriverWait(self.driver, 5).until \
+                    (EC.element_to_be_clickable((By.XPATH, '//*[@id=\"uc-btn-accept-banner\"]'))).click()
+                print('repea')
+                break
+            except StaleElementReferenceException:
+                pass
 
         self.driver.find_element_by_xpath(
             "/html/body/div[2]/div/div[2]/div[1]/div/div/div[1]/div/div/div[2]/div/div/button").click()
