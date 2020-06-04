@@ -36,8 +36,8 @@ W module features znajduje się geckodriver w wersji 0.26 dla aktualnie najnowsz
 Aby zdobyć campaign- id nadchodzącej wyprzedaży, 
 należy znaleźć ją w sekcji " Wkrótce u nas "
  pojawiającej się po zalogowaniu na stronie zalando longue.
- Kliknąc prawym i wybrać opcję inspect element. Następnie w source code należy odszukać ID.
-Jest to id oznaczone na poniższym zdjęciu.
+ Kliknąć prawym przyciskiem myszy i wybrać opcję inspect element. Następnie w source code należy odszukać ID.
+Jest oznaczone na poniższym zdjęciu.
 ![Alt text](features/campaign_id_instruction.png?raw=true "Title")
 
 ## Krótki opis stanu projektu na:
@@ -170,13 +170,8 @@ na kilka konfiguracji)
 
 ### Przydatne linki
 [firebase](https://firebase.com)
-
 [pyrebase](https://github.com/thisbejim/Pyrebase/blob/master/README.md?fbclid=IwAR0MfG6lXHNXciGdLzK0AdW7lkIUWmNrHd4jQvUjrV8heOXVvvIu2SK1Usw)
-
 [geckodriver askubuntu](https://askubuntu.com/questions/870530/how-to-install-geckodriver-in-ubuntu)
-
 [selenium](https://selenium-python.readthedocs.io/)
-
 [PyQt5](https://pypi.org/project/PyQt5/)
-
 [Python Scripts](https://realpython.com/run-python-scripts/)
