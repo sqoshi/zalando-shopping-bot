@@ -1,20 +1,18 @@
-
-### Instrukcja dla Firefox mozilla, Ubuntu 20.04 ( 3 czerwiec 2020), python3.8
-#### Uruchamianie
+Bot został stworzony na przeglądarkę mozilla firefox, w systemie linux ubuntu 20.04, pisany w python wersji 3.8.
+# Uruchamianie
 ``./run`` lub przez Controller.py
-#### Instalacja
+# Instalacja
 ``./build `` - instaluje poniższe biblioteki, należy jeszcze samodzielnie
  zainstalować [_geckodriver_](https://github.com/mozilla/geckodriver/releases)
 
-##### Biblioteki  
+### Biblioteki  
 ```pip install pyrebase```
 ```pip install selenium```
 ```pip install PyQt5```
 
-##### Geckodriver
-Jedynym problem to zainstalowanie Geckodriver dla firefoxa.
-W module features znajduje się geckodriver w wersji 0.26, który działa dla najnowszej wersji firefoxa 76.0.1 (64-bit)
-( 3 czerwiec 2020).
+## Geckodriver ( 3 czerwiec 2020).
+Jedynym problem jest Geckodriver (dla firefoxa).
+W module features znajduje się geckodriver w wersji 0.26 dla aktualnie najnowszej wersji firefoxa 76.0.1 (64-bit)
 
 ##### Instrukcja geckodriver :
 1. Należy znaleźć i pobrać najnowszą wersję sterownika
@@ -34,6 +32,13 @@ W module features znajduje się geckodriver w wersji 0.26, który działa dla na
 
 [ASK UBUNTU POMOCNY LINK GECKODRIVER](https://askubuntu.com/questions/870530/how-to-install-geckodriver-in-ubuntu)
 
+## Campaign - ID
+Aby zdobyć campaign- id nadchodzącej wyprzedaży, 
+należy znaleźć ją w sekcji " Wkrótce u nas "
+ pojawiającej się po zalogowaniu na stronie zalando longue.
+ Kliknąć prawym przyciskiem myszy i wybrać opcję inspect element. Następnie w source code należy odszukać ID.
+Jest oznaczone na poniższym zdjęciu.
+![Alt text](features/campaign_id_instruction.png?raw=true "Title")
 
 ## Krótki opis stanu projektu na:
 
@@ -163,15 +168,10 @@ na kilka konfiguracji)
 - skrypt budujący
 - skrypt uruchamiający
 
-### Przydatne linki
+## Przydatne linki
 [firebase](https://firebase.com)
-
 [pyrebase](https://github.com/thisbejim/Pyrebase/blob/master/README.md?fbclid=IwAR0MfG6lXHNXciGdLzK0AdW7lkIUWmNrHd4jQvUjrV8heOXVvvIu2SK1Usw)
-
 [geckodriver askubuntu](https://askubuntu.com/questions/870530/how-to-install-geckodriver-in-ubuntu)
-
 [selenium](https://selenium-python.readthedocs.io/)
-
 [PyQt5](https://pypi.org/project/PyQt5/)
-
 [Python Scripts](https://realpython.com/run-python-scripts/)
