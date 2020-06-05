@@ -35,7 +35,7 @@ class ShoppingBot:
     def __init__(self, acc, cats, sizs, brds, cid, mpi, maa, mail, is_mail_checked, ite):
         options = Options()
         # options.add_argument("--disable-notifications")
-        print(acc, cats, sizs, brds, cid, mpi, maa,mail, is_mail_checked, ite)
+        print(acc, cats, sizs, brds, cid, mpi, maa, mail, is_mail_checked, ite)
         self.driver = webdriver.Firefox(options=options)
         self.inform_email = None
         if is_mail_checked:
@@ -339,7 +339,7 @@ class ShoppingBot:
         """
         self.campaign_id = 'campaign-' + self.campaign_id
         action = ActionChains(self.driver)
-        first_campaign = WebDriverWait(self.driver, 20).until(
+        first_campaign = WebDriverWait(self.driver, 120).until(
             ec.presence_of_element_located((By.XPATH, '//*[@id="' + self.campaign_id + '"]/div')))
         self.scroll_shim(first_campaign)
         action.move_to_element(first_campaign).perform()
@@ -366,7 +366,6 @@ class ShoppingBot:
             selected = 0
 
             for size in selected_sizes:
-                err_flag = False
                 try:
                     element = WebDriverWait(self.driver, 5).until(ec.element_to_be_clickable(
                         (By.XPATH, '//span[contains(@class, "Size") and text()="' + size + '"]')))
@@ -376,7 +375,7 @@ class ShoppingBot:
                 parent = element.find_element_by_xpath("./..")
                 is_clickable = parent.value_of_css_property("color")
                 amount = -1
-                if is_clickable == 'rgb(53, 53, 53)' and not err_flag:
+                if is_clickable == 'rgb(53, 53, 53)':
                     try:
                         amount_span = parent.find_element_by_xpath('./span[2]')
                         amount = int(amount_span.text[-1:])
@@ -414,7 +413,6 @@ class ShoppingBot:
         """
         self.driver.get("https://www.zalando-lounge.pl")
         self.perform_login()
-        self.campaign_id = 'campaign-' + self.campaign_id
         self.dont_know_whats_doing_this_part()
         self.filter_event()
         self.scroll_down()
@@ -422,4 +420,4 @@ class ShoppingBot:
 
 
 ShoppingBot(['piotrpopisgames@gmail.com testertest', 'mtarka1337@gmail.com Azexs1998'], ['Koszula', 't-shirt'],
-            ['M', 'L'], [], 'ZZO11GQ', 300, 1, 0)
+            ['M', 'L'], [], 'ZZO11GQ', 300, 1, 'piotrpopis@icloud.com', True, 0).work()
