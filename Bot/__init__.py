@@ -218,8 +218,10 @@ class ShoppingBot:
         if self.iteration == len(self.accounts_list):
             return True
 
-        self.driver.find_element_by_xpath('//span[text() = "Konto"]').click()
-        self.driver.find_element_by_xpath('//span[contains(text(), "Wyloguj")]').click()
+        WebDriverWait(self.driver, 5).until(
+            ec.element_to_be_clickable((By.XPATH, '//span[text() = "Konto"]'))).click()
+        WebDriverWait(self.driver, 5).until(
+            ec.element_to_be_clickable((By.XPATH, '//span[contains(text(), "Wyloguj")]'))).click()
         WebDriverWait(self.driver, 5).until(
             ec.element_to_be_clickable((By.XPATH, '//span[contains(text(), "Zaloguj")]'))).click()
 
@@ -374,15 +376,16 @@ class ShoppingBot:
             for size in selected_sizes:
 
                 try:
-                    element = WebDriverWait(self.driver, 5).until(ec.element_to_be_clickable(
+                    element = WebDriverWait(self.driver, 3).until(ec.element_to_be_clickable(
                         (By.XPATH, '//span[contains(@class, "Size") and text()="' + size + '"]')))
-                except NoSuchElementException:
+                except TimeoutException:
                     continue
 
                 # addtoCartButton = WebDriverWait(self.driver, 5).until(ec.element_to_be_clickable((By.XPATH,
                 # '//*[@id="addToCartButton"]')))
                 parent = element.find_element_by_xpath("./..")
                 is_clickable = parent.value_of_css_property("color")
+                amount = -1
                 if is_clickable == 'rgb(53, 53, 53)':
                     try:
                         amount_span = parent.find_element_by_xpath('./span[2]')
@@ -405,12 +408,14 @@ class ShoppingBot:
                         else:
                             if self.wait_for_atcButton(0, size):
                                 total_items += 1
-                                if total_items == 10:
+                                if total_items == 4:
                                     if self.change_acc(href, size):
                                         print('KONIEC')
                                         if self.inform_email is not None:
                                             sendMail(self.inform_email, 'messages/normally_finished')
                                         return  # Koniec dodawania
                                     total_items = 0
+
+#ShoppingBot(["piotrpopisgames@gmail.com testertest", "mtarka1337@gmail.com Azexs1998"], ['koszula'], ['M','L'], [], 'ZZO11GQ', 200, 2,'regqerg',False, 0).work()
 
 # sample = self.driver.find_element_by_xpath("/html/body/div[2]/div/div/section/div[2]/div[1]/div/div/ul/li[" + str(i) + "]/span")
