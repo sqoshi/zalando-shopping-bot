@@ -32,6 +32,25 @@ def sendMail(to, file):
 
 
 class ShoppingBot:
+    def __init__(self, acc, cats, sizs, brds, cid, mpi, maa, mail, is_mail_checked, ite):
+        options = Options()
+        # options.add_argument("--disable-notifications")
+        print(acc, cats, sizs, brds, cid, mpi, maa, mail, is_mail_checked, ite)
+        self.driver = webdriver.Firefox(options=options)
+        self.inform_email = None
+        if is_mail_checked:
+            self.inform_email = mail
+        self.email = acc[ite].split()[0]
+        self.password = acc[ite].split()[1]
+        self.categories_list = cats
+        self.sizes_list = sizs
+        self.brands_list = brds
+        self.campaign_id = cid
+        self.max_per_item = mpi
+        self.accounts_list = acc
+        self.max_ammount = maa
+        self.iteration = ite
+
     def scroll_shim(self, obj):
         """
         Scrolling down to needed event
@@ -84,9 +103,11 @@ class ShoppingBot:
         :param max_cost_per_item:
         :return:
         """
+
         WebDriverWait(self.driver, 5).until(ec.element_to_be_clickable((By.XPATH, '//*[@id="price-max"]'))).click()
-        self.driver.execute_script('document.getElementById("price-max").value = "' + str(max_cost_per_item) + '";')
-        self.driver.find_element_by_xpath('//*[@id="price-max"]').send_keys(Keys.ENTER)
+        if max_cost_per_item != 0:
+            self.driver.execute_script('document.getElementById("price-max").value = "' + str(max_cost_per_item) + '";')
+            self.driver.find_element_by_xpath('//*[@id="price-max"]').send_keys(Keys.ENTER)
 
     def set_brands(self, wanted_brands):
         """
@@ -163,11 +184,6 @@ class ShoppingBot:
         :return:
         """
         try:
-
-            # sleep(1.5)
-            # WebDriverWait(self.driver, 5).until \
-            # (ec.presence_of_element_located((By.XPATH, '//div[contains(@class, "animation-ball")
-            # and starts-with(@style, "display: none;") ]')))
             WebDriverWait(self.driver, 2).until(ec.presence_of_element_located(
                 (By.XPATH, '//div[contains(@class, "animation-ball") and starts-with(@style, "transf") ]')))
             WebDriverWait(self.driver, 2).until(ec.presence_of_element_located(
@@ -178,7 +194,7 @@ class ShoppingBot:
         except TimeoutException:
             print('Attempt: ', attempt)
 
-            if attempt == 9:
+            if attempt == 5:
                 return False
 
             if attempt % 3 == 2:
@@ -186,12 +202,15 @@ class ShoppingBot:
                 WebDriverWait(self.driver, 5).until(ec.element_to_be_clickable(
                     (By.XPATH, '//span[contains(@class, "Size") and text()="' + size + '"]'))).click()
 
-            WebDriverWait(self.driver, 5).until(
-                ec.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]'))).click()
+            # WebDriverWait(self.driver, 5).until(
+            #     ec.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]'))).click()
+
+            button =  WebDriverWait(self.driver, 5).until(
+                ec.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]/div[1]/div[1]')))
+            self.driver.execute_script("arguments[0].click();", button)
 
             if self.driver.find_element_by_xpath(
                     '//*[@id="addToCartButton"]/div[1]/div[2]/span').text != 'Proszę wybrać rozmiar':
-                print('maxerror')
                 return False
 
             self.wait_for_atcButton(attempt + 1, size)
@@ -243,95 +262,23 @@ class ShoppingBot:
 
         return False
 
-    def __init__(self, acc, cats, sizs, brds, cid, mpi, maa, mail, is_mail_checked, ite):
-        options = Options()
-        # options.add_argument("--disable-notifications")
-        print(acc, cats, sizs, brds, cid, mpi, maa, ite)
-        self.driver = webdriver.Firefox(options=options)
-        self.inform_email = None
-        if is_mail_checked:
-            self.inform_email = mail
-        self.email = acc[ite].split()[0]
-        self.password = acc[ite].split()[1]
-        self.categories_list = cats
-        self.sizes_list = sizs
-        self.brands_list = brds
-        self.campaign_id = cid
-        self.max_per_item = mpi
-        self.accounts_list = acc
-        self.max_ammount = maa
-        self.iteration = ite
-
-    def work(self):
+    def filter_event(self):
         """
-        Starting bot job
+        Filtering event in filters( categories, sizes , maxprice...)
         :return:
         """
-
-        # Open website
-        self.driver.get("https://www.zalando-lounge.pl")
-
-        # Wait for cookies banner and close it
-        while True:
-            try:
-                WebDriverWait(self.driver, 5).until(
-                    ec.element_to_be_clickable((By.XPATH, '//*[@id=\"uc-btn-accept-banner\"]'))).click()
-                print('repea')
-                break
-            except StaleElementReferenceException:
-                pass
-
-        self.driver.find_element_by_xpath(
-            "/html/body/div[2]/div/div[2]/div[1]/div/div/div[1]/div/div/div[2]/div/div/button").click()
-
-        # email
-        element = WebDriverWait(self.driver, 5).until(ec.element_to_be_clickable((By.XPATH, '//*[@id="form-email"]')))
-        element.send_keys(self.email)
-
-        # password
-        element = WebDriverWait(self.driver, 20).until(
-            ec.element_to_be_clickable((By.XPATH, '//*[@id="form-password"]')))
-        element.send_keys(self.password)
-
-        # logging in
-        element.submit()
-
-        self.wait_login_error()
-
-        # Go to selected event
-        self.campaign_id = 'campaign-' + self.campaign_id
-
-        action = ActionChains(self.driver)
-        first_compaing = WebDriverWait(self.driver, 20).until(
-            ec.presence_of_element_located((By.XPATH, '//*[@id="' + self.campaign_id + '"]/div')))
-        self.scroll_shim(first_compaing)
-        action.move_to_element(first_compaing).perform()
-        second_compaing = WebDriverWait(self.driver, 20).until(
-            ec.presence_of_element_located(
-                (By.XPATH, '//*[@id="' + self.campaign_id + '"]/div/div[1]/div/button/span')))
-        action.move_to_element(second_compaing).perform()
-        second_compaing.click()
-
-        # Wait until filters load
         WebDriverWait(self.driver, 20).until(
             ec.presence_of_element_located((By.XPATH, '//div[starts-with(@class, "filters")]')))
-
-        # sometimes banner pop up self.turn_off_banner()
-
         i = 1
-
-        WebDriverWait(self.driver, 2).until(
+        WebDriverWait(self.driver, 15).until(
             ec.presence_of_element_located(
                 (By.XPATH, "/html/body/div[2]/div/div/section/div[2]/nav/a[" + str(1) + "]")))
-
         while i:
             try:
                 element = "/html/body/div[2]/div/div/section/div[2]/nav/a[" + str(i) + "]"
                 sample = self.driver.find_element_by_xpath(element)
                 i += 1
-                if sample.text == 'KATEGORIE':
-                    pass
-                elif sample.text == 'ROZMIAR':
+                if sample.text == 'ROZMIAR':
                     sample.click()
                     self.set_sizes(self.sizes_list)
                 elif sample.text == 'MARKA':
@@ -343,28 +290,77 @@ class ShoppingBot:
             except NoSuchElementException:
                 break
 
-        self.scroll_down()
+    def perform_login(self):
+        """
+        Logging to account, checks error, sends login,pwd
+        :return:
+        """
+        # Wait for cookies banner and close it
+        while True:
+            try:
+                WebDriverWait(self.driver, 5).until(
+                    ec.element_to_be_clickable((By.XPATH, '//*[@id=\"uc-btn-accept-banner\"]'))).click()
+                break
+            except StaleElementReferenceException:
+                pass
+        self.driver.find_element_by_xpath(
+            "/html/body/div[2]/div/div[2]/div[1]/div/div/div[1]/div/div/div[2]/div/div/button").click()
+        # email
+        element = WebDriverWait(self.driver, 25).until(ec.element_to_be_clickable((By.XPATH, '//*[@id="form-email"]')))
+        element.send_keys(self.email)
+        # password
+        element = WebDriverWait(self.driver, 20).until(
+            ec.element_to_be_clickable((By.XPATH, '//*[@id="form-password"]')))
+        element.send_keys(self.password)
+        # logging in
+        element.submit()
+        self.wait_login_error()
 
-        # Store all href for availables items
+    def get_filtered_hrefs(self, ind=29):
+        """
+        Gets all items as hrefs and filtering them with categories(given)
+        :param ind:
+        :return:
+        """
         hrefs = []
-
         all_items = self.driver.find_elements_by_xpath("//div[starts-with(@id, 'article-')]/a")
         for item in all_items:
             href = item.get_attribute("href")
             item_parent = item.find_element_by_xpath("./..")
             item_description = item_parent.find_element_by_xpath('./div/div[1]').text
-            if len(self.driver.find_elements_by_xpath('//a[@href="' + href[29:] + '"]/div[3]')) == 0:
+            if len(self.driver.find_elements_by_xpath('//a[@href="' + href[ind:] + '"]/div[3]')) == 0:
                 if self.categories_list:
                     if any(category_name.lower() in item_description.lower() for category_name in self.categories_list):
                         hrefs.append(href)
                 else:
                     hrefs.append(href)
+        return hrefs
 
-        selected_sizes = self.sizes_list
-        # Add all items from hrefs to cart
+    def dont_know_whats_doing_this_part(self):
+        """
+        TODO CHANGE NAME OF THIS FUNCTION and comment whats it doing MICHAL TARECZKA
+        :return:
+        """
+        self.campaign_id = 'campaign-' + self.campaign_id
+        action = ActionChains(self.driver)
+        first_campaign = WebDriverWait(self.driver, 120).until(
+            ec.presence_of_element_located((By.XPATH, '//*[@id="' + self.campaign_id + '"]/div')))
+        self.scroll_shim(first_campaign)
+        action.move_to_element(first_campaign).perform()
+        second_campaign = WebDriverWait(self.driver, 20).until(
+            ec.presence_of_element_located(
+                (By.XPATH, '//*[@id="' + self.campaign_id + '"]/div/div[1]/div/button/span')))
+        action.move_to_element(second_campaign).perform()
+        second_campaign.click()
 
-        total_items = 0
-
+    def iterate_over_items(self, hrefs, selected_sizes, total_items=0):
+        """
+        Went trough filtered hrefs and adding items to shopping cart
+        :param hrefs:
+        :param selected_sizes:
+        :param total_items:
+        :return:
+        """
         for href in hrefs:
             self.driver.get(href)
 
@@ -374,15 +370,12 @@ class ShoppingBot:
             selected = 0
 
             for size in selected_sizes:
-
                 try:
                     element = WebDriverWait(self.driver, 3).until(ec.element_to_be_clickable(
                         (By.XPATH, '//span[contains(@class, "Size") and text()="' + size + '"]')))
                 except TimeoutException:
                     continue
 
-                # addtoCartButton = WebDriverWait(self.driver, 5).until(ec.element_to_be_clickable((By.XPATH,
-                # '//*[@id="addToCartButton"]')))
                 parent = element.find_element_by_xpath("./..")
                 is_clickable = parent.value_of_css_property("color")
                 amount = -1
@@ -398,24 +391,42 @@ class ShoppingBot:
 
                     for x in range(int(amount)):
                         button = WebDriverWait(self.driver, 5).until(
-                            ec.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]')))
+                            ec.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]/div[1]/div[1]')))
                         button.click()
 
                         if selected == 2 and x == 0:
                             self.wait_for_popup()
                             WebDriverWait(self.driver, 20).until(ec.invisibility_of_element_located(
                                 (By.XPATH, '//div[contains(@class,"styles___backdrop")]')))
-                        else:
-                            if self.wait_for_atcButton(0, size):
-                                total_items += 1
-                                if total_items == 4:
-                                    if self.change_acc(href, size):
-                                        print('KONIEC')
-                                        if self.inform_email is not None:
-                                            sendMail(self.inform_email, 'messages/normally_finished')
-                                        return  # Koniec dodawania
-                                    total_items = 0
+
+                        if self.wait_for_atcButton(0, size):
+                            total_items += 1
+                            if total_items == 3:
+                                total_items = 0
+                                selected = 0
+                                if self.change_acc(href, size):
+                                    print('KONIEC')
+                                    # TODO WYSYLANIE MAILI ! na koniec \/
+                                    # if self.inform_email is not None:
+                                    #   sendMail(self.inform_email, 'messages/normally_finished')
+                                    return  # Koniec dodawania
+                               
 
 #ShoppingBot(["piotrpopisgames@gmail.com testertest", "mtarka1337@gmail.com Azexs1998"], ['koszula'], ['M','L'], [], 'ZZO11GQ', 200, 2,'regqerg',False, 0).work()
 
 # sample = self.driver.find_element_by_xpath("/html/body/div[2]/div/div/section/div[2]/div[1]/div/div/ul/li[" + str(i) + "]/span")
+    def work(self):
+        """
+        Starting bot job
+        :return:
+        """
+        self.driver.get("https://www.zalando-lounge.pl")
+        self.perform_login()
+        self.dont_know_whats_doing_this_part()
+        self.filter_event()
+        self.scroll_down()
+        self.iterate_over_items(self.get_filtered_hrefs(), self.sizes_list)
+
+
+ShoppingBot(['piotrpopisgames@gmail.com testertest', 'mtarka1337@gmail.com Azexs1998'], ['Koszula', 't-shirt'],
+            ['M', 'L'], [], 'ZZO11GQ', 300, 1, 'piotrpopis@icloud.com', True, 0).work()
