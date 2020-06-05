@@ -35,7 +35,7 @@ class ShoppingBot:
     def __init__(self, acc, cats, sizs, brds, cid, mpi, maa, mail, is_mail_checked, ite):
         options = Options()
         # options.add_argument("--disable-notifications")
-        print(acc, cats, sizs, brds, cid, mpi, maa, ite)
+        print(acc, cats, sizs, brds, cid, mpi, maa,mail, is_mail_checked, ite)
         self.driver = webdriver.Firefox(options=options)
         self.inform_email = None
         if is_mail_checked:
@@ -103,9 +103,11 @@ class ShoppingBot:
         :param max_cost_per_item:
         :return:
         """
+
         WebDriverWait(self.driver, 5).until(ec.element_to_be_clickable((By.XPATH, '//*[@id="price-max"]'))).click()
-        self.driver.execute_script('document.getElementById("price-max").value = "' + str(max_cost_per_item) + '";')
-        self.driver.find_element_by_xpath('//*[@id="price-max"]').send_keys(Keys.ENTER)
+        if max_cost_per_item != 0:
+            self.driver.execute_script('document.getElementById("price-max").value = "' + str(max_cost_per_item) + '";')
+            self.driver.find_element_by_xpath('//*[@id="price-max"]').send_keys(Keys.ENTER)
 
     def set_brands(self, wanted_brands):
         """
@@ -257,6 +259,10 @@ class ShoppingBot:
         return False
 
     def filter_event(self):
+        """
+        Filtering event in filters( categories, sizes , maxprice...)
+        :return:
+        """
         WebDriverWait(self.driver, 20).until(
             ec.presence_of_element_located((By.XPATH, '//div[starts-with(@class, "filters")]')))
         i = 1
@@ -281,6 +287,10 @@ class ShoppingBot:
                 break
 
     def perform_login(self):
+        """
+        Logging to account, checks error, sends login,pwd
+        :return:
+        """
         # Wait for cookies banner and close it
         while True:
             try:
@@ -303,6 +313,11 @@ class ShoppingBot:
         self.wait_login_error()
 
     def get_filtered_hrefs(self, ind=29):
+        """
+        Gets all items as hrefs and filtering them with categories(given)
+        :param ind:
+        :return:
+        """
         hrefs = []
         all_items = self.driver.find_elements_by_xpath("//div[starts-with(@id, 'article-')]/a")
         for item in all_items:
@@ -318,6 +333,10 @@ class ShoppingBot:
         return hrefs
 
     def dont_know_whats_doing_this_part(self):
+        """
+        TODO CHANGE NAME OF THIS FUNCTION and comment whats it doing MICHAL TARECZKA
+        :return:
+        """
         self.campaign_id = 'campaign-' + self.campaign_id
         action = ActionChains(self.driver)
         first_campaign = WebDriverWait(self.driver, 20).until(
@@ -331,6 +350,13 @@ class ShoppingBot:
         second_campaign.click()
 
     def iterate_over_items(self, hrefs, selected_sizes, total_items=0):
+        """
+        Went trough filtered hrefs and adding items to shopping cart
+        :param hrefs:
+        :param selected_sizes:
+        :param total_items:
+        :return:
+        """
         for href in hrefs:
             self.driver.get(href)
 
@@ -393,3 +419,7 @@ class ShoppingBot:
         self.filter_event()
         self.scroll_down()
         self.iterate_over_items(self.get_filtered_hrefs(), self.sizes_list)
+
+
+ShoppingBot(['piotrpopisgames@gmail.com testertest', 'mtarka1337@gmail.com Azexs1998'], ['Koszula', 't-shirt'],
+            ['M', 'L'], [], 'ZZO11GQ', 300, 1, 0)
