@@ -417,7 +417,8 @@ class ShoppingBot:
                             total_items += 1
                             if total_items == 10:
                                 total_items = 0
-                                selected = 0
+                                if x+1 = int(amount):
+                                    selected = 0
                                 if self.change_acc(href, size):
                                     print('KONIEC')
                                     if self.inform_email is not None:
