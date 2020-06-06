@@ -234,6 +234,8 @@ class ShoppingBot:
         :param size:
         :return:
         """
+        print(self.iteration)
+        print(len(self.accounts_list))
         self.iteration += 1
         if self.iteration == len(self.accounts_list):
             return True
@@ -417,7 +419,7 @@ class ShoppingBot:
                             total_items += 1
                             if total_items == 10:
                                 total_items = 0
-                                if x+1 = int(amount):
+                                if x+1 == int(amount):
                                     selected = 0
                                 if self.change_acc(href, size):
                                     print('KONIEC')
