@@ -32,6 +32,7 @@ def sendMail(to, file):
 
 
 class ShoppingBot:
+
     def __init__(self, acc, cats, sizs, brds, cid, mpi, maa, mail, is_mail_checked, ite):
         options = Options()
         # options.add_argument("--disable-notifications")
@@ -241,15 +242,23 @@ class ShoppingBot:
             ec.element_to_be_clickable((By.XPATH, '//span[text() = "Konto"]'))).click()
         WebDriverWait(self.driver, 5).until(
             ec.element_to_be_clickable((By.XPATH, '//span[contains(text(), "Wyloguj")]'))).click()
+
+        while True:
+            if len(self.driver.find_elements_by_xpath('//span[contains(text(), "Zaloguj")]')) == 0:
+                 sleep(2)
+            else:
+                break 
+
         WebDriverWait(self.driver, 5).until(
             ec.element_to_be_clickable((By.XPATH, '//span[contains(text(), "Zaloguj")]'))).click()
 
         element = WebDriverWait(self.driver, 5).until(ec.element_to_be_clickable((By.XPATH, '//*[@id="form-email"]')))
-        element.send_keys('mtarka1337@gmail.com')
+        cred = self.accounts_list[self.iteration].split()
+        element.send_keys(cred[0])
 
         element = WebDriverWait(self.driver, 5).until(
             ec.element_to_be_clickable((By.XPATH, '//*[@id="form-password"]')))
-        element.send_keys('Azexs1998')
+        element.send_keys(cred[1])
 
         element.submit()
 
@@ -336,10 +345,9 @@ class ShoppingBot:
                     hrefs.append(href)
         return hrefs
 
-    def dont_know_whats_doing_this_part(self):
+    def scroll_to_event(self):
         """
-        TODO CHANGE NAME OF THIS FUNCTION and comment whats it doing MICHAL TARECZKA
-        :return:
+        Scroll down to selected event, move corsor on it and click 'go to'
         """
         self.campaign_id = 'campaign-' + self.campaign_id
         action = ActionChains(self.driver)
@@ -369,6 +377,10 @@ class ShoppingBot:
 
             selected = 0
 
+            if self.driver.find_element_by_xpath('//*[@id="addToCartButton"]/div[1]/div[2]/span').text != 'Proszę wybrać rozmiar':
+                continue
+               
+
             for size in selected_sizes:
                 try:
                     element = WebDriverWait(self.driver, 3).until(ec.element_to_be_clickable(
@@ -383,6 +395,8 @@ class ShoppingBot:
                     try:
                         amount_span = parent.find_element_by_xpath('./span[2]')
                         amount = int(amount_span.text[-1:])
+                        if amount > self.max_ammount:
+                            amount = self.max_ammount
                     except NoSuchElementException:
                         amount = self.max_ammount
 
@@ -391,7 +405,7 @@ class ShoppingBot:
 
                     for x in range(int(amount)):
                         button = WebDriverWait(self.driver, 5).until(
-                            ec.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]/div[1]/div[1]')))
+                            ec.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]')))
                         button.click()
 
                         if selected == 2 and x == 0:
@@ -401,14 +415,13 @@ class ShoppingBot:
 
                         if self.wait_for_atcButton(0, size):
                             total_items += 1
-                            if total_items == 3:
+                            if total_items == 10:
                                 total_items = 0
                                 selected = 0
                                 if self.change_acc(href, size):
                                     print('KONIEC')
-                                    # TODO WYSYLANIE MAILI ! na koniec \/
-                                    # if self.inform_email is not None:
-                                    #   sendMail(self.inform_email, 'messages/normally_finished')
+                                    if self.inform_email is not None:
+                                       sendMail(self.inform_email, 'messages/normally_finished')
                                     return  # Koniec dodawania
                                
 
@@ -422,11 +435,11 @@ class ShoppingBot:
         """
         self.driver.get("https://www.zalando-lounge.pl")
         self.perform_login()
-        self.dont_know_whats_doing_this_part()
+        self.scroll_to_event()
         self.filter_event()
         self.scroll_down()
         self.iterate_over_items(self.get_filtered_hrefs(), self.sizes_list)
 
 
 ShoppingBot(['piotrpopisgames@gmail.com testertest', 'mtarka1337@gmail.com Azexs1998'], ['Koszula', 't-shirt'],
-            ['M', 'L'], [], 'ZZO11GQ', 300, 1, 'piotrpopis@icloud.com', True, 0).work()
+            ['M', 'L'], [], 'ZZO11GQ', 300, 6, 'piotrpopis@icloud.com', True, 0).work()
