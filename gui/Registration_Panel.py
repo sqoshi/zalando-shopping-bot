@@ -4,6 +4,7 @@ from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QLineEdit
 
 from firebase.Configuration import config
+from gui.Main_Window import center
 
 
 class Ui_Registration(QtWidgets.QMainWindow):
@@ -21,9 +22,9 @@ class Ui_Registration(QtWidgets.QMainWindow):
     def setupUi(self, RegistrationPanel):
         self.regr = RegistrationPanel
         RegistrationPanel.setObjectName("RegistrationPanel")
-        RegistrationPanel.resize(1000, 548)
+        RegistrationPanel.resize(980, 538)
+        center(RegistrationPanel)
         self.central_widget.setObjectName("central_widget")
-
         self.label.setGeometry(QtCore.QRect(360, 130, 41, 17))
         self.label.setObjectName("label")
         self.label_2.setGeometry(QtCore.QRect(550, 210, 67, 17))
@@ -46,6 +47,7 @@ class Ui_Registration(QtWidgets.QMainWindow):
         self.statusbar.setObjectName("statusbar")
         RegistrationPanel.setStatusBar(self.statusbar)
         self.translate_ui(RegistrationPanel)
+        RegistrationPanel.setFixedSize(980, 538)
         QtCore.QMetaObject.connectSlotsByName(RegistrationPanel)
 
     def translate_ui(self, RegistrationPanel):

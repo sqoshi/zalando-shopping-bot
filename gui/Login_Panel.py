@@ -4,6 +4,7 @@ from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWidgets import QLineEdit
 
 from firebase.Configuration import config
+from gui.Main_Window import center
 from gui.Registration_Panel import Ui_Registration
 
 
@@ -16,7 +17,8 @@ class Ui_LoginPanel(PyQt5.QtCore.QObject):
 
     def setupUi(self, LoginPanel):
         LoginPanel.setObjectName("LoginPanel")
-        LoginPanel.resize(1000, 548)
+        LoginPanel.resize(980, 538)
+        center(LoginPanel)
         self.central_widget = QtWidgets.QWidget(LoginPanel)
         self.central_widget.setObjectName("central_widget")
         self.label = QtWidgets.QLabel(self.central_widget)
@@ -52,6 +54,7 @@ class Ui_LoginPanel(PyQt5.QtCore.QObject):
         self.statusbar.setObjectName("statusbar")
         LoginPanel.setStatusBar(self.statusbar)
         self.translate_ui(LoginPanel)
+        LoginPanel.setFixedSize(980, 538)
         QtCore.QMetaObject.connectSlotsByName(LoginPanel)
 
     def translate_ui(self, LoginPanel):

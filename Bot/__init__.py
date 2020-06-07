@@ -12,9 +12,6 @@ from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
 
-import PyQt5
-from PyQt5.QtWidgets import QMessageBox, QApplication
-
 
 def sendMail(to, file):
     """
@@ -431,29 +428,11 @@ class ShoppingBot:
                         
                         if(x+1 == amount and cur_items == 0 and selected ==1):
                             selected = 0
-                        
-                        
-
-                       
+                               
         print('KONIEC')
         if self.inform_email is not None:
             sendMail(self.inform_email, 'messages/normally_finished')
         return True # Koniec dodawania
-
-    def popup_finished(self):
-        """
-        Informs when bot finishing job.
-        :return:
-        """
-        app = QApplication([])
-        w = QWidget()
-        w.setWindowTitle("Finish dialog")
-
-        msg = QMessageBox()
-        msg.setText("Bot finished job, checkout items in your shopping cart")
-        msg.show()
-        
-        app.exec_()
         
     def work(self):
         """
