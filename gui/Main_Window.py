@@ -6,7 +6,7 @@ from datetime import datetime
 
 import PyQt5
 from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtWidgets import QInputDialog, QLineEdit
+from PyQt5.QtWidgets import QInputDialog, QLineEdit, QMessageBox
 
 from Bot import ShoppingBot
 from gui.Add_Account_Input_Dialog import Login
@@ -65,12 +65,23 @@ def get_delay(later_time):
     return seconds_interval(first, later)
 
 
+def center(windowx):
+    frameGm = windowx.frameGeometry()
+    screen = PyQt5.QtWidgets.QApplication.desktop().screenNumber(
+        PyQt5.QtWidgets.QApplication.desktop().cursor().pos())
+    centerPoint = PyQt5.QtWidgets.QApplication.desktop().screenGeometry(screen).center()
+    frameGm.moveCenter(centerPoint)
+    windowx.move(frameGm.topLeft())
+
+
 def get_text():
     """
     QDialog for text needs
     :return:
     """
-    text, okPressed = QInputDialog.getText(QInputDialog(), "Get text", "Size:", QLineEdit.Normal, "")
+    qi = QInputDialog()
+    center(qi)
+    text, okPressed = qi.getText(qi, "Get text", "Value:", QLineEdit.Normal, "")
     if okPressed and text != '':
         return text
 
@@ -80,7 +91,9 @@ def get_integer():
     QDialog for int needs.
     :return:
     """
-    i, okPressed = QInputDialog.getInt(QInputDialog(), "Get integer", "Price:")
+    qi = QInputDialog()
+    center(qi)
+    i, okPressed = qi.getInt(qi, "Get integer", "Price:")
     if okPressed:
         return i
 
@@ -93,9 +106,13 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         """
         super(Ui_MainWindow, self).__init__()
         self.account_adder = Login()
+        self.msg = QMessageBox()
+        self.msg.setWindowTitle("Finish dialog")
+        self.msg.setText("Bot finished job, checkout items in your shopping cart")
         self.firebase = firebase
         self.auth = auth
         MainWindow.setFixedSize(980, 538)
+        center(MainWindow)
         self.pieces = 1
         self.bot_list = [(None, multiprocessing.Process(target=self.start_boting_thread))]
         self.login = None
@@ -142,6 +159,10 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.start_btn = QtWidgets.QPushButton(self.central_widget)
         self.stop_btn = QtWidgets.QPushButton(self.central_widget)
         self.menuMenu = QtWidgets.QMenu(self.menubar)
+
+    def popup(self):
+        self.msg.show()
+        self.msg.exec_()
 
     def setup_labels(self):
         """
@@ -446,6 +467,7 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         to shopping bot
         :return:
         """
+        center(self.account_adder)
         self.account_adder.show()
         if self.account_adder.exec_() == QtWidgets.QDialog.Accepted:
             self.accounts_list.addItem(str(self.account_adder.log) + ' ' + str(self.account_adder.pwd))

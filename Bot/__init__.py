@@ -12,9 +12,6 @@ from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
 
-import PyQt5
-from PyQt5.QtWidgets import QMessageBox, QApplication
-
 
 def sendMail(to, file):
     """
@@ -248,9 +245,9 @@ class ShoppingBot:
 
         while True:
             if len(self.driver.find_elements_by_xpath('//span[contains(text(), "Zaloguj")]')) == 0:
-                 sleep(2)
+                sleep(2)
             else:
-                break 
+                break
 
         WebDriverWait(self.driver, 5).until(
             ec.element_to_be_clickable((By.XPATH, '//span[contains(text(), "Zaloguj")]'))).click()
@@ -379,9 +376,9 @@ class ShoppingBot:
 
             selected = 0
 
-            if self.driver.find_element_by_xpath('//*[@id="addToCartButton"]/div[1]/div[2]/span').text != 'Proszę wybrać rozmiar':
+            if self.driver.find_element_by_xpath(
+                    '//*[@id="addToCartButton"]/div[1]/div[2]/span').text != 'Proszę wybrać rozmiar':
                 continue
-               
 
             for size in selected_sizes:
                 try:
@@ -410,6 +407,10 @@ class ShoppingBot:
                             ec.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]')))
                         button.click()
 
+                        if self.driver.find_element_by_xpath(
+                                '//*[@id="addToCartButton"]/div[1]/div[2]/span').text != 'Proszę wybrać rozmiar':
+                            break
+
                         if selected == 2 and x == 0:
                             self.wait_for_popup()
                             WebDriverWait(self.driver, 20).until(ec.invisibility_of_element_located(
@@ -419,31 +420,16 @@ class ShoppingBot:
                             total_items += 1
                             if total_items == 3:
                                 total_items = 0
-                                if x+1 == int(amount):
+                                if x + 1 == int(amount):
                                     selected = 0
                                 if self.change_acc(href, size):
-                                    print('KONIEC')
                                     if self.inform_email is not None:
-                                       sendMail(self.inform_email, 'messages/normally_finished')
-                                    return True # Koniec dodawania
-        print('KONIEC')
+                                        sendMail(self.inform_email, 'messages/normally_finished')
+                                    return
         if self.inform_email is not None:
             sendMail(self.inform_email, 'messages/normally_finished')
-        return True # Koniec dodawania
+        return
 
-    def popup_finished(self):
-        """
-        Informs when bot finishing job.
-        :return:
-        """
-        print('tttt')
-        app = QApplication([])
-        msg = QMessageBox()
-        msg.setWindowTitle("Finish dialog")
-        msg.setText("Bot finished job, checkout items in your shopping cart")
-        msg.show()
-        app.exec_()
-        
     def work(self):
         """
        Starting bot job
@@ -454,12 +440,10 @@ class ShoppingBot:
         self.scroll_to_event()
         self.filter_event()
         self.scroll_down()
-        if (self.iterate_over_items(self.get_filtered_hrefs(), self.sizes_list)):
-            self.popup_finished()
+        self.iterate_over_items(self.get_filtered_hrefs(), self.sizes_list)
 
-
-ShoppingBot(['piotrpopisgames@gmail.com testertest'], ['Koszula', 't-shirt'],
-            ['M', 'L'], [], 'ZZO11GQ', 300, 2, 'piotrpopis@icloud.com', True, 0).work()
+# ShoppingBot(['piotrpopisgames@gmail.com testertest'], ['Koszula', 't-shirt'],
+#           ['M', 'L'], [], 'ZZO11GQ', 300, 2, 'piotrpopis@icloud.com', True, 0).work()
 # ShoppingBot(['piotrpopisgames@gmail.com testertest', 'mtarka1337@gmail.com Azexs1998'], ['bluza'],
 #       ['M', 'L'], [], 'ZZO0ZBU', 300, 2, 'piotrpopis@icloud.com', True, 0).work()
 # ShoppingBot(["piotrpopisgames@gmail.com
