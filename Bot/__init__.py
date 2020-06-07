@@ -419,11 +419,11 @@ class ShoppingBot:
                         button.click()
 
                         if selected == 2 and x == 0:
-                            self.wait_for_popup()
+                            self.wait_for_popup(0)
                             WebDriverWait(self.driver, 20).until(ec.invisibility_of_element_located(
                                 (By.XPATH, '//div[contains(@class,"styles___backdrop")]')))
 
-                        if self.wait_for_atcButton(0, size):
+                        if self.wait_for_atcButton(0):
                             total_items += 1
                             cur_items += 1
                             if total_items == 3:
@@ -454,9 +454,8 @@ class ShoppingBot:
         self.scroll_to_event()
         self.filter_event()
         self.scroll_down()
-        if (self.iterate_over_items(self.get_filtered_hrefs(), self.sizes_list)):
-            self.popup_finished()
-
+        self.iterate_over_items(self.get_filtered_hrefs(), self.sizes_list))
+          
 
 ShoppingBot(['piotrpopisgames@gmail.com testertest'], ['Koszula', 't-shirt'],
             ['M', 'L'], [], 'ZZO11GQ', 300, 1, 'piotrpopis@icloud.com', True, 0).work()
