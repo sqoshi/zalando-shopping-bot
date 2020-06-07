@@ -500,8 +500,8 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         """
         return convert_qlist(self.categories_list), convert_qlist(self.accounts_list), convert_qlist(
             self.sizes_list), convert_qlist(
-            self.brands_list), self.lcdNumber.intValue(), self.textEdit_3.toPlainText(), \
-               self.checkBox.isChecked(), self.stuck_slider.value()
+            self.brands_list), self.lcdNumber.intValue(), self.textEdit_3.toPlainText(), self.checkBox.isChecked(), \
+               self.stuck_slider.value()
 
     def update_config_progress(self):
         """

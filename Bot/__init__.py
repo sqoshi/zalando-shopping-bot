@@ -12,6 +12,9 @@ from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
 
+import PyQt5
+from PyQt5.QtWidgets import QMessageBox, QApplication
+
 
 def sendMail(to, file):
     """
@@ -414,7 +417,7 @@ class ShoppingBot:
 
                         if self.wait_for_atcButton(0, size):
                             total_items += 1
-                            if total_items == 10:
+                            if total_items == 3:
                                 total_items = 0
                                 if x+1 == int(amount):
                                     selected = 0
@@ -422,11 +425,24 @@ class ShoppingBot:
                                     print('KONIEC')
                                     if self.inform_email is not None:
                                        sendMail(self.inform_email, 'messages/normally_finished')
-                                    return  # Koniec dodawania
+                                    return True # Koniec dodawania
         print('KONIEC')
         if self.inform_email is not None:
             sendMail(self.inform_email, 'messages/normally_finished')
-        return  # Koniec dodawania
+        return True # Koniec dodawania
+
+    def popup_finished(self):
+        """
+        Informs when bot finishing job.
+        :return:
+        """
+        print('tttt')
+        app = QApplication([])
+        msg = QMessageBox()
+        msg.setWindowTitle("Finish dialog")
+        msg.setText("Bot finished job, checkout items in your shopping cart")
+        msg.show()
+        app.exec_()
         
     def work(self):
         """
@@ -438,11 +454,12 @@ class ShoppingBot:
         self.scroll_to_event()
         self.filter_event()
         self.scroll_down()
-        self.iterate_over_items(self.get_filtered_hrefs(), self.sizes_list)
+        if (self.iterate_over_items(self.get_filtered_hrefs(), self.sizes_list)):
+            self.popup_finished()
 
 
-ShoppingBot(['piotrpopisgames@gmail.com testertest', 'mtarka1337@gmail.com Azexs1998'], ['Koszula', 't-shirt'],
-            ['M', 'L'], [], 'ZZO11GQ', 300, 6, 'piotrpopis@icloud.com', True, 0).work()
+ShoppingBot(['piotrpopisgames@gmail.com testertest'], ['Koszula', 't-shirt'],
+            ['M', 'L'], [], 'ZZO11GQ', 300, 2, 'piotrpopis@icloud.com', True, 0).work()
 # ShoppingBot(['piotrpopisgames@gmail.com testertest', 'mtarka1337@gmail.com Azexs1998'], ['bluza'],
 #       ['M', 'L'], [], 'ZZO0ZBU', 300, 2, 'piotrpopis@icloud.com', True, 0).work()
 # ShoppingBot(["piotrpopisgames@gmail.com
