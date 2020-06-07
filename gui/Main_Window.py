@@ -1,6 +1,7 @@
 import gc
 import multiprocessing
 import time
+import webbrowser
 from datetime import datetime
 
 import PyQt5
@@ -305,7 +306,7 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.check_box_date.setText(_translate("MainWindow", "Date"))
         self.menuMenu.setTitle(_translate("MainWindow", "Menu"))
         self.actionReset_preferences.setText(_translate("MainWindow", "Reset preferences"))
-        self.actionInfo.setText(_translate("MainWindow", "Info"))
+        self.actionInfo.setText(_translate("MainWindow", "Info/ Help"))
         self.actionSave.setText(_translate("MainWindow", "Save Configuration"))
         self.actionOpen.setText(_translate("MainWindow", "Load Configuration"))
         self.update_config_progress()
@@ -329,6 +330,8 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         self.actionReset_preferences.triggered.connect(self.reset_config)
         self.actionSave.triggered.connect(self.save_config)
         self.actionOpen.triggered.connect(self.load_config)
+        self.actionInfo.triggered.connect(
+            lambda: webbrowser.open('https://github.com/sqoshi/python-project/blob/master/readme.md'))
 
     def configure_slider(self):
         """
@@ -366,7 +369,6 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         :return:
         """
         self.bot_list[-1][0].work()
-        print(self.bot_list)
 
     def create_bot(self):
         """
@@ -569,6 +571,7 @@ class Ui_MainWindow(PyQt5.QtCore.QObject):
         Loads config from firebase
         :return:
         """
+        self.reset_config()
         db = self.firebase.database()
         results = db.child(self.user['userId']).get()
         for row in results.each():

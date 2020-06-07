@@ -419,3 +419,301 @@ toEvents/<@chrome://marionette/content/action.js:1156:16
 action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
 action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
 1591377449763	Marionette	INFO	Stopped listening on port 39487
+1591386560556	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile6WJaRG"
+1591386562783	Marionette	INFO	Listening on port 34257
+1591386562865	Marionette	WARN	TLS certificate errors will be ignored for this session
+1591386588975	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:245:13
+TimedPromise@chrome://marionette/content/sync.js:230:10
+Sleep@chrome://marionette/content/sync.js:283:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:853:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591386589319	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:245:13
+TimedPromise@chrome://marionette/content/sync.js:230:10
+Sleep@chrome://marionette/content/sync.js:283:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:853:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591386589582	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:245:13
+TimedPromise@chrome://marionette/content/sync.js:230:10
+Sleep@chrome://marionette/content/sync.js:283:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+1591387311488	Marionette	INFO	Stopped listening on port 34257
+1591387691662	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileJPyqrT"
+1591387693625	Marionette	INFO	Listening on port 42681
+1591387693672	Marionette	WARN	TLS certificate errors will be ignored for this session
+1591387705785	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:245:13
+TimedPromise@chrome://marionette/content/sync.js:230:10
+Sleep@chrome://marionette/content/sync.js:283:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:853:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591387706049	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:245:13
+TimedPromise@chrome://marionette/content/sync.js:230:10
+Sleep@chrome://marionette/content/sync.js:283:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:853:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591387706370	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:245:13
+TimedPromise@chrome://marionette/content/sync.js:230:10
+Sleep@chrome://marionette/content/sync.js:283:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+1591387786410	Marionette	INFO	Stopped listening on port 42681
+1591387800796	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileqtwoc4"
+1591387802725	Marionette	INFO	Listening on port 43115
+1591387802837	Marionette	WARN	TLS certificate errors will be ignored for this session
+1591387814611	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:245:13
+TimedPromise@chrome://marionette/content/sync.js:230:10
+Sleep@chrome://marionette/content/sync.js:283:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:853:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591387814902	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:245:13
+TimedPromise@chrome://marionette/content/sync.js:230:10
+Sleep@chrome://marionette/content/sync.js:283:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:853:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591387815152	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:245:13
+TimedPromise@chrome://marionette/content/sync.js:230:10
+Sleep@chrome://marionette/content/sync.js:283:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+1591387832492	Marionette	INFO	Stopped listening on port 43115
+1591387840812	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileDJUYvV"
+1591387842759	Marionette	INFO	Listening on port 36219
+1591387842818	Marionette	WARN	TLS certificate errors will be ignored for this session
+1591387855570	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:245:13
+TimedPromise@chrome://marionette/content/sync.js:230:10
+Sleep@chrome://marionette/content/sync.js:283:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:853:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591387855870	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:245:13
+TimedPromise@chrome://marionette/content/sync.js:230:10
+Sleep@chrome://marionette/content/sync.js:283:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:853:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591387856168	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:245:13
+TimedPromise@chrome://marionette/content/sync.js:230:10
+Sleep@chrome://marionette/content/sync.js:283:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+1591387969248	Marionette	INFO	Stopped listening on port 36219
+1591388407004	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileNrH43W"
+1591388409017	Marionette	INFO	Listening on port 39957
+1591388409111	Marionette	WARN	TLS certificate errors will be ignored for this session
+1591388420470	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:245:13
+TimedPromise@chrome://marionette/content/sync.js:230:10
+Sleep@chrome://marionette/content/sync.js:283:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:853:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591388420813	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:245:13
+TimedPromise@chrome://marionette/content/sync.js:230:10
+Sleep@chrome://marionette/content/sync.js:283:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:853:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591388421070	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:245:13
+TimedPromise@chrome://marionette/content/sync.js:230:10
+Sleep@chrome://marionette/content/sync.js:283:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+1591388476000	Marionette	INFO	Stopped listening on port 39957
+1591388624514	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileCUFq50"
+1591388626660	Marionette	INFO	Listening on port 38673
+1591388626720	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: https://apis.google.com/_/scs/apps-static/_/js/k=oz.gapi.en_US.pYPiPEsIel4.O/m=auth2/rt=j/sv=1/d=1/ed=1/am=wQE/rs=AGLTcCOey13j2hPNXahsyr0hsvfbpOW7OQ/cb=gapi.loaded_0, line 195: uncaught exception: [object Object]
+1591388639342	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:245:13
+TimedPromise@chrome://marionette/content/sync.js:230:10
+Sleep@chrome://marionette/content/sync.js:283:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:853:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591388639618	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:245:13
+TimedPromise@chrome://marionette/content/sync.js:230:10
+Sleep@chrome://marionette/content/sync.js:283:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:853:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591388639882	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:245:13
+TimedPromise@chrome://marionette/content/sync.js:230:10
+Sleep@chrome://marionette/content/sync.js:283:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+1591388661806	Marionette	INFO	Stopped listening on port 38673
+1591388724965	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileMgozHQ"
+1591388726932	Marionette	INFO	Listening on port 36295
+1591388726997	Marionette	WARN	TLS certificate errors will be ignored for this session
+1591388739988	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:245:13
+TimedPromise@chrome://marionette/content/sync.js:230:10
+Sleep@chrome://marionette/content/sync.js:283:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:853:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591388740258	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:245:13
+TimedPromise@chrome://marionette/content/sync.js:230:10
+Sleep@chrome://marionette/content/sync.js:283:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:853:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591388740532	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:245:13
+TimedPromise@chrome://marionette/content/sync.js:230:10
+Sleep@chrome://marionette/content/sync.js:283:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+console.error: "Store does not have a valid reducer. Make sure the argument passed to combineReducers is an object whose values are reducers."
+1591388946403	Marionette	INFO	Stopped listening on port 36295
+1591388947887	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile7pYscM"
+1591388949914	Marionette	INFO	Listening on port 34573
+1591388949996	Marionette	WARN	TLS certificate errors will be ignored for this session
+1591388961789	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:245:13
+TimedPromise@chrome://marionette/content/sync.js:230:10
+Sleep@chrome://marionette/content/sync.js:283:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:853:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591388962059	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:245:13
+TimedPromise@chrome://marionette/content/sync.js:230:10
+Sleep@chrome://marionette/content/sync.js:283:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+action.dispatch@chrome://marionette/content/action.js:1034:5
+performActions@chrome://marionette/content/listener.js:853:16
+dispatch/</req<@chrome://marionette/content/listener.js:527:14
+dispatch/<@chrome://marionette/content/listener.js:520:15
+1591388962345	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:245:13
+TimedPromise@chrome://marionette/content/sync.js:230:10
+Sleep@chrome://marionette/content/sync.js:283:10
+dispatchPause@chrome://marionette/content/action.js:1482:10
+toEvents/<@chrome://marionette/content/action.js:1156:16
+action.dispatchTickActions@chrome://marionette/content/action.js:1060:35
+action.dispatch/chainEvents<@chrome://marionette/content/action.js:1028:20
+1591389032564	Marionette	INFO	Stopped listening on port 34573
