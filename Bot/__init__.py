@@ -454,7 +454,7 @@ class ShoppingBot:
         self.scroll_to_event()
         self.filter_event()
         self.scroll_down()
-        self.iterate_over_items(self.get_filtered_hrefs(), self.sizes_list))
+        self.iterate_over_items(self.get_filtered_hrefs(), self.sizes_list)
           
 
 ShoppingBot(['piotrpopisgames@gmail.com testertest'], ['Koszula', 't-shirt'],
