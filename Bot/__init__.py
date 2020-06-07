@@ -156,27 +156,36 @@ class ShoppingBot:
             except NoSuchElementException:
                 break
 
-    def wait_for_popup(self):
+    def wait_for_popup(self, attempt):
         """
        Waits for popup and tries to close it.
        :return:
        """
         try:
-            WebDriverWait(self.driver, 5).until(
+            WebDriverWait(self.driver, 4).until(
                 ec.presence_of_element_located((By.XPATH, '//div[contains(@class,"sizeOverlayDialog")]')))
 
-            WebDriverWait(self.driver, 5).until(
+            WebDriverWait(self.driver, 4).until(
                 ec.element_to_be_clickable((By.XPATH, '//span[text() = "Mimo to zamawiam oba rozmiary"]'))).click()
 
-            WebDriverWait(self.driver, 5).until(
+            WebDriverWait(self.driver, 4).until(
                 ec.element_to_be_clickable((By.XPATH, '//span[text() = "Potwierdź"]'))).click()
         except TimeoutException:
 
-            WebDriverWait(self.driver, 5).until(
-                ec.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]'))).click()
-            self.wait_for_popup()
+            WebDriverWait(self.driver, 4).until(ec.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]'))).click()
 
-    def wait_for_atcButton(self, attempt, size):
+            if attempt == 3:
+                    WebDriverWait(self.driver, 4).until(ec.element_to_be_clickable((By.XPATH, '//*[@id="header-cart"]'))).click()
+
+            if self.driver.find_element_by_xpath('//*[@id="addToCartButton"]/div[1]/div[2]/span').text != 'Proszę wybrać rozmiar':
+                return 
+
+            self.wait_for_popup(attempt+1)
+
+        
+
+
+    def wait_for_atcButton(self, attempt):
         """
        Waiting till animation of adding item to shopping cart is finished or leaves error.
        :param attempt:
@@ -192,16 +201,16 @@ class ShoppingBot:
             return True
 
         except TimeoutException:
-            pass
-            # print('Attempt: ', attempt)
+           
+            if attempt == 3:
+                WebDriverWait(self.driver, 5).until(ec.element_to_be_clickable((By.XPATH, '//*[@id="header-cart"]'))).click()
+        
+                #return False
 
-            if attempt == 5:
-                return False
-
-            if attempt % 3 == 2:
-                self.driver.refresh()
-                WebDriverWait(self.driver, 5).until(ec.element_to_be_clickable(
-                    (By.XPATH, '//span[contains(@class, "Size") and text()="' + size + '"]'))).click()
+            # if attempt % 3 == 2:
+            #     self.driver.refresh()
+            #     WebDriverWait(self.driver, 5).until(ec.element_to_be_clickable(
+            #         (By.XPATH, '//span[contains(@class, "Size") and text()="' + size + '"]'))).click()
 
             # WebDriverWait(self.driver, 5).until(
             #     ec.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]'))).click()
@@ -209,12 +218,13 @@ class ShoppingBot:
             button = WebDriverWait(self.driver, 5).until(
                 ec.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]/div[1]/div[1]')))
             self.driver.execute_script("arguments[0].click();", button)
+            self.driver.execute_script("arguments[0].click();", button)
 
             if self.driver.find_element_by_xpath(
                     '//*[@id="addToCartButton"]/div[1]/div[2]/span').text != 'Proszę wybrać rozmiar':
                 return False
 
-            self.wait_for_atcButton(attempt + 1, size)
+            self.wait_for_atcButton(attempt + 1)
 
     def wait_login_error(self):
         """
