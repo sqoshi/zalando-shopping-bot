@@ -165,7 +165,7 @@ class ShoppingBot:
        :return:
        """
         try:
-            WebDriverWait(self.driver, 1).until(
+            WebDriverWait(self.driver, 5).until(
                 ec.presence_of_element_located((By.XPATH, '//div[contains(@class,"sizeOverlayDialog")]')))
 
             WebDriverWait(self.driver, 5).until(
@@ -406,6 +406,7 @@ class ShoppingBot:
                     selected = selected + 1
 
                     for x in range(int(amount)):
+                        cur_items = 0
                         button = WebDriverWait(self.driver, 5).until(
                             ec.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]')))
                         button.click()
@@ -417,6 +418,7 @@ class ShoppingBot:
 
                         if self.wait_for_atcButton(0, size):
                             total_items += 1
+                            cur_items += 1
                             if total_items == 3:
                                 total_items = 0
                                 if x+1 == int(amount):
@@ -426,6 +428,13 @@ class ShoppingBot:
                                     if self.inform_email is not None:
                                        sendMail(self.inform_email, 'messages/normally_finished')
                                     return True # Koniec dodawania
+                        
+                        if(x+1 == amount and cur_items == 0 and selected ==1):
+                            selected = 0
+                        
+                        
+
+                       
         print('KONIEC')
         if self.inform_email is not None:
             sendMail(self.inform_email, 'messages/normally_finished')
@@ -436,12 +445,14 @@ class ShoppingBot:
         Informs when bot finishing job.
         :return:
         """
-        print('tttt')
         app = QApplication([])
+        w = QWidget()
+        w.setWindowTitle("Finish dialog")
+
         msg = QMessageBox()
-        msg.setWindowTitle("Finish dialog")
         msg.setText("Bot finished job, checkout items in your shopping cart")
         msg.show()
+        
         app.exec_()
         
     def work(self):
@@ -459,7 +470,7 @@ class ShoppingBot:
 
 
 ShoppingBot(['piotrpopisgames@gmail.com testertest'], ['Koszula', 't-shirt'],
-            ['M', 'L'], [], 'ZZO11GQ', 300, 2, 'piotrpopis@icloud.com', True, 0).work()
+            ['M', 'L'], [], 'ZZO11GQ', 300, 1, 'piotrpopis@icloud.com', True, 0).work()
 # ShoppingBot(['piotrpopisgames@gmail.com testertest', 'mtarka1337@gmail.com Azexs1998'], ['bluza'],
 #       ['M', 'L'], [], 'ZZO0ZBU', 300, 2, 'piotrpopis@icloud.com', True, 0).work()
 # ShoppingBot(["piotrpopisgames@gmail.com
