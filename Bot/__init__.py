@@ -175,6 +175,8 @@ class ShoppingBot:
 
         except TimeoutException:
 
+            print('popup except:', attempt)
+
             action = ActionChains(self.driver)
 
             if attempt % 3 == 2:
@@ -201,10 +203,28 @@ class ShoppingBot:
 
                 return self.wait_for_popup(attempt+1,size)
 
-        
+    def wait_for_popup_single(self):
+        """
+       Waits for popup and tries to close it.
+       :return:
+       """
+        try:
+            WebDriverWait(self.driver, 3).until(
+                ec.presence_of_element_located((By.XPATH, '//div[contains(@class,"sizeOverlayDialog")]')))
+
+            WebDriverWait(self.driver, 3).until(
+                ec.element_to_be_clickable((By.XPATH, '//span[text() = "Mimo to zamawiam oba rozmiary"]'))).click()
+
+            WebDriverWait(self.driver, 3).until(
+                ec.element_to_be_clickable((By.XPATH, '//span[text() = "Potwierdź"]'))).click()
+
+            return True
+
+        except TimeoutException:
+            return False
 
 
-    def wait_for_atcButton(self, attempt,size):
+    def wait_for_atcButton(self, attempt,size,var):
         """
        Waiting till animation of adding item to shopping cart is finished or leaves error.
        :param attempt:
@@ -223,6 +243,8 @@ class ShoppingBot:
 
         except TimeoutException:
 
+            print('atcBtn except:', attempt)
+
             action = ActionChains(self.driver)
 
             if attempt % 3 == 2:
@@ -236,18 +258,25 @@ class ShoppingBot:
                 action.move_to_element(button)
                 action.click(button)
                 action.perform()
-                return self.wait_for_atcButton(attempt + 1,size)
+                if var: 
+                    if(self.wait_for_popup_single()):
+                        return True
+                return self.wait_for_atcButton(attempt + 1,size,var)
             
             else:
                 if(attempt==3):    
                     return False
-        
+                
                 WebDriverWait(self.driver, 5).until(ec.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]'))).click()
+
+                if var: 
+                    if(self.wait_for_popup_single()):
+                        return True
                 
                 if self.driver.find_element_by_xpath('//*[@id="addToCartButton"]/div[1]/div[2]/span').text != 'Proszę wybrać rozmiar':                    
                     return False
                 
-                return self.wait_for_atcButton(attempt + 1,size)
+                return self.wait_for_atcButton(attempt + 1,size,var)
 
             # button = WebDriverWait(self.driver, 5).until(
             #     ec.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]/div[1]/div[1]')))
@@ -420,6 +449,7 @@ class ShoppingBot:
             for size in selected_sizes:
                 if(selected==2):
                     break
+                
                 try:
                     element = WebDriverWait(self.driver, 3).until(ec.element_to_be_clickable(
                         (By.XPATH, '//span[contains(@class, "Size") and text()="' + size + '"]')))
@@ -449,23 +479,25 @@ class ShoppingBot:
                         button.click()
 
                         if selected == 2 and x == 0:
-                            if (self.wait_for_popup(0,size)!=False):
+                            if (self.wait_for_popup(0,size)==True):
                                 WebDriverWait(self.driver, 20).until(ec.invisibility_of_element_located((By.XPATH, '//div[contains(@class,"styles___backdrop")]')))
-                                self.wait_for_atcButton(0,size)
-                                total_items += 1
-                                cur_items += 1
+                                if self.wait_for_atcButton(0,size,True):
+                                    total_items += 1
+                                    cur_items += 1
                             else:
                                 break
                         else: 
-                            if (self.wait_for_atcButton(0,size)!=False):
+                            if (self.wait_for_atcButton(0,size,False)==True):
                                 total_items += 1
                                 cur_items += 1
                             else:
+                                if(x+1 == amount and cur_items == 0 and selected ==1):
+                                    selected = 0
                                 break
 
                         print(total_items)
 
-                        if total_items == 3:
+                        if total_items == 30:
                                     total_items = 0
                                     if x+1 == int(amount):
                                         selected = 0
@@ -475,8 +507,8 @@ class ShoppingBot:
                                             sendMail(self.inform_email, 'messages/normally_finished')
                                         return True # Koniec dodawania
 
-                        if(x+1 == amount and cur_items == 0 and selected ==1):
-                            selected = 0
+                        if(x+1 == amount and cur_items == 0): #and selected ==1
+                            selected -=1
                                
         print('KONIEC')
         if self.inform_email is not None:
