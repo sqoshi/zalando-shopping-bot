@@ -162,25 +162,22 @@ class ShoppingBot:
        :return:
        """
         try:
-            WebDriverWait(self.driver, 2).until(
+            WebDriverWait(self.driver, 3).until(
                 ec.presence_of_element_located((By.XPATH, '//div[contains(@class,"sizeOverlayDialog")]')))
 
-            WebDriverWait(self.driver, 2).until(
+            WebDriverWait(self.driver, 3).until(
                 ec.element_to_be_clickable((By.XPATH, '//span[text() = "Mimo to zamawiam oba rozmiary"]'))).click()
 
-            WebDriverWait(self.driver, 2).until(
+            WebDriverWait(self.driver, 3).until(
                 ec.element_to_be_clickable((By.XPATH, '//span[text() = "Potwierdź"]'))).click()
 
-            return False
+            return True
 
         except TimeoutException:
 
-            if(attempt==4):
-                return True
-
             action = ActionChains(self.driver)
 
-            if attempt % 4 == 3:
+            if attempt % 3 == 2:
                 self.driver.refresh()
                 button = WebDriverWait(self.driver, 3).until(ec.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]')))
                 cart = WebDriverWait(self.driver, 4).until(ec.element_to_be_clickable((By.XPATH, '//*[@id="header-cart"]')))
@@ -191,14 +188,18 @@ class ShoppingBot:
                 action.move_to_element(button)
                 action.click(button)
                 action.perform()
+                return self.wait_for_popup(attempt+1,size)
+
             else:
+                if(attempt==3):
+                    return False
+
                 WebDriverWait(self.driver, 5).until(ec.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]'))).click()
 
+                if self.driver.find_element_by_xpath('//*[@id="addToCartButton"]/div[1]/div[2]/span').text != 'Proszę wybrać rozmiar':
+                    return False
 
-            if self.driver.find_element_by_xpath('//*[@id="addToCartButton"]/div[1]/div[2]/span').text != 'Proszę wybrać rozmiar':
-                return True
-
-            self.wait_for_popup(attempt+1,size)
+                return self.wait_for_popup(attempt+1,size)
 
         
 
@@ -211,23 +212,20 @@ class ShoppingBot:
        :return:
        """
         try:
+            
             WebDriverWait(self.driver, 3).until(ec.presence_of_element_located(
                 (By.XPATH, '//div[contains(@class, "animation-ball") and starts-with(@style, "transf") ]')))
             WebDriverWait(self.driver, 3).until(ec.presence_of_element_located(
                 (By.XPATH, '//div[contains(@class, "animation-ball") and starts-with(@style, "display: none;") ]')))
 
+            
             return True
 
         except TimeoutException:
 
-            
-
             action = ActionChains(self.driver)
 
-            if(attempt==4):
-                return False
-
-            if attempt % 4 == 3:
+            if attempt % 3 == 2:
                 self.driver.refresh()
                 button = WebDriverWait(self.driver, 3).until(ec.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]')))
                 cart = WebDriverWait(self.driver, 4).until(ec.element_to_be_clickable((By.XPATH, '//*[@id="header-cart"]')))
@@ -238,19 +236,22 @@ class ShoppingBot:
                 action.move_to_element(button)
                 action.click(button)
                 action.perform()
-            else:
-                WebDriverWait(self.driver, 5).until(ec.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]'))).click()
+                return self.wait_for_atcButton(attempt + 1,size)
             
+            else:
+                if(attempt==3):    
+                    return False
+        
+                WebDriverWait(self.driver, 5).until(ec.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]'))).click()
+                
+                if self.driver.find_element_by_xpath('//*[@id="addToCartButton"]/div[1]/div[2]/span').text != 'Proszę wybrać rozmiar':                    
+                    return False
+                
+                return self.wait_for_atcButton(attempt + 1,size)
 
             # button = WebDriverWait(self.driver, 5).until(
             #     ec.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]/div[1]/div[1]')))
             # self.driver.execute_script("arguments[0].click();", button)
-
-            if self.driver.find_element_by_xpath(
-                    '//*[@id="addToCartButton"]/div[1]/div[2]/span').text != 'Proszę wybrać rozmiar':
-                return False
-
-            self.wait_for_atcButton(attempt + 1,size)
 
     def wait_login_error(self):
         """
@@ -417,6 +418,8 @@ class ShoppingBot:
                
 
             for size in selected_sizes:
+                if(selected==2):
+                    break
                 try:
                     element = WebDriverWait(self.driver, 3).until(ec.element_to_be_clickable(
                         (By.XPATH, '//span[contains(@class, "Size") and text()="' + size + '"]')))
@@ -439,34 +442,39 @@ class ShoppingBot:
                     selected = selected + 1
 
                     for x in range(int(amount)):
-                        print(total_items)
+                                               
                         cur_items = 0
                         button = WebDriverWait(self.driver, 5).until(
                             ec.element_to_be_clickable((By.XPATH, '//*[@id="addToCartButton"]')))
                         button.click()
 
                         if selected == 2 and x == 0:
-                            if (self.wait_for_popup(0,size)):
-                                break
-                            else:
+                            if (self.wait_for_popup(0,size)!=False):
                                 WebDriverWait(self.driver, 20).until(ec.invisibility_of_element_located((By.XPATH, '//div[contains(@class,"styles___backdrop")]')))
+                                self.wait_for_atcButton(0,size)
                                 total_items += 1
+                                cur_items += 1
+                            else:
+                                break
+                        else: 
+                            if (self.wait_for_atcButton(0,size)!=False):
+                                total_items += 1
+                                cur_items += 1
+                            else:
+                                break
 
-                        if self.wait_for_atcButton(0,size):
-                            total_items += 1
-                            cur_items += 1
-                            if total_items == 30:
-                                total_items = 0
-                                if x+1 == int(amount):
-                                    selected = 0
-                                if self.change_acc(href, size):
-                                    print('KONIEC')
-                                    if self.inform_email is not None:
-                                       sendMail(self.inform_email, 'messages/normally_finished')
-                                    return True # Koniec dodawania
+                        print(total_items)
 
-                         
-                        
+                        if total_items == 3:
+                                    total_items = 0
+                                    if x+1 == int(amount):
+                                        selected = 0
+                                    if self.change_acc(href, size):
+                                        print('KONIEC')
+                                        if self.inform_email is not None:
+                                            sendMail(self.inform_email, 'messages/normally_finished')
+                                        return True # Koniec dodawania
+
                         if(x+1 == amount and cur_items == 0 and selected ==1):
                             selected = 0
                                
@@ -488,7 +496,7 @@ class ShoppingBot:
         self.iterate_over_items(self.get_filtered_hrefs(), self.sizes_list)
           
 
-ShoppingBot(['piotrpopisgames@gmail.com testertest'], ['Koszula', 't-shirt'],
+ShoppingBot(['piotrpopisgames@gmail.com testertest', 'mtarka1337@gmail.com Azexs1998'], ['Koszula', 't-shirt'],
             ['M','L'], [], 'ZZO0ZRR', 999, 1, 'piotrpopis@icloud.com', True, 0).work()
 # ShoppingBot(['piotrpopisgames@gmail.com testertest', 'mtarka1337@gmail.com Azexs1998'], ['bluza'],
 #       ['M', 'L'], [], 'ZZO0ZBU', 300, 2, 'piotrpopis@icloud.com', True, 0).work()
