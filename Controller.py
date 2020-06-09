@@ -5,14 +5,6 @@ from PyQt5 import QtWidgets, QtGui
 from gui.Login_Panel import Ui_LoginPanel
 from gui.Main_Window import Ui_MainWindow
 
-config = {
-    "apiKey": "AIzaSyCnut8SgRAcPz7MQ6B74soTw_Lyqz9fSbw ",
-    "authDomain": "shopping-bot-c75af.firebaseapp.com",
-    "databaseURL": "https://shopping-bot-c75af.firebaseio.com/users",
-    "storageBucket": "shopping-bot-c75af.appspot.com",
-    "serviceAccount": "firebase/shopping-bot-c75af-firebase-adminsdk-bawov-21d8c0da9d.json"
-}
-
 
 class Controller:
     """
@@ -23,7 +15,7 @@ class Controller:
         self.lp = Ui_LoginPanel()
         self.LoginPanel = QtWidgets.QMainWindow()
         self.MainWin = QtWidgets.QMainWindow()
-        self.mw = Ui_MainWindow(self.MainWin,self.lp.firebase,self.lp.auth)
+        self.mw = Ui_MainWindow(self.MainWin, self.lp.firebase, self.lp.auth)
 
     def show_login(self):
         """
