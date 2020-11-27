@@ -48,6 +48,7 @@ please find it in the "Coming Soon" section
  that appears after logging in to the zalando longue website.
  Right-click and choose inspect element. Then look for the ID in the source code.
 Example included in the photo below.
+![Alt text](features/screenshots/campaign_id_instruction.png?raw=true)
 
 ## Code Example
 ```python
@@ -73,7 +74,6 @@ Example included in the photo below.
         element.submit()
         self.wait_login_error()
 ```
-![Alt text](features/screenshots/campaign_id_instruction.png?raw=true)
 ## Production Details
 
 ### 2020.04.26 I week
