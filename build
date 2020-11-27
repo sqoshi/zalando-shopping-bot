@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 import os
-os.system("pip install pyrebase")
-os.system("pip install PyQt5")
-os.system("pip install selenium")
+
+p = "pip"
+os.system(p + " install pyrebase")
+os.system(p + " install PyQt5")
+os.system(p + " install selenium")
+
 print('Finished installing selenium, PyQt5 and pyrebase')
