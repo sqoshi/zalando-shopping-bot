@@ -22,8 +22,8 @@ def sendMail(to, file):
    """
     server = smtplib.SMTP("smtp.gmail.com", 587)
     server.starttls()
-    server.login('info.shopping.bot@gmail.com', 'shopping123bot')
-    from_mail = 'info.shopping.bot@gmail.com'
+    server.login('info.xxxxxx.bot@gmail.com', 'xxxxxxxxxxx')
+    from_mail = 'info.xxxxxx.bot@gmail.com'
     body = (open(file, "r").read())
     message = ("From: %s\r\n" % from_mail + "To: %s\r\n" % to + "Subject: %s\r\n" % '' + "\r\n" + body)
     server.sendmail(from_mail, to, message)
