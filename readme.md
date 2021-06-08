@@ -39,6 +39,7 @@ I emphasize that this has never happened in my case, but I know it is happening 
 Registration allows users to save their preferences for next next shopping in cloud database. 
 Inputting an email gives possibility to notify you via mail about that
 finished work of bot.
+
 ![IMG](features/screenshots/fbconf.png)
 
 ### Campaign ID
